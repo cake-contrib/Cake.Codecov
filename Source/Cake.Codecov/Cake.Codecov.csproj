@@ -1,11 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;net452</TargetFrameworks>
+	<PackageId>Cake.Codecov</PackageId>
+	<Title>Cake.Codecov</Title>
+	<PackageVersion>$(VersionSuffix)</PackageVersion>
+	<Authors>Larz White</Authors>
+	<PackageLicenseUrl>https://github.com/larzw/Cake.Codecov/blob/master/LICENSE</PackageLicenseUrl>
+	<PackageProjectUrl>https://github.com/larzw/Cake.Codecov</PackageProjectUrl>
+	<PackageIconUrl>https://raw.githubusercontent.com/cake-build/graphics/master/png/cake-medium.png</PackageIconUrl>
+	<Description>Cake addin that extends Cake with ability to use Codecov.</Description>
+	<Copyright>Copyright (c) 2017 Larz White</Copyright>
+	<PackageReleaseNotes>See GitHub for release notes.</PackageReleaseNotes>
+	<PackageTags>Cake Script Build Codecov</PackageTags>
   </PropertyGroup>
-
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.6|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard1.6\Cake.Codecov.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.6\Cake.Codecov.xml</DocumentationFile>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Cake.Core" Version="0.19.1" />
   </ItemGroup>
-
 </Project>

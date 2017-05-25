@@ -7,33 +7,20 @@ using Cake.Core.Tooling;
 
 namespace Cake.Codecov
 {
-    public sealed class CodecovRunner : Tool<CodecovSettings>
+    internal sealed class CodecovRunner : Tool<CodecovSettings>
     {
-        private ICakeEnvironment Environment { get; }
-
-        public CodecovRunner(IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools) : base(fileSystem, environment, processRunner, tools)
+        internal CodecovRunner(IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools) : base(fileSystem, environment, processRunner, tools)
         {
-            Environment = environment;
         }
 
-        protected override string GetToolName()
-        {
-            return "Codecov";
-        }
+        protected override string GetToolName() => "Codecov";
 
         protected override IEnumerable<string> GetToolExecutableNames()
         {
-            if (Environment.Platform.IsUnix())
-            {
-                yield return "codecov";
-            }
-            else
-            {
-                yield return "codecov.exe";
-            }
+            yield return "codecov.exe";
         }
 
-        public void Run(CodecovSettings settings)
+        internal void Run(CodecovSettings settings)
         {
             if (settings == null)
             {
@@ -43,117 +30,129 @@ namespace Cake.Codecov
             Run(settings, GetArguments(settings));
         }
 
-        private ProcessArgumentBuilder GetArguments(CodecovSettings settings)
+        private static ProcessArgumentBuilder GetArguments(CodecovSettings settings)
         {
             var builder = new ProcessArgumentBuilder();
 
             // Branch
             if (!string.IsNullOrWhiteSpace(settings.Branch))
             {
-                builder.Append("--Branch");
+                builder.Append("--branch");
                 builder.AppendQuoted(settings.Branch);
             }
 
             // Build
             if (!string.IsNullOrWhiteSpace(settings.Build))
             {
-                builder.Append("--Build");
+                builder.Append("--build");
                 builder.AppendQuoted(settings.Build);
+            }
+
+            // Commit
+            if (!string.IsNullOrWhiteSpace(settings.Commit))
+            {
+                builder.Append("--sha");
+                builder.AppendQuoted(settings.Commit);
+            }
+
+            // Disable Network
+            if (settings.DisableNetwork)
+            {
+                builder.Append("--disable-network");
             }
 
             // Dump
             if (settings.Dump)
             {
-                builder.Append("--Dump");
+                builder.Append("--dump");
             }
 
-            // Env
-            if (settings.Env != null)
+            // Envs
+            if (settings.Envs != null)
             {
-                builder.Append("--Env");
-                builder.AppendQuoted(string.Join(" ", settings.Env.Where(x => !string.IsNullOrWhiteSpace(x))));
+                builder.Append("--env");
+                builder.AppendQuoted(string.Join(" ", settings.Envs.Where(x => !string.IsNullOrWhiteSpace(x))));
             }
 
-            // File
-            if (settings.File != null)
+            // Files
+            if (settings.Files != null)
             {
-                builder.Append("--File");
-                builder.AppendQuoted(string.Join(" ", settings.File.Where(x => !string.IsNullOrWhiteSpace(x))));
+                builder.Append("--file");
+                builder.AppendQuoted(string.Join(" ", settings.Files.Where(x => !string.IsNullOrWhiteSpace(x))));
             }
 
-            // Flag
-            if (settings.Flag != null)
+            // Flags
+            if (!string.IsNullOrWhiteSpace(settings.Flags))
             {
-                builder.Append("--Flag");
-                builder.AppendQuoted(string.Join(" ", settings.Flag.Where(x => !string.IsNullOrWhiteSpace(x))));
+                builder.Append("--flag");
+                builder.AppendQuoted(settings.Flags);
             }
 
             // Name
             if (!string.IsNullOrWhiteSpace(settings.Name))
             {
-                builder.Append("--Name");
+                builder.Append("--name");
                 builder.AppendQuoted(settings.Name);
+            }
+
+            // No Color
+            if (settings.NoColor)
+            {
+                builder.Append("--no-color");
             }
 
             // Pr
             if (!string.IsNullOrWhiteSpace(settings.Pr))
             {
-                builder.Append("--Pr");
+                builder.Append("--pr");
                 builder.AppendQuoted(settings.Pr);
             }
 
             // Required
             if (settings.Required)
             {
-                builder.Append("--Required");
+                builder.Append("--required");
             }
 
             // Root
             if (!string.IsNullOrWhiteSpace(settings.Root))
             {
-                builder.Append("--Root");
+                builder.Append("--root");
                 builder.AppendQuoted(settings.Root);
-            }
-
-            // Sha
-            if (!string.IsNullOrWhiteSpace(settings.Sha))
-            {
-                builder.Append("--Sha");
-                builder.AppendQuoted(settings.Sha);
             }
 
             // Slug
             if (!string.IsNullOrWhiteSpace(settings.Slug))
             {
-                builder.Append("--Slug");
+                builder.Append("--slug");
                 builder.AppendQuoted(settings.Slug);
             }
 
             // Tag
             if (!string.IsNullOrWhiteSpace(settings.Tag))
             {
-                builder.Append("--Tag");
+                builder.Append("--tag");
                 builder.AppendQuoted(settings.Tag);
             }
 
             // Token
             if (!string.IsNullOrWhiteSpace(settings.Token))
             {
-                builder.Append("--Token");
+                builder.Append("--token");
                 builder.AppendQuoted(settings.Token);
             }
 
             // Url
             if (!string.IsNullOrWhiteSpace(settings.Url))
             {
-                builder.Append("--Url");
+                builder.Append("--url");
                 builder.AppendQuoted(settings.Url);
             }
 
             // Verbose
             if (settings.Verbose)
             {
-                builder.Append("--Verbose");
+                builder.Append("--verbose");
             }
 
             return builder;
