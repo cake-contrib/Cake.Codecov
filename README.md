@@ -58,7 +58,7 @@ Task("Upload-Coverage")
     .Does(() =>
 {
     // Upload a coverage report using the CodecovSettings.
-    Codecov(new CodecovSettings { 
+    Codecov(new CodecovSettings {
         Files = new[] { "coverage.xml" },
         Token = "00000000-0000-0000-0000-000000000000",
         Flags = "ut"
@@ -72,6 +72,6 @@ Task("Upload-Coverage")
 2. Many CI services (like AppVeyor) do not require you to provide a Codecov upload token. However, TeamCity is a rare exception.
 3. Using Codecov with TeamCity MAY require configuration. Please refer to the [codecov-exe documentation](https://github.com/codecov/codecov-exe#teamcity).
 
-# Questions
+## Questions
 
 Feel free to open an [issue](https://github.com/cake-contrib/Cake.Codecov/issues) or **@larzw** me via [Gitter](https://gitter.im/cake-contrib/Lobby).
