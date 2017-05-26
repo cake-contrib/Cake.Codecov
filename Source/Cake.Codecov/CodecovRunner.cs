@@ -9,15 +9,9 @@ namespace Cake.Codecov
 {
     internal sealed class CodecovRunner : Tool<CodecovSettings>
     {
-        internal CodecovRunner(IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools) : base(fileSystem, environment, processRunner, tools)
+        internal CodecovRunner(IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools)
+            : base(fileSystem, environment, processRunner, tools)
         {
-        }
-
-        protected override string GetToolName() => "Codecov";
-
-        protected override IEnumerable<string> GetToolExecutableNames()
-        {
-            yield return "codecov.exe";
         }
 
         internal void Run(CodecovSettings settings)
@@ -28,6 +22,13 @@ namespace Cake.Codecov
             }
 
             Run(settings, GetArguments(settings));
+        }
+
+        protected override string GetToolName() => "Codecov";
+
+        protected override IEnumerable<string> GetToolExecutableNames()
+        {
+            yield return "codecov.exe";
         }
 
         private static ProcessArgumentBuilder GetArguments(CodecovSettings settings)
