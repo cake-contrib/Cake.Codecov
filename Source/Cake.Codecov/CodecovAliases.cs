@@ -6,10 +6,13 @@ namespace Cake.Codecov
 {
     /// <summary>
     /// <para>
-    /// Uploads coverage reports to <see href="https://codecov.io">Codecov</see>. Note that, many CI services (like AppVeyor) do not require you to provide a Codecov upload token. However, TeamCity is a rare exception.
+    /// Uploads coverage reports to <see href="https://codecov.io">Codecov</see>. Note that, many CI
+    /// services (like AppVeyor) do not require you to provide a Codecov upload token. However,
+    /// TeamCity is a rare exception.
     /// </para>
     /// <para>
-    /// In order to use the commands for this addin, you will need to include the following in your cake script:
+    /// In order to use the commands for this addin, you will need to include the following in your
+    /// cake script:
     /// <code>
     /// #tool nuget:?package=Codecov
     /// </code>
@@ -34,7 +37,8 @@ namespace Cake.Codecov
         }
 
         /// <summary>
-        /// Uploads coverage reports to <see href="https://codecov.io">Codecov</see> by specifying the report files and Codecov token.
+        /// Uploads coverage reports to <see href="https://codecov.io">Codecov</see> by specifying
+        /// the report files and Codecov token.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="files">The coverage reports.</param>
@@ -46,7 +50,9 @@ namespace Cake.Codecov
         }
 
         /// <summary>
-        /// Uploads coverage reports to <see href="https://codecov.io">Codecov</see> by specifying the report files. Note that, many CI services (like AppVeyor) do not require you to provide a Codecov upload token. However, TeamCity is a rare exception.
+        /// Uploads coverage reports to <see href="https://codecov.io">Codecov</see> by specifying
+        /// the report files. Note that, many CI services (like AppVeyor) do not require you to
+        /// provide a Codecov upload token. However, TeamCity is a rare exception.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="files">The coverage reports.</param>
@@ -57,7 +63,8 @@ namespace Cake.Codecov
         }
 
         /// <summary>
-        /// Uploads coverage report to <see href="https://codecov.io">Codecov</see> by specifying the report file and Codecov token.
+        /// Uploads coverage report to <see href="https://codecov.io">Codecov</see> by specifying the
+        /// report file and Codecov token.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="file">The coverage report.</param>
@@ -69,7 +76,9 @@ namespace Cake.Codecov
         }
 
         /// <summary>
-        /// Uploads coverage report to <see href="https://codecov.io">Codecov</see> by specifying the report file. Note that, many CI services (like AppVeyor) do not require you to provide a Codecov upload token. However, TeamCity is a rare exception.
+        /// Uploads coverage report to <see href="https://codecov.io">Codecov</see> by specifying the
+        /// report file. Note that, many CI services (like AppVeyor) do not require you to provide a
+        /// Codecov upload token. However, TeamCity is a rare exception.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="file">The coverage report.</param>
