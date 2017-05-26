@@ -1,6 +1,7 @@
 # Cake.Codecov
 
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/larzw/cake-codecov/master.svg)](https://ci.appveyor.com/project/larzw/cake-codecov/branch/master)
+[![NuGet](https://img.shields.io/nuget/v/Cake.Codecov.svg)](https://www.nuget.org/packages/Cake.Codecov/)
 
 A Cake addin for Codecov. In order to use this addin, add to the top of your Cake script
 
