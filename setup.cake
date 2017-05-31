@@ -1,4 +1,7 @@
 #tool "nuget:?package=GitVersion.CommandLine"
+#tool nuget:?package=OpenCover
+#tool nuget:?package=Codecov
+#addin nuget:?package=Cake.Codecov
 #addin nuget:?package=Cake.Figlet
 
 var target = Argument("target", "Default");
@@ -26,10 +29,18 @@ Task("Build").IsDependentOn("Restore").Does(() =>
 
 Task("Tests").IsDependentOn("Build").Does(() =>
 {
-	DotNetCoreTest("./Source/Cake.Codecov.Tests/Cake.Codecov.Tests.csproj");
+	OpenCover(tool => tool.DotNetCoreTest("./Source/Cake.Codecov.Tests/Cake.Codecov.Tests.csproj"), new FilePath("./Source/Cake.Codecov/bin/coverage.xml"), new OpenCoverSettings { OldStyle = true }.WithFilter("+[Cake.Codecov]*"));
 });
 
-Task("Pack").IsDependentOn("Tests").Does(() =>
+Task("Coverage").IsDependentOn("Tests").Does(() =>
+{
+	if(AppVeyor.IsRunningOnAppVeyor)
+	{
+		Codecov("./Source/Cake.Codecov/bin/coverage.xml");
+	}
+});
+
+Task("Pack").IsDependentOn("Coverage").Does(() =>
 {
 	var version = GitVersion();
 	DotNetCorePack("./Source/Cake.Codecov",new DotNetCorePackSettings{VersionSuffix = version.MajorMinorPatch, Configuration = configuration});
