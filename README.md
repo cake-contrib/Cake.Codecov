@@ -75,4 +75,23 @@ Task("Upload-Coverage")
 
 ## Questions
 
-Feel free to open an [issue](https://github.com/cake-contrib/Cake.Codecov/issues) or **@larzw** me via [Gitter](https://gitter.im/cake-contrib/Lobby).
+Feel free to open an [issue](https://github.com/cake-contrib/Cake.Codecov/issues) or ask a question in [Gitter](https://gitter.im/cake-contrib/Lobby) by tagging us: **@larzw** and/or **@AdmiringWorm**.
+
+## Known Issues
+- Coverage report upload fails when using gitversion (or other tools that change the appveyor build version)
+  Workaround: Add the following in your Upload Coverage task
+  ```csharp
+  Task("Upload-Coverage")
+      .Does(() =>
+  {
+      var buildVersion = string.Format("{0}.build.{1}",
+          variableThatStores_GitVersion_FullSemVer,
+          BuildSystem.AppVeyor.Environment.Build.Version
+      );
+      var settings = new CodecovSettings {
+          Files = new[] { "coverage.xml" },
+          EnvironmentVariables = new Dictionary<string,string> { { "APPVEYOR_BUILD_VERSION", buildVersion } }
+      };
+      Codecov(settings);
+  });
+  ```
