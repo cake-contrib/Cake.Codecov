@@ -8,7 +8,7 @@ var configuration = Argument("configuration", "Release");
 
 Setup(context =>
 {
-    Information(Figlet("Cake.Codecov"));
+	Information(Figlet("Cake.Codecov"));
 });
 
 Task("Clean").Does(() =>
@@ -35,11 +35,11 @@ Task("Coverage").IsDependentOn("Tests").WithCriteria(AppVeyor.IsRunningOnAppVeyo
 {
 	// Using GetFiles instead of File just so we don't need to make a call to MakeAbsolute.
 	var file = GetFiles("./Source/**/net45/Cake.Codecov.dll").First();
-    var tool = Context.Tools.Resolve("Codecov.exe");
-    var reportFile = GetFiles("./Source/**/coverage.xml").First();
+	var tool = Context.Tools.Resolve("Codecov.exe");
+	var reportFile = GetFiles("./Source/**/coverage.xml").First();
 	Information("Loading built addin from: {0}", file);
-    Information("Using Codecov tool from: {0}", tool);
-    Information("Using Coverage report from: {0}", reportFile);
+	Information("Using Codecov tool from: {0}", tool);
+	Information("Using Coverage report from: {0}", reportFile);
 		CakeExecuteExpression(
 			string.Format(
 				@"#reference ""{0}""
