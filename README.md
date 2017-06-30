@@ -67,6 +67,10 @@ Task("Upload-Coverage")
 });
 ```
 
+## Documentation
+
+Documentation for the addin can be found on the [Cake Website](http://cakebuild.net/dsl/codecov/).
+
 ## Codecov Tips
 
 1. The [codecov-exe](https://github.com/codecov/codecov-exe) uploader defined in `#tool nuget:?package=Codecov` currently only supports windows builds. However, OS X and Linux builds should come soon. In the mean time, there is a [bash global uploader](https://github.com/codecov/codecov-bash) that can be used.
