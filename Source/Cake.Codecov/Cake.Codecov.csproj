@@ -6,7 +6,7 @@
 	<Authors>Larz White</Authors>
 	<PackageLicenseUrl>https://github.com/cake-contrib/Cake.Codecov/blob/master/LICENSE</PackageLicenseUrl>
 	<PackageProjectUrl>https://github.com/cake-contrib/Cake.Codecov</PackageProjectUrl>
-	<PackageIconUrl>https://raw.githubusercontent.com/cake-build/graphics/master/png/cake-medium.png</PackageIconUrl>
+	<PackageIconUrl>https://raw.githubusercontent.com/cake-contrib/graphics/a5cf0f881c390650144b2243ae551d5b9f836196/png/cake-contrib-medium.png</PackageIconUrl>
 	<Description>Cake addin that extends Cake with ability to use Codecov.</Description>
 	<Copyright>Copyright (c) 2017 Larz White</Copyright>
 	<PackageReleaseNotes>See GitHub for release notes.</PackageReleaseNotes>
