@@ -1,7 +1,7 @@
-#tool "nuget:?package=GitVersion.CommandLine"
-#tool nuget:?package=OpenCover
-#tool nuget:?package=Codecov
-#addin nuget:?package=Cake.Figlet
+#tool nuget:?package=GitVersion.CommandLine
+#tool nuget:?package=OpenCover&version=4.6.519
+#tool nuget:?package=Codecov&version=1.0.3
+#addin nuget:?package=Cake.Figlet&version=1.0.0
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
@@ -34,7 +34,7 @@ Task("Tests").IsDependentOn("Build").Does(() =>
 Task("Coverage").IsDependentOn("Tests").WithCriteria(AppVeyor.IsRunningOnAppVeyor).Does(() =>
 {
 	// Using GetFiles instead of File just so we don't need to make a call to MakeAbsolute.
-	var file = GetFiles("./Source/**/net45/Cake.Codecov.dll").First();
+	var file = GetFiles("./Source/**/net46/Cake.Codecov.dll").First();
 	var tool = Context.Tools.Resolve("Codecov.exe");
 	var reportFile = GetFiles("./Source/**/coverage.xml").First();
 	Information("Loading built addin from: {0}", file);
