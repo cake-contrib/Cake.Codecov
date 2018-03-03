@@ -50,4 +50,12 @@ Codecov(new CodecovSettings {{
 
 });
 
+// Enable drafting a release when running on the master branch
+if (BuildParameters.IsRunningOnAppVeyor &&
+    BuildParameters.IsMainRepository && BuildParameters.IsMasterBranch && !BuildParameters.IsTagged)
+{
+    BuildParameters.Tasks.AppVeyorTask.IsDependentOn("Create-Release-Notes");
+}
+
+
 Build.RunDotNetCore();
