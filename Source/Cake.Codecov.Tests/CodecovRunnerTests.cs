@@ -18,7 +18,7 @@ namespace Cake.Codecov.Tests
             Action result = () => fixture.Run();
 
             // Then
-            result.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("settings");
+            result.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("settings");
         }
 
         [Fact]
@@ -32,7 +32,7 @@ namespace Cake.Codecov.Tests
             Action result = () => fixture.Run();
 
             // Then
-            result.ShouldThrow<CakeException>().WithMessage("Codecov: Could not locate executable.");
+            result.Should().Throw<CakeException>().WithMessage("Codecov: Could not locate executable.");
         }
 
         [Theory]
@@ -103,7 +103,7 @@ namespace Cake.Codecov.Tests
             Action result = () => fixture.Run();
 
             // Then
-            result.ShouldThrow<CakeException>().WithMessage("Codecov: Process was not started.");
+            result.Should().Throw<CakeException>().WithMessage("Codecov: Process was not started.");
         }
 
         [Fact]
@@ -117,7 +117,7 @@ namespace Cake.Codecov.Tests
             Action result = () => fixture.Run();
 
             // Then
-            result.ShouldThrow<CakeException>().WithMessage("Codecov: Process returned an error (exit code 1).");
+            result.Should().Throw<CakeException>().WithMessage("Codecov: Process returned an error (exit code 1).");
         }
 
         [Fact]
