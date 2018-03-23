@@ -13,7 +13,8 @@ BuildParameters.SetParameters(context: Context,
                               shouldRunDotNetCorePack: true,
                               shouldBuildNugetSourcePackage: false,
                               shouldExecuteGitLink: true,
-                              shouldGenerateDocumentation: false);
+                              shouldGenerateDocumentation: false,
+                              shouldRunCodecov: HasEnvironmentVariable("CODECOV_TOKEN"));
 
 BuildParameters.PrintParameters(Context);
 
