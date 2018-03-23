@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>    
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.0;net46</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Cake.Testing" Version="0.26.1" />
@@ -11,5 +11,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cake.Codecov\Cake.Codecov.csproj" />
-  </ItemGroup>  
+  </ItemGroup>
 </Project>
