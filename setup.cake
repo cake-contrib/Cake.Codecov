@@ -1,7 +1,7 @@
 #tool nuget:?package=GitVersion.CommandLine
 #tool nuget:?package=OpenCover&version=4.6.519
 #tool nuget:?package=Codecov&version=1.0.3
-#addin nuget:?package=Cake.Figlet&version=1.0.0
+#addin nuget:?package=Cake.Figlet
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
