@@ -6,7 +6,7 @@ namespace Cake.Codecov
     /// <summary>
     /// Contains settings used by <see cref="CodecovRunner"/>. See <see
     /// href="https://github.com/codecov/codecov-exe/blob/master/Source/Codecov/Program/CommandLineOptions.cs">CommandLineOptions</see>
-    /// or run
+    /// or run.
     /// <code>
     /// .\codecov.exe --help
     /// </code>
