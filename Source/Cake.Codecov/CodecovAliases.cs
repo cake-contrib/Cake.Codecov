@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cake.Core;
 using Cake.Core.Annotations;
+using JetBrains.Annotations;
 
 namespace Cake.Codecov
 {
@@ -21,6 +22,7 @@ namespace Cake.Codecov
     /// </code>
     /// </para>
     /// </summary>
+    [PublicAPI]
     [CakeAliasCategory("Codecov")]
     public static class CodecovAliases
     {
