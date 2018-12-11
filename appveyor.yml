@@ -4,7 +4,7 @@ build: off
 test: off
 
 build_script:
-- ps: .\build.ps1 -Target AppVeyor
+- ps: .\build.ps1 -Target AppVeyor -Verbosity Diagnostic
 
 cache:
-  - 'tools -> tools/packages.config,setup.cake'
+  - 'tools -> build.ps1,setup.cake'
