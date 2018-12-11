@@ -2,7 +2,7 @@ using Cake.Testing.Fixtures;
 
 namespace Cake.Codecov.Tests
 {
-    internal sealed class CodecovRunnerFixture : ToolFixture<CodecovSettings>
+    internal class CodecovRunnerFixture : ToolFixture<CodecovSettings>
     {
         public CodecovRunnerFixture()
             : base("codecov.exe")
