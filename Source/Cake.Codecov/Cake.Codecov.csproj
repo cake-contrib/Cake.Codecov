@@ -8,7 +8,7 @@
 	<PackageProjectUrl>https://github.com/cake-contrib/Cake.Codecov</PackageProjectUrl>
 	<PackageIconUrl>https://raw.githubusercontent.com/cake-contrib/graphics/a5cf0f881c390650144b2243ae551d5b9f836196/png/cake-contrib-medium.png</PackageIconUrl>
 	<Description>Cake addin that extends Cake with ability to use Codecov.</Description>
-	<Copyright>Copyright (c) 2017 Larz White</Copyright>
+	<Copyright>Copyright (c) 2017-$([System.DateTime]::Now.Year) Larz White</Copyright>
 	<PackageReleaseNotes>See GitHub for release notes.</PackageReleaseNotes>
 	<PackageTags>Cake Script Build Codecov</PackageTags>
   </PropertyGroup>
@@ -38,7 +38,7 @@
     <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Cake.Core" Version="0.26.1" />
+    <PackageReference Include="Cake.Core" Version="0.28.0" PrivateAssets="All" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" PrivateAssets="All" />
   </ItemGroup>
 </Project>
