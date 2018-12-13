@@ -1,5 +1,5 @@
 #load "nuget:https://www.myget.org/F/cake-contrib/api/v2?package=Cake.Recipe&prerelease"
-//#tool "nuget:?package=Codecov&version=1.0.3"
+#tool "nuget:?package=Codecov&version=1.1.0"
 
 Environment.SetVariableNames();
 
@@ -14,7 +14,7 @@ BuildParameters.SetParameters(context: Context,
                               shouldBuildNugetSourcePackage: false,
                               shouldExecuteGitLink: true,
                               shouldGenerateDocumentation: false,
-                              shouldRunCodecov: HasEnvironmentVariable("CODECOV_TOKEN"));
+                              shouldRunCodecov: true);
 
 BuildParameters.PrintParameters(Context);
 
@@ -28,10 +28,10 @@ ToolSettings.SetToolSettings(context: Context,
                              testCoverageFilter: "+[Cake.Codecov]*");
 
 // Tasks we want to override
-//BuildParameters.Tasks.UploadCodecovReportTask.Task.Actions.Clear();
-//BuildParameters.Tasks.UploadCodecovReportTask.Does(() => {
-//        var file = GetFiles(BuildParameters.SourceDirectoryPath + "/**/" + BuildParameters.Configuration + "/net46/Cake.Codecov.dll").First();
-/*        var tool = Context.Tools.Resolve("Codecov.exe");
+((CakeTask)BuildParameters.Tasks.UploadCodecovReportTask.Task).Actions.Clear();
+BuildParameters.Tasks.UploadCodecovReportTask.Does(() => {
+        var file = GetFiles(BuildParameters.SourceDirectoryPath + "/**/" + BuildParameters.Configuration + "/net46/Cake.Codecov.dll").First();
+        var tool = Context.Tools.Resolve("Codecov.exe");
         var reportFile = BuildParameters.Paths.Files.TestCoverageOutputFilePath;
         Information("Loading built addin from: {0}", file);
         Information("Using Codecov tool from: {0}", tool);
@@ -49,7 +49,7 @@ Codecov(new CodecovSettings {{
             { "TEMP_BUILD_VERSION", BuildParameters.Version.FullSemVersion + ".build." + BuildSystem.AppVeyor.Environment.Build.Number }
             });
 
-});*/
+});
 
 // Enable drafting a release when running on the master branch
 if (BuildParameters.IsRunningOnAppVeyor &&
