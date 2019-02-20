@@ -1,0 +1,99 @@
+{
+  "projectName": "Cake.Codecov",
+  "projectOwner": "cake-contrib",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "larzw",
+      "name": "Larz White",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/6298611?v=4",
+      "profile": "https://www.linkedin.com/in/larz-white-5a8264108",
+      "contributions": [
+        "maintenance"
+      ]
+    },
+    {
+      "login": "AdmiringWorm",
+      "name": "Kim J. Nordmo",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1474648?v=4",
+      "profile": "https://github.com/AdmiringWorm",
+      "contributions": [
+        "maintenance"
+      ]
+    },
+    {
+      "login": "gep13",
+      "name": "Gary Ewan Park",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1271146?v=4",
+      "profile": "http://www.gep13.co.uk/blog",
+      "contributions": [
+        "review",
+        "ideas"
+      ]
+    },
+    {
+      "login": "vkbishnoi",
+      "name": "Vishal Bishnoi",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/8297727?v=4",
+      "profile": "https://github.com/vkbishnoi",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "pascalberger",
+      "name": "Pascal Berger",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/2190718?v=4",
+      "profile": "https://twitter.com/hereispascal",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "twenzel",
+      "name": "Toni Wenzel",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/500376?v=4",
+      "profile": "https://github.com/twenzel",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "Jericho",
+      "name": "jericho",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/112710?v=4",
+      "profile": "https://github.com/Jericho",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "gitfool",
+      "name": "Sean Fausett",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/750121?v=4",
+      "profile": "https://github.com/gitfool",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "types": {
+    "bug": {
+      "symbol": "🐛",
+      "description": "Bug reports",
+      "link": "<%= options.repoHost %>/<%= options.projectOwner %>/<%= options.projectName %>/issues?q=author%3A<%= contributor.login %>+label%3Abug"
+    },
+    "ideas": {
+      "symbol": "🤔",
+      "description": "Ideas, Planning, & Feedback",
+      "link": "<%= options.repoHost %>/<%= options.projectOwner %>/<%= options.projectName %>/issues?q=author%3A<%= contributor.login %>"
+    }
+  }
+}
