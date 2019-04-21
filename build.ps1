@@ -1,4 +1,4 @@
-$SCRIPT_DIR = Split-Path -Parent $MyInvocation.MyCommand.Definition
+﻿$SCRIPT_DIR = Split-Path -Parent $MyInvocation.MyCommand.Definition
 $TOOLS_DIR="$SCRIPT_DIR/tools"
 if ($IsMacOS -or $IsLinux) {
     $CAKE_EXE="$TOOLS_DIR/dotnet-cake"
