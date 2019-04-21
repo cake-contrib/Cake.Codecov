@@ -28,6 +28,7 @@ namespace Cake.Codecov
 
         protected override IEnumerable<string> GetToolExecutableNames()
         {
+            yield return "codecov";
             yield return "codecov.exe";
         }
 
