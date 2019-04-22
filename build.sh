@@ -14,7 +14,7 @@ if [ "$CAKE_VERSION" = "" ] || [ "$DOTNET_VERSION" = "" ]; then
     exit 1
 fi
 
-if [ "$DOTNET_EXE" = "" ]; then
+if [ "$DOTNET_EXE" = "" ] || [ "$(dotnet --list-sdks)" == "" ]; then
     INSTALL_NETCORE=1
 elif [ "$DOTNET_VERSION" != "ANY" ]; then
     DOTNET_INSTALLED_VERSION=$($DOTNET_EXE --version 2>&1)

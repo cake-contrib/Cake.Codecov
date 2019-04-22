@@ -24,7 +24,7 @@ if ([string]::IsNullOrWhiteSpace($CAKE_VERSION) -or [string]::IsNullOrEmpty($DOT
     exit 1
 }
 
-if ([string]::IsNullOrWhiteSpace($DOTNET_EXE)) {
+if ([string]::IsNullOrWhiteSpace($DOTNET_EXE) -or !(. dotnet --list-sdks)) {
     $INSTALL_NETCORE=$true
 }
 elseif ("$DOTNET_VERSION" -ne "ANY") {
@@ -88,7 +88,7 @@ if ($true -eq $INSTALL_NETCORE) {
     $DOTNET_EXE = Get-ChildItem -Path "$SCRIPT_DIR/.dotnet" -Filter "dotnet*" | select -First 1 -Expand FullName
 
 } elseif (Test-Path "/opt/dotnet/sdk" -ea 0) {
-    $env:DOTNET_ROOT = "/opt/dotnet/sdk"
+    $env:DOTNET_ROOT = "/opt/dotnet"
 }
 
 $env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
