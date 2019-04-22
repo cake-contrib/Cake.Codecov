@@ -13,7 +13,7 @@ BuildParameters.SetParameters(context: Context,
                               appVeyorAccountName: "cakecontrib",
                               shouldRunDotNetCorePack: true,
                               shouldBuildNugetSourcePackage: false,
-                              shouldExecuteGitLink: true,
+                              shouldExecuteGitLink: false,
                               shouldGenerateDocumentation: false,
                               shouldRunCodecov: true,
                               shouldRunGitVersion: true);
