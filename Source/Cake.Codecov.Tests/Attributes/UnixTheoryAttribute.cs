@@ -1,0 +1,16 @@
+using System.Runtime.InteropServices;
+using Xunit;
+
+namespace Cake.Codecov.Tests.Attributes
+{
+    public class UnixTheoryAttribute : TheoryAttribute
+    {
+        public UnixTheoryAttribute(string reason = null)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Skip = reason ?? "non-windows test";
+            }
+        }
+    }
+}

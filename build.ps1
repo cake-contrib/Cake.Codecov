@@ -1,170 +1,126 @@
-##########################################################################
-# This is the Cake bootstrapper script for PowerShell.
-# This file was downloaded from https://github.com/cake-build/resources
-# Feel free to change this file to fit your needs.
-##########################################################################
+﻿$SCRIPT_DIR = Split-Path -Parent $MyInvocation.MyCommand.Definition
+$TOOLS_DIR="$SCRIPT_DIR/tools"
+if ($IsMacOS -or $IsLinux) {
+    $CAKE_EXE="$TOOLS_DIR/dotnet-cake"
+} else {
+    $CAKE_EXE="$TOOLS_DIR/dotnet-cake.exe"
+}
+$CAKE_PATH="$TOOLS_DIR/.store/cake.tool/$CAKE_VERSION"
+$DOTNET_EXE="$(Get-Command dotnet -ea 0 | select -Expand Source)"
+$INSTALL_NETCORE=$false
+[string]$DOTNET_VERSION=""
+[string]$CAKE_VERSION=""
+foreach ($line in Get-Content "$SCRIPT_DIR/build.config" -Encoding utf8) {
+    if ($line -like "CAKE_VERSION=*") {
+        $CAKE_VERSION=$line.Substring($line.IndexOf('=') + 1)
+    }
+    elseif ($line -like "DOTNET_VERSION=*") {
+        $DOTNET_VERSION=$line.Substring($line.IndexOf('=') + 1)
+    }
+}
 
-<#
+if ([string]::IsNullOrWhiteSpace($CAKE_VERSION) -or [string]::IsNullOrEmpty($DOTNET_VERSION)) {
+    "An errer occured while parsing Cake / .NET Core SDK version."
+    exit 1
+}
 
-.SYNOPSIS
-This is a Powershell script to bootstrap a Cake build.
+if ([string]::IsNullOrWhiteSpace($DOTNET_EXE) -or !(. dotnet --list-sdks)) {
+    $INSTALL_NETCORE=$true
+}
+elseif ("$DOTNET_VERSION" -ne "ANY") {
+    $DOTNET_INSTALLED_VERSION= . $DOTNET_EXE --version
+    if ("$DOTNET_VERSION" -ne "$DOTNET_INSTALLED_VERSION") {
+        $INSTALL_NETCORE=$true
+    }
+}
 
-.DESCRIPTION
-This Powershell script will download NuGet if missing, restore NuGet tools (including Cake)
-and execute your Cake build script with the parameters you provide.
+if ($true -eq $INSTALL_NETCORE) {
+    if (!(Test-Path "$SCRIPT_DIR/.dotnet")) {
+        New-Item -Path "$SCRIPT_DIR/.dotnet" -ItemType Directory -Force | Out-Null
+    }
 
-.PARAMETER Script
-The build script to execute.
-.PARAMETER Target
-The build script target to run.
-.PARAMETER Configuration
-The build configuration to use.
-.PARAMETER Verbosity
-Specifies the amount of information to be displayed.
-.PARAMETER ShowDescription
-Shows description about tasks.
-.PARAMETER DryRun
-Performs a dry run.
-.PARAMETER Experimental
-Uses the nightly builds of the Roslyn script engine.
-.PARAMETER Mono
-Uses the Mono Compiler rather than the Roslyn script engine.
-.PARAMETER CakeVersion
-The Cake version to use when running the build script.
-.PARAMETER UseNetCore
-The the CORE CLR edition of Cake.
-.PARAMETER ScriptArgs
-Remaining arguments are added here.
-
-.LINK
-https://cakebuild.net
-
-#>
-
-[CmdletBinding()]
-Param(
-    [string]$Script = "setup.cake",
-    [string]$Target,
-    [string]$Configuration,
-    [ValidateSet("Quiet", "Minimal", "Normal", "Verbose", "Diagnostic")]
-    [string]$Verbosity,
-    [switch]$ShowDescription,
-    [Alias("WhatIf", "Noop")]
-    [switch]$DryRun,
-    [switch]$Experimental,
-    [switch]$Mono,
-    [version]$CakeVersion = '0.32.1',
-    [switch]$UseNetCore,
-    [Parameter(Position=0,Mandatory=$false,ValueFromRemainingArguments=$true)]
-    [string[]]$ScriptArgs
-)
-
-Set-StrictMode -Version 2.0
-
-if (!(Test-Path Function:\Expand-Archive)) {
-    function Expand-Archive() {
-        param([string]$Path, [string]$DestinationPath)
-
-        if (!(Test-Path $DestinationPath)) { New-Item -Type Directory -Path $DestinationPath }
-
-        $isPowershellCore = $PSVersionTable -and $PSVersionTable.PSEdition -eq 'Core'
-        $haveNet45 = $PSVersionTable -and $PSVersionTable.CLRVersion -and ($PSVersionTable.CLRVersion -ge [version]'4.0.30319.17001')
-
-        if ($isPowershellCore -or $haveNet45) {
-            Add-Type -AssemblyName System.IO.Compression.FileSystem
-            [System.IO.Compression.ZipFile]::ExtractToDirectory($Path, $DestinationPath)
-        } else {
-            $shellApplication = New-Object -ComObject shell.application
-            $zipPackage = $shellApplication.namespace($Path)
-            $destinationFolder = $shellApplication.namespace($DestinationPath)
-            $destinationFolder.CopyHere($zipPackage.Items(), 16)
+    $arguments = @()
+    $ScriptPath = ""
+    $LaunchUrl = ""
+    $ScriptUrl = ""
+    $PathSep = ';'
+    if ($IsMacOS -or $IsLinux) {
+        $ScriptPath = "$SCRIPT_DIR/.dotnet/dotnet-install.sh"
+        $ScriptUrl = "https://dot.net/v1/dotnet-install.sh"
+        $LaunchUrl = "$(Get-Command bash)"
+        $PathSep = ":"
+        $arguments = @(
+            $ScriptPath
+            "--install-dir"
+            "$SCRIPT_DIR/.dotnet"
+            "--no-path"
+        )
+        if ($DOTNET_VERSION -ne "ANY") {
+            $arguments += @(
+                "--version"
+                "$DOTNET_VERSION"
+            )
+        }
+    } else {
+        $ScriptPath = "$SCRIPT_DIR/.dotnet/dotnet-install.ps1"
+        $ScriptUrl = "https://dot.net/v1/dotnet-install.ps1"
+        $LaunchUrl = "$ScriptPath"
+        $arguments = @(
+            "-InstallDir"
+            "$SCRIPT_DIR/.dotnet"
+            "-NoPath"
+        )
+        if ($DOTNET_VERSION -ne "ANY") {
+            $arguments += @(
+                "-Version"
+                "$DOTNET_VERSION"
+            )
         }
     }
+
+    (New-Object System.Net.WebClient).DownloadFile($ScriptUrl, $ScriptPath)
+
+    & $LaunchUrl @arguments
+
+    $env:PATH = "$SCRIPT_DIR/.dotnet${PathSep}${env:PATH}"
+    $env:DOTNET_ROOT = "$SCRIPT_DIR/.dotnet"
+
+    $DOTNET_EXE = Get-ChildItem -Path "$SCRIPT_DIR/.dotnet" -Filter "dotnet*" | select -First 1 -Expand FullName
+
+} elseif (Test-Path "/opt/dotnet/sdk" -ea 0) {
+    $env:DOTNET_ROOT = "/opt/dotnet"
 }
 
-function GetProxyEnabledWebClient
-{
-    $wc = New-Object System.Net.WebClient
-    $proxy = [System.Net.WebRequest]::GetSystemWebProxy()
-    $proxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
-    $wc.Proxy = $proxy
-    return $wc
-}
+$env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
+$env:DOTNET_CLI_TELEMETRY_OPTOUT=1
+$env:DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER=0
 
-if (!$PSScriptRoot) { $PSScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Definition }
+$CAKE_INSTALLED_VERSION= Get-Command dotnet-cake -ea 0 | % { & $_.Source --version }
 
-$TOOLS_DIR = Join-Path $PSScriptRoot "tools"
-$CAKE_EXE_DIR = ""
-
-if ($UseNetCore) {
-    $CAKE_DIR_NAME = "Cake.CoreCLR"
+if ($CAKE_INSTALLED_VERSION -eq $CAKE_VERSION) {
+    $CAKE_EXE = Get-Command dotnet-cake | % Source
 } else {
-    $CAKE_DIR_NAME = "Cake"
-}
+    $CakePath = "$TOOLS_DIR/.store/cake.tool/$CAKE_VERSION"
+    $CAKE_EXE = (Get-ChildItem -Path $TOOLS_DIR -Filter "dotnet-cake*" -File -ea 0 | select -First 1 -Expand FullName)
 
-$CAKE_URL = "https://www.nuget.org/api/v2/package/$($CAKE_DIR_NAME)/$($CakeVersion)"
+    if (!(Test-Path -Path $CakePath -PathType Container) -or !(Test-Path $CAKE_EXE -PathType Leaf)) {
+        if (!([string]::IsNullOrWhiteSpace($CAKE_EXE)) -and (Test-Path $CAKE_EXE -PathType Leaf)) {
+            & $DOTNET_EXE tool uninstall --tool-path $TOOLS_DIR Cake.Tool
+        }
 
-if ($CakeVersion) {
-    $CAKE_EXE_DIR = Join-Path "$TOOLS_DIR" "$CAKE_DIR_NAME.$($CakeVersion.ToString())"
-} else {
-    $CAKE_EXE_DIR = Join-Path "$TOOLS_DIR" "$CAKE_DIR_NAME"
-}
+        & $DOTNET_EXE tool install --tool-path $TOOLS_DIR --version $CAKE_VERSION Cake.Tool
+        if ($LASTEXITCODE -ne 0) {
+            "An error occured while installing Cake."
+            exit 1
+        }
 
-if ((Test-Path $PSScriptRoot) -and !(Test-Path $TOOLS_DIR)) {
-    Write-Verbose "Creating tools directory..."
-    New-Item -Path $TOOLS_DIR -Type Directory | Out-Null
-}
-
-if (!(Test-Path $CAKE_EXE_DIR)) {
-    # We download and save it as a normal zip file, in cases
-    # were we need to extract it using com.
-    $tmpDownloadFile = Join-Path "$TOOLS_DIR" "$CAKE_DIR_NAME.zip"
-    Write-Verbose "Downloading Cake package..."
-
-    try {
-        $wc = GetProxyEnabledWebClient
-        $wc.DownloadFile($CAKE_URL, $tmpDownloadFile)
-    } catch {
-        throw "Could not download Cake package...`n`nException:$_"
+        $CAKE_EXE = (Get-ChildItem -Path $TOOLS_DIR -Filter "dotnet-cake*" -File | select -First 1 -Expand FullName)
     }
-
-    Write-Verbose "Extracting Cake package..."
-    Expand-Archive -Path $tmpDownloadFile -DestinationPath $CAKE_EXE_DIR
-    Remove-Item -Recurse -Force $tmpDownloadFile,"$CAKE_EXE_DIR/_rels","$CAKE_EXE_DIR/``[Content_Types``].xml","$CAKE_EXE_DIR/package"
 }
 
-if ($UseNetCore) {
-    $CAKE_EXE = Get-ChildItem -LiteralPath $CAKE_EXE_DIR -Filter "Cake.dll" -Recurse | Select-Object -First 1 -ExpandProperty FullName
-    if (!$CAKE_EXE) { throw "Unable to find the Cake.dll library" }
-} else {
-    $CAKE_EXE = Get-ChildItem -LiteralPath $CAKE_EXE_DIR -Filter "Cake.exe" -Recurse | Select-Object -First 1 -ExpandProperty FullName
-    if (!$CAKE_EXE) { throw "Unable to find the Cake.exe executable" }
+& "$CAKE_EXE" setup.cake --bootstrap
+if ($LASTEXITCODE -eq 0) {
+    & "$CAKE_EXE" setup.cake $args
 }
 
-$cakeArguments = New-Object System.Collections.Generic.List[string]
-$cakeArguments.Add($Script) | Out-Null
-$excludeArgs = @("Script","CakeVersion","UseNetCore","ScriptArgs", "Verbose")
-
-$PSBoundParameters.GetEnumerator() | ? { !$excludeArgs.Contains($_.Key) } | % {
-    if ($_.Value) {
-        $cakeArguments.Add("-$($_.Key)=$($_.Value)")
-    } else {
-        $cakeArguments.Add("-$($_.Key)")
-    }
-} | Out-Null
-if ($ScriptArgs) {
-    $cakeArguments.AddRange($ScriptArgs) | Out-Null
-}
-
-if ($UseNetCore) {
-    $cakeArguments.Insert(0, $CAKE_EXE) | Out-Null
-    $CAKE_EXE = Get-Command -Name dotnet | ForEach-Object Definition
-} elseif ([System.Environment]::OSVersion.Platform -ne [System.PlatformID]::Win32NT) {
-    $cakeArguments.Insert(0, $CAKE_EXE) | Out-Null
-    $CAKE_EXE = Get-Command -Name mono | ForEach-Object Definition
-}
-
-Write-Host "Running build script..."
-Write-Verbose "Calling & $CAKE_EXE $cakeArguments"
-& $Cake_EXE $cakeArguments
 exit $LASTEXITCODE

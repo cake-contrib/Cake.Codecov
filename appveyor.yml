@@ -1,10 +1,24 @@
-image: Visual Studio 2017
+image:
+  - Visual Studio 2017
+  - Ubuntu
+environment:
+  APPVEYOR_YML_DISABLE_PS_LINUX: true
+branches:
+  except:
+    - ci/travis
+    - /dependabot\/.*/
+skip_commits:
+  files:
+     - '*.md'
+     - 'LICENSE'
+     - '.travis.yml'
 
 build: off
 test: off
 
 build_script:
-- ps: .\build.ps1 -Target AppVeyor -Verbosity Diagnostic
+- ps: .\build.ps1 --target=AppVeyor
+- sh: ./build.sh --target=AppVeyor-Linux
 
 cache:
-  - 'tools -> build.ps1,setup.cake'
+  - 'tools -> build.config,setup.cake'

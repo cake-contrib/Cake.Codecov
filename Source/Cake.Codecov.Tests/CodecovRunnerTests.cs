@@ -1,4 +1,5 @@
 using System;
+using Cake.Codecov.Tests.Attributes;
 using Cake.Core;
 using Cake.Testing;
 using FluentAssertions;
@@ -51,10 +52,27 @@ namespace Cake.Codecov.Tests
             result.Path.FullPath.Should().Be(expected);
         }
 
-        [Theory]
+        [WindowsTheory]
         [InlineData("C:/Codecov/codecov.exe", "C:/Codecov/codecov.exe")]
         public void Should_Use_Codecov_Runner_From_Tool_Path_If_Provided_On_Windows(string toolPath, string expected)
         {
+            
+            // Given
+            var fixture = new CodecovRunnerFixture { Settings = { ToolPath = toolPath } };
+            fixture.GivenSettingsToolPathExist();
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Path.FullPath.Should().Be(expected);
+        }
+
+        [UnixTheory]
+        [InlineData("/usr/bin/codecov", "/usr/bin/codecov")]
+        public void Should_Use_Codecov_Runner_From_Tool_Path_If_Provided_On_Unix(string toolPath, string expected)
+        {
+            
             // Given
             var fixture = new CodecovRunnerFixture { Settings = { ToolPath = toolPath } };
             fixture.GivenSettingsToolPathExist();

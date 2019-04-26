@@ -1,4 +1,5 @@
 # Cake.Codecov
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors)
 
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/cakecontrib/cake-codecov/master.svg)](https://ci.appveyor.com/project/cakecontrib/cake-codecov/branch/master)
 [![NuGet](https://img.shields.io/nuget/v/Cake.Codecov.svg)](https://www.nuget.org/packages/Cake.Codecov/)
@@ -99,3 +100,14 @@ Feel free to open an [issue](https://github.com/cake-contrib/Cake.Codecov/issues
       Codecov(settings);
   });
   ```
+
+## Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table><tr><td align="center"><a href="https://www.linkedin.com/in/larz-white-5a8264108"><img src="https://avatars0.githubusercontent.com/u/6298611?v=4" width="100px;" alt="Larz White"/><br /><sub><b>Larz White</b></sub></a><br /><a href="#maintenance-larzw" title="Maintenance">🚧</a></td><td align="center"><a href="https://github.com/AdmiringWorm"><img src="https://avatars3.githubusercontent.com/u/1474648?v=4" width="100px;" alt="Kim J. Nordmo"/><br /><sub><b>Kim J. Nordmo</b></sub></a><br /><a href="#maintenance-AdmiringWorm" title="Maintenance">🚧</a></td><td align="center"><a href="http://www.gep13.co.uk/blog"><img src="https://avatars3.githubusercontent.com/u/1271146?v=4" width="100px;" alt="Gary Ewan Park"/><br /><sub><b>Gary Ewan Park</b></sub></a><br /><a href="#review-gep13" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/cake-contrib/Cake.Codecov/issues?q=author%3Agep13" title="Ideas, Planning, & Feedback">🤔</a></td><td align="center"><a href="https://github.com/vkbishnoi"><img src="https://avatars0.githubusercontent.com/u/8297727?v=4" width="100px;" alt="Vishal Bishnoi"/><br /><sub><b>Vishal Bishnoi</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/commits?author=vkbishnoi" title="Code">💻</a></td><td align="center"><a href="https://twitter.com/hereispascal"><img src="https://avatars1.githubusercontent.com/u/2190718?v=4" width="100px;" alt="Pascal Berger"/><br /><sub><b>Pascal Berger</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/issues?q=author%3Apascalberger" title="Ideas, Planning, & Feedback">🤔</a></td><td align="center"><a href="https://github.com/twenzel"><img src="https://avatars2.githubusercontent.com/u/500376?v=4" width="100px;" alt="Toni Wenzel"/><br /><sub><b>Toni Wenzel</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/issues?q=author%3Atwenzel" title="Ideas, Planning, & Feedback">🤔</a></td><td align="center"><a href="https://github.com/Jericho"><img src="https://avatars0.githubusercontent.com/u/112710?v=4" width="100px;" alt="jericho"/><br /><sub><b>jericho</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/issues?q=author%3AJericho" title="Ideas, Planning, & Feedback">🤔</a></td></tr><tr><td align="center"><a href="https://github.com/gitfool"><img src="https://avatars2.githubusercontent.com/u/750121?v=4" width="100px;" alt="Sean Fausett"/><br /><sub><b>Sean Fausett</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/commits?author=gitfool" title="Code">💻</a></td></tr></table>
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
