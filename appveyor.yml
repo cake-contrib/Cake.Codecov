@@ -6,6 +6,7 @@ environment:
 branches:
   except:
     - ci/travis
+    - dependabot/.*
 skip_commits:
   files:
      - '*.md'
