@@ -1,0 +1,37 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Source/Cake.Codecov.sln"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "--project",
+                "${workspaceFolder}/Source/Cake.Codecov.Tests/Cake.Codecov.Tests.csproj",
+                "test"
+            ],
+            "linux": {
+                "args": [
+                    "watch",
+                    "--project",
+                    "${workspaceFolder}/Source/Cake.Codecov.Tests/Cake.Codecov.Tests.csproj",
+                    "test",
+                    "--framework",
+                    "netcoreapp2.0"
+                ]
+            },
+            "problemMatcher": "$tsc"
+        }
+    ]
+}
