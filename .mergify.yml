@@ -30,11 +30,15 @@ pull_request_rules:
       - "#changes-requested-reviews-by=0"
       - "#commented-reviews-by=0"
     actions:
-      comment:
-        message: "Thank you for your contribution, if you haven't already then feel free to add yourself as a contributors through the all-contributors bot. See https://allcontributors.org/docs/en/bot/usage for more information."
       merge:
         strict: smart
         strict_method: rebase
+  - name: thank user and refer them to add themself as contributor
+    conditions:
+      - merged
+    actions:
+      comment:
+        message: "Thank you for your contribution, if you haven't already then feel free to add yourself as a contributors through the all-contributors bot. See https://allcontributors.org/docs/en/bot/usage for more information."
   - name: delete head branch after merge
     conditions: []
     actions:
