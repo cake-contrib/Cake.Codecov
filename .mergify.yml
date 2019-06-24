@@ -2,7 +2,7 @@ pull_request_rules:
   - name: Add Documentation label for documentation changes, but not in source
     conditions:
       - "files~=^(docs/.*|README.md|CODE_OF_CONDUCT.md|CONTRIBUTING.md)$"
-      - "-files~=^src/Cake.Warp/.*$"
+      - "-files~=^src/Cake.Codecov/.*$"
     actions:
       label:
         add: ["Documentation"]
