@@ -34,10 +34,12 @@ ToolSettings.SetToolSettings(context: Context,
 ((CakeTask)BuildParameters.Tasks.UploadCodecovReportTask.Task).Actions.Clear();
 ((CakeTask)BuildParameters.Tasks.UploadCodecovReportTask.Task).Criterias.Clear();
 BuildParameters.Tasks.UploadCodecovReportTask
-    .WithCriteria(() => FileExists(BuildParameters.Paths.Files.TestCoverageOutputFilePath))
-    .WithCriteria(() => BuildParameters.IsMainRepository)
+    .IsDependentOn("DotNetCore-Pack")
+    /*.WithCriteria(() => FileExists(BuildParameters.Paths.Files.TestCoverageOutputFilePath))
+    .WithCriteria(() => BuildParameters.IsMainRepository)*/
     .Does(() => {
-        var nugetPkg = $"nuget://file://{MakeAbsolute(BuildParameters.Paths.Directories.NuGetPackages)}?package=Cake.Codecov&version={BuildParameters.Version.SemVersion}&prepelease";
+        var nugetPkg = $"nuget:file://{MakeAbsolute(BuildParameters.Paths.Directories.NuGetPackages)}?package=Cake.Codecov&version={BuildParameters.Version.SemVersion}&prepelease";
+        Information("PATH: " + nugetPkg);
 
         var reportFile = BuildParameters.Paths.Files.TestCoverageOutputFilePath;
         Information("Using Coverage report from: {0}", reportFile);
