@@ -32,7 +32,11 @@ ToolSettings.SetToolSettings(context: Context,
 
 // Tasks we want to override
 ((CakeTask)BuildParameters.Tasks.UploadCodecovReportTask.Task).Actions.Clear();
-BuildParameters.Tasks.UploadCodecovReportTask.Does(() => {
+((CakeTask)BuildParameters.Tasks.UploadCodecovReportTask.Task).Criterias.Clear();
+BuildParameters.Tasks.UploadCodecovReportTask
+    .WithCriteria(() => FileExists(BuildParameters.Paths.Files.TestCoverageOutputFilePath))
+    .WithCriteria(() => BuildParameters.IsMainRepository)
+    .Does(() => {
         var file = GetFiles(BuildParameters.SourceDirectoryPath + "/**/" + BuildParameters.Configuration + "/netstandard*/Cake.Codecov.dll").First();
 
         var reportFile = BuildParameters.Paths.Files.TestCoverageOutputFilePath;
