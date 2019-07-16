@@ -1,5 +1,5 @@
 #load "nuget:https://ci.appveyor.com/nuget/cake-recipe-pylg5x5ru9c2?package=Cake.Recipe&prerelease&version=0.3.0-alpha0500"
-#tool "nuget:?package=Codecov&version=1.6.0"
+#tool "nuget:?package=Codecov&version=1.6.1"
 #addin "nuget:?package=Cake.Coverlet&version=2.3.4"
 
 Environment.SetVariableNames();
@@ -37,19 +37,18 @@ BuildParameters.Tasks.UploadCodecovReportTask
     .WithCriteria(() => FileExists(BuildParameters.Paths.Files.TestCoverageOutputFilePath))
     .WithCriteria(() => BuildParameters.IsMainRepository)
     .Does(() => {
-        var file = GetFiles(BuildParameters.SourceDirectoryPath + "/**/" + BuildParameters.Configuration + "/netstandard*/Cake.Codecov.dll").First();
+        var nugetPkg = $"nuget://file://{MakeAbsolute(BuildParameters.Paths.Directories.NuGetPackages)}?package=Cake.Codecov&version={BuildParameters.Version.SemVersion}&prepelease";
 
         var reportFile = BuildParameters.Paths.Files.TestCoverageOutputFilePath;
-        Information("Loading built addin from: {0}", file);
         Information("Using Coverage report from: {0}", reportFile);
-        var script = string.Format(@"#reference ""{0}""
+        var script = string.Format(@"#addin ""{0}""
 Codecov(new CodecovSettings {{
     Files = new[] {{ ""{1}"" }},
     Root = ""{2}"",
     Required = true,
     EnvironmentVariables = new Dictionary<string,string> {{ {{ ""APPVEYOR_BUILD_VERSION"", EnvironmentVariable(""TEMP_BUILD_VERSION"") }} }}
 }});",
-            file, reportFile, BuildParameters.RootDirectoryPath);
+            nugetPkg, reportFile, BuildParameters.RootDirectoryPath);
         RequireAddin(script, new Dictionary<string,string> {
             { "TEMP_BUILD_VERSION", BuildParameters.Version.FullSemVersion + ".build." + BuildSystem.AppVeyor.Environment.Build.Number }
             });
