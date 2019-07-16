@@ -46,8 +46,8 @@ namespace Cake.Codecov
                 yield return "osx-*/tools/codecov";
             }
 
-            yield return "codecov";
             yield return "codecov.exe";
+            yield return "codecov";
         }
 
         private static ProcessArgumentBuilder GetArguments(CodecovSettings settings)
