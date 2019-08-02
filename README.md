@@ -89,9 +89,13 @@ Feel free to open an [issue](https://github.com/cake-contrib/Cake.Codecov/issues
   Task("Upload-Coverage")
       .Does(() =>
   {
+      // The logic may differ from what you actually need.
+      // This way is for the use with GitVersion.
+      // Basically, the buildVersion format needs to be exactly the
+      // same as the build version shown on appveyor when the build is done.
       var buildVersion = string.Format("{0}.build.{1}",
           variableThatStores_GitVersion_FullSemVer,
-          BuildSystem.AppVeyor.Environment.Build.Version
+          BuildSystem.AppVeyor.Environment.Build.Number
       );
       var settings = new CodecovSettings {
           Files = new[] { "coverage.xml" },
