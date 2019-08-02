@@ -1,5 +1,5 @@
 #load "nuget:https://ci.appveyor.com/nuget/cake-recipe-pylg5x5ru9c2?package=Cake.Recipe&prerelease&version=0.3.0-alpha0500"
-#tool "nuget:?package=Codecov&version=1.6.1"
+#tool "nuget:?package=Codecov&version=1.7.0"
 #addin "nuget:?package=Cake.Coverlet&version=2.3.4"
 
 Environment.SetVariableNames();
