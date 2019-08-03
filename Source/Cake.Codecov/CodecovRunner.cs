@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cake.Codecov.Internals;
 using Cake.Core;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
@@ -9,9 +10,17 @@ namespace Cake.Codecov
 {
     internal sealed class CodecovRunner : Tool<CodecovSettings>
     {
+        private readonly IPlatformDetector platformDetector;
+
         internal CodecovRunner(IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools)
+            : this(new Internals.PlatformDetector(), fileSystem, environment, processRunner, tools)
+        {
+        }
+
+        internal CodecovRunner(Internals.IPlatformDetector platformDetector, IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools)
             : base(fileSystem, environment, processRunner, tools)
         {
+            this.platformDetector = platformDetector ?? throw new ArgumentNullException(nameof(platformDetector));
         }
 
         internal void Run(CodecovSettings settings)
@@ -28,7 +37,17 @@ namespace Cake.Codecov
 
         protected override IEnumerable<string> GetToolExecutableNames()
         {
-            yield return "codecov";
+            if (platformDetector.IsLinuxPlatform())
+            {
+                yield return "linux-x64/codecov";
+                yield return "codecov";
+            }
+            else if (platformDetector.IsOsxPlatform())
+            {
+                yield return "osx-x64/codecov";
+                yield return "codecov";
+            }
+
             yield return "codecov.exe";
         }
 

@@ -74,7 +74,7 @@ Documentation for the addin can be found on the [Cake Website](http://cakebuild.
 
 ## Codecov Tips
 
-1. The [codecov-exe](https://github.com/codecov/codecov-exe) uploader defined in `#tool nuget:?package=Codecov` currently only supports windows builds. However, OS X and Linux builds should come soon. In the mean time, there is a [bash global uploader](https://github.com/codecov/codecov-bash) that can be used.
+1. The [codecov-exe](https://github.com/codecov/codecov-exe) uploader defined in `#tool nuget:?package=Codecov` currently only supports windows builds. However, OS X and Linux builds should come soon. In the mean time, there is a [bash global uploader](https://github.com/codecov/codecov-bash) that can be used. (*Note: There also the [Codecov.Tool](https://www.nuget.org/packages/Codecov.Tool) utility, however, Linux and OS X is only in partial support. IE, it will run, but no CI will be automatically found*)
 2. Many CI services (like AppVeyor) do not require you to provide a Codecov upload token. However, TeamCity is a rare exception.
 3. Using Codecov with TeamCity MAY require configuration. Please refer to the [codecov-exe documentation](https://github.com/codecov/codecov-exe#teamcity).
 
@@ -89,9 +89,13 @@ Feel free to open an [issue](https://github.com/cake-contrib/Cake.Codecov/issues
   Task("Upload-Coverage")
       .Does(() =>
   {
+      // The logic may differ from what you actually need.
+      // This way is for the use with GitVersion.
+      // Basically, the buildVersion format needs to be exactly the
+      // same as the build version shown on appveyor when the build is done.
       var buildVersion = string.Format("{0}.build.{1}",
           variableThatStores_GitVersion_FullSemVer,
-          BuildSystem.AppVeyor.Environment.Build.Version
+          BuildSystem.AppVeyor.Environment.Build.Number
       );
       var settings = new CodecovSettings {
           Files = new[] { "coverage.xml" },

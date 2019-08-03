@@ -1,9 +1,4 @@
-using System;
-using Cake.Core;
-using Cake.Core.IO;
-using Cake.Testing;
 using FluentAssertions;
-using Moq;
 using Xunit;
 
 namespace Cake.Codecov.Tests
@@ -24,7 +19,7 @@ namespace Cake.Codecov.Tests
 
             var result = fixture.Run();
 
-            result.Args.Should().ContainAll(new []
+            result.Args.Should().ContainAll(new[]
             {
                 $"--branch \"{expected.Branch}\"",
                 $"--build \"{expected.Build}\""
@@ -34,8 +29,10 @@ namespace Cake.Codecov.Tests
         [Fact]
         public void Should_Use_Specified_Files()
         {
-            var fixture = new CodecovAliasesFixture();
-            fixture.Settings = null; // The settings is unfortunately saved between runs
+            var fixture = new CodecovAliasesFixture
+            {
+                Settings = null // The settings is unfortunately saved between runs
+            };
 
             var files = new[]
             {
@@ -54,8 +51,10 @@ namespace Cake.Codecov.Tests
         [Fact]
         public void Should_Use_Specified_Files_And_Token()
         {
-            var fixture = new CodecovAliasesFixture();
-            fixture.Settings = null;
+            var fixture = new CodecovAliasesFixture
+            {
+                Settings = null
+            };
 
             var files = new[]
             {
@@ -80,8 +79,10 @@ namespace Cake.Codecov.Tests
         [Fact]
         public void Should_Use_Specified_File()
         {
-            var fixture = new CodecovAliasesFixture();
-            fixture.Settings = null;
+            var fixture = new CodecovAliasesFixture
+            {
+                Settings = null
+            };
 
             var file = "./BUildArtifacts/TestResults/OpenCover.xml";
             fixture.File = file;
@@ -95,8 +96,10 @@ namespace Cake.Codecov.Tests
         [Fact]
         public void Should_Use_Specified_File_And_Token()
         {
-            var fixture = new CodecovAliasesFixture();
-            fixture.Settings = null;
+            var fixture = new CodecovAliasesFixture
+            {
+                Settings = null
+            };
 
             var file = "./BUildArtifacts/TestResults/OpenCover.xml";
             var token = "My-Still-Awesome-Token";

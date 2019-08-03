@@ -1,0 +1,44 @@
+pull_request_rules:
+  - name: Add Documentation label for documentation changes, but not in source
+    conditions:
+      - "files~=^(docs/.*|README.md|CODE_OF_CONDUCT.md|CONTRIBUTING.md)$"
+      - "-files~=^src/Cake.Codecov/.*$"
+    actions:
+      label:
+        add: ["Documentation"]
+  - name: Add build label when no change in source, and not in documentation
+    conditions:
+      - "-files~=^(docs/.*|README.md|CODE_OF_CONDUCT.md|CONTRIBUTING.md)$"
+      - "-files~=^src/Cake.Codecov/.*$"
+      - "-title~=Cake.Core"
+    actions:
+      label:
+        add: ["Build"]
+  - name: "Add Breaking change when Cake.Core is mentioned in title"
+    conditions:
+      - "title~=Cake.Core"
+    actions:
+      label:
+        add: ["Breaking Change"]
+  - name: "Merge Pull Request when CI passes, and no outstanding issues"
+    conditions:
+      - "status-success=continuous-integration/appveyor/pr"
+      - "status-success=continuous-integration/travis-ci/pr"
+      - "status-success=codecov/patch"
+      - "#approved-reviews-by>=1"
+      - "#review-requested=0"
+      - "#changes-requested-reviews-by=0"
+      - "#commented-reviews-by=0"
+    actions:
+      merge:
+        method: rehead
+  - name: thank user and refer them to add themself as contributor
+    conditions:
+      - merged
+    actions:
+      comment:
+        message: "Thank you for your contribution, if you haven't already then feel free to add yourself as a contributors through the all-contributors bot. See https://allcontributors.org/docs/en/bot/usage for more information."
+  - name: delete head branch after merge
+    conditions: []
+    actions:
+      delete_head_branch: {}
