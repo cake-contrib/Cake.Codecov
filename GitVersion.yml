@@ -1,0 +1,7 @@
+branches: {}
+ignore:
+  sha: [
+      "64d1d306967d710a76b5e327d00b7c233d64f580",
+      "ffa419b3524189b4fb4f667e1d7da253620f6348",
+      "8d09bc60adbc44b3308f18fd8be3cf6f2655fdb0"
+  ]
