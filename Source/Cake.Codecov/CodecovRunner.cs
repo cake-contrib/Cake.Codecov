@@ -39,15 +39,16 @@ namespace Cake.Codecov
         {
             if (platformDetector.IsLinuxPlatform())
             {
-                yield return "linux-*/tools/codecov";
+                yield return "linux-x64/codecov";
+                yield return "codecov";
             }
             else if (platformDetector.IsOsxPlatform())
             {
-                yield return "osx-*/tools/codecov";
+                yield return "osx-x64/codecov";
+                yield return "codecov";
             }
 
             yield return "codecov.exe";
-            yield return "codecov";
         }
 
         private static ProcessArgumentBuilder GetArguments(CodecovSettings settings)
