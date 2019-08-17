@@ -31,7 +31,8 @@ pull_request_rules:
       - "#commented-reviews-by=0"
     actions:
       merge:
-        method: rehead
+        method: squash
+        strict: smart
   - name: thank user and refer them to add themself as contributor
     conditions:
       - merged
