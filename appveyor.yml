@@ -13,6 +13,9 @@ skip_commits:
      - 'LICENSE'
      - '.travis.yml'
 
+install:
+- sh: sudo apt-get update && sudo apt-get install -y libgit2-dev
+
 build: off
 test: off
 
