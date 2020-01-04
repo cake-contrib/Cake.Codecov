@@ -41,8 +41,9 @@ BuildParameters.Tasks.UploadCodecovReportTask
         var nugetPkg = $"nuget:file://{MakeAbsolute(BuildParameters.Paths.Directories.NuGetPackages)}?package=Cake.Codecov&version={BuildParameters.Version.SemVersion}&prepelease";
         Information("PATH: " + nugetPkg);
 
-        var reportFile = BuildParameters.Paths.Files.TestCoverageOutputFilePath;
-        Information("Using Coverage report from: {0}", reportFile);
+        var coverageFilter = BuildParameters.Paths.Files.TestCoverageOutputFilePath.ToString().Replace(".xml", "*.xml");
+        Information($"Passing coverage filter to codecov: {coverageFilter}");
+
         var script = string.Format(@"#addin ""{0}""
 Codecov(new CodecovSettings {{
     Files = new[] {{ ""{1}"" }},
@@ -50,7 +51,7 @@ Codecov(new CodecovSettings {{
     Required = true,
     EnvironmentVariables = new Dictionary<string,string> {{ {{ ""APPVEYOR_BUILD_VERSION"", EnvironmentVariable(""TEMP_BUILD_VERSION"") }} }}
 }});",
-            nugetPkg, reportFile, BuildParameters.RootDirectoryPath);
+            nugetPkg, coverageFilter, BuildParameters.RootDirectoryPath);
         RequireAddin(script, new Dictionary<string,string> {
             { "TEMP_BUILD_VERSION", BuildParameters.Version.FullSemVersion + ".build." + BuildSystem.AppVeyor.Environment.Build.Number }
             });
@@ -99,8 +100,14 @@ BuildParameters.Tasks.DotNetCoreTestTask
         DotNetCoreTest(project.FullPath, testSettings, settings);
     }
 
-    if (FileExists(BuildParameters.Paths.Files.TestCoverageOutputFilePath)) {
-        ReportGenerator(BuildParameters.Paths.Files.TestCoverageOutputFilePath, BuildParameters.Paths.Directories.TestCoverage);
+    var coverageFilter = BuildParameters.Paths.Files.TestCoverageOutputFilePath.ToString().Replace(".xml", "*.xml");
+    Information($"Finding coverage results with filer: {coverageFilter}");
+
+    var reportFiles = GetFiles(coverageFilter);
+    Information($"Found {reportFiles.Count} files");
+
+    if (reportFiles.Any()) {
+        ReportGenerator(reportFiles, BuildParameters.Paths.Directories.TestCoverage);
     }
 });
 
