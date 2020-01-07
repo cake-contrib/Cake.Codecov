@@ -22,4 +22,4 @@ branches:
     - /^dependabot\/.*/
 
 script:
-  - ./build.sh --target=Linux
+  - ./build.sh --target=Unix
