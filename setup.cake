@@ -1,4 +1,5 @@
 #load "nuget:https://ci.appveyor.com/nuget/cake-recipe-pylg5x5ru9c2?package=Cake.Recipe&prerelease&version=0.3.0-alpha0500"
+#load "./.build/*.cake"
 #tool "nuget:?package=Codecov&version=1.7.1"
 #addin "nuget:?package=Cake.Coverlet&version=2.3.4"
 

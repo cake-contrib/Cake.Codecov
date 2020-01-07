@@ -24,4 +24,4 @@ build_script:
 - sh: ./build.sh --target=AppVeyor-Linux
 
 cache:
-  - 'tools -> build.config,setup.cake'
+  - 'tools -> build.config,setup.cake,.build/sonarcloud.cake'
