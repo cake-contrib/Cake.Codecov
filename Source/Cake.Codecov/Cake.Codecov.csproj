@@ -1,48 +1,48 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <PackageId>Cake.Codecov</PackageId>
-    <Title>Codecov Cake addin</Title>
-    <PackageVersion>$(VersionSuffix)</PackageVersion>
-    <Authors>Larz White;Kim Nordmo</Authors>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/cake-contrib/Cake.Codecov</PackageProjectUrl>
-    <PackageIcon>cake-contrib-small.png</PackageIcon>
-    <PackageIconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics@49c3b71def749b86416d773f1ead0c0da2d590ea/png/cake-contrib-medium.png</PackageIconUrl>
-    <Description>Cake addin that extends Cake with ability to use Codecov.</Description>
-    <Copyright>Copyright (c) 2017-$([System.DateTime]::Now.Year) $(Authors.Replace(";",", "))</Copyright>
-    <PackageReleaseNotes>All release notes for Cake.Codecov can be found on the GitHub site - $(PackageProjectUrl)/releases/tag/$(PackageVersion).</PackageReleaseNotes>
-    <PackageTags>Cake Script Build Codecov</PackageTags>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <IncludeSymbols>true</IncludeSymbols>
-    <RepositoryUrl>$(PackageProjectUrl).git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-  </PropertyGroup>
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
-  </PropertyGroup>
-  <PropertyGroup>
-    <CodeAnalysisRuleSet>.\Cake.Codecov.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Codecov.xml</DocumentationFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <AdditionalFiles Include="stylecop.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\graphics\cake-contrib\png\cake-contrib-small.png">
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Cake.Core" Version="0.33.0" PrivateAssets="All" />
-    <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0">
-    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
-    <!-- The following reference is only needed to build the library
+    <!-- Assembly information -->
+    <PropertyGroup>
+        <AssemblyTitle>Codecov Cake addin</AssemblyTitle>
+        <CodeAnalysisRuleSet>.\Cake.Codecov.ruleset</CodeAnalysisRuleSet>
+        <Company>Cake Contributors</Company>
+        <Copyright>Copyright © 2017-$([System.DateTime]::Today.Year) - Cake Contributors</Copyright>
+        <Description>Cake addin that extends Cake with the ability to use Codecov (.NET Edition).</Description>
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Codecov.xml</DocumentationFile>
+        <NeutralLanguage>en-GB</NeutralLanguage>
+        <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    </PropertyGroup>
+    <!-- Package information -->
+    <PropertyGroup>
+        <Authors>Larz White;Kim Nordmo;Cake Contributors</Authors>
+        <IncludeSymbols>true</IncludeSymbols>
+        <PackageIcon>cake-contrib-small.png</PackageIcon>
+        <PackageIconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics@49c3b71def749b86416d773f1ead0c0da2d590ea/png/cake-contrib-medium.png</PackageIconUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/cake-contrib/Cake.Codecov</PackageProjectUrl>
+        <PackageReleaseNotes>All release notes for Cake.Codecov can be found on the GitHub site - $(PackageProjectUrl)/releases/tag/$(Version).</PackageReleaseNotes>
+        <PackageTags>Cake Script;Build;Codecov;coverage;report</PackageTags>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>$(PackageProjectUrl).git</RepositoryUrl>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <Title>$(AssemblyTitle)</Title>
+    </PropertyGroup>
+    <ItemGroup>
+        <AdditionalFiles Include="stylecop.json" />
+        <None Include="..\..\graphics\cake-contrib\png\cake-contrib-small.png">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+        </None>
+    </ItemGroup>
+    <!-- Package References -->
+    <ItemGroup>
+        <PackageReference Include="Cake.Core" Version="0.33.0" PrivateAssets="All" />
+        <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
+        <!-- The following reference is only needed to build the library
         On Windows for the .NET 4.6.1 Framewark -->
-    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" Condition="'$(TargetFramework)'=='net46' AND '$(OS)'=='Windows_NT'" PrivateAssets="all" />
-  </ItemGroup>
+        <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" Condition="'$(TargetFramework)'=='net46' AND '$(OS)'=='Windows_NT'" PrivateAssets="all" />
+    </ItemGroup>
 </Project>
