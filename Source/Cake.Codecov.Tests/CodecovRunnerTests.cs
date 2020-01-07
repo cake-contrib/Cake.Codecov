@@ -56,6 +56,7 @@ namespace Cake.Codecov.Tests
 
         [WindowsTheory]
         [InlineData("C:/Codecov/codecov.exe", "C:/Codecov/codecov.exe")]
+        [InlineData("C:\\Codecov\\codecov.exe", "C:/Codecov/codecov.exe")]
         public void Should_Use_Codecov_Runner_From_Tool_Path_If_Provided_On_Windows(string toolPath, string expected)
         {
             // Given
@@ -105,8 +106,10 @@ namespace Cake.Codecov.Tests
             mock.Verify(m => m.IsOsxPlatform(), Times.Once());
         }
 
-        [Fact]
-        public void Should_Find_Codecov_Runner_If_Tool_Path_Not_Provided_On_Linux()
+        [Theory]
+        [InlineData("linux-x64/codecov")]
+        [InlineData("codecov")]
+        public void Should_Find_Codecov_Runner_If_Tool_Path_Not_Provided_On_Linux(string path)
         {
             // Given
             var mock = new Mock<IPlatformDetector>(MockBehavior.Strict);
@@ -114,20 +117,22 @@ namespace Cake.Codecov.Tests
             mock.Setup(m => m.IsOsxPlatform()).Returns(false);
             mock.Setup(m => m.IsWindowsPlatform()).Returns(false);
 
-            var fixture = new CodecovRunnerFixture(mock.Object, "linux-x64/codecov");
+            var fixture = new CodecovRunnerFixture(mock.Object, path);
 
             // When
             var result = fixture.Run();
 
             // Then
-            result.Path.FullPath.Should().Be("/Working/tools/linux-x64/codecov");
+            result.Path.FullPath.Should().Be("/Working/tools/" + path);
 
             mock.Verify(m => m.IsLinuxPlatform(), Times.Once());
             mock.Verify(m => m.IsOsxPlatform(), Times.Never());
         }
 
-        [Fact]
-        public void Should_Find_Codecov_Runner_If_Tool_Path_Not_Provided_On_osx()
+        [Theory]
+        [InlineData("linux-x64/codecov")]
+        [InlineData("codecov")]
+        public void Should_Find_Codecov_Runner_If_Tool_Path_Not_Provided_On_osx(string path)
         {
             // Given
             var mock = new Mock<IPlatformDetector>(MockBehavior.Strict);
@@ -135,13 +140,13 @@ namespace Cake.Codecov.Tests
             mock.Setup(m => m.IsOsxPlatform()).Returns(true);
             mock.Setup(m => m.IsWindowsPlatform()).Returns(false);
 
-            var fixture = new CodecovRunnerFixture(mock.Object, "osx-x64/codecov");
+            var fixture = new CodecovRunnerFixture(mock.Object, path);
 
             // When
             var result = fixture.Run();
 
             // Then
-            result.Path.FullPath.Should().Be("/Working/tools/osx-x64/codecov");
+            result.Path.FullPath.Should().Be("/Working/tools/" + path);
 
             mock.Verify(m => m.IsLinuxPlatform(), Times.Once());
             mock.Verify(m => m.IsOsxPlatform(), Times.Once());
