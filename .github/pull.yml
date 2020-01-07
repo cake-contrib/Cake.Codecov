@@ -1,0 +1,8 @@
+version: "1"
+rules:
+    - base: develop
+    upstream: cake-contrib:develop
+    mergeMethod: hardreset
+    - base: master
+    upstream: cake-contrib:master
+    mergeMethod: hardreset
