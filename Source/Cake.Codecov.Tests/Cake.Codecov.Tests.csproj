@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0;net461</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.1;net461</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Cake.Testing" Version="0.33.0"/>
@@ -9,7 +9,7 @@
     <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="FluentAssertions" Version="5.10.0"/>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0"/>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0"/>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0">
     <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     <PrivateAssets>all</PrivateAssets>
