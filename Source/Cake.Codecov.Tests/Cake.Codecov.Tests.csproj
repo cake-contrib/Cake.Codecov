@@ -20,7 +20,7 @@
     <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0"/>
+    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" Condition="'$(TargetFramework)'=='net46' AND '$(OS)'=='Windows_NT'" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cake.Codecov\Cake.Codecov.csproj" />
