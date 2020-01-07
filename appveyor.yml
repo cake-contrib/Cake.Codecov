@@ -20,6 +20,7 @@ for:
         only:
             - image: Ubuntu
     install:
+        - git submodule update --init
         - sudo apt-get update && sudo apt-get install -y libgit2-dev
 -
     matrix:
@@ -28,11 +29,11 @@ for:
     environment:
         DOTNET_ROOT: "/USERS/appveyor/.dotnet"
     install:
+        - git submodule update --init
         - brew update && brew install mono
 
-
 install:
-- sh: sudo apt-get update && sudo apt-get install -y libgit2-dev
+    - git submodule update --init
 
 build: off
 test: off
