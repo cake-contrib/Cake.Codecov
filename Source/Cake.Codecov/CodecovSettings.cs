@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using Cake.Core.Tooling;
 
 namespace Cake.Codecov
@@ -149,7 +150,7 @@ namespace Cake.Codecov
         /// A value specifing the target url for Enterprise customers. (option) Set environment
         /// variable CODECOV_URL=https://my-hosted-codecov.com.
         /// </value>
-        public string Url { get; set; }
+        public Uri Url { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to run in verbose mode.

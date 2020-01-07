@@ -164,10 +164,10 @@ namespace Cake.Codecov
             }
 
             // Url
-            if (!string.IsNullOrWhiteSpace(settings.Url))
+            if (settings.Url?.IsWellFormedOriginalString() == true)
             {
                 builder.Append("--url");
-                builder.AppendQuoted(settings.Url);
+                builder.AppendQuoted(settings.Url.ToString());
             }
 
             // Verbose

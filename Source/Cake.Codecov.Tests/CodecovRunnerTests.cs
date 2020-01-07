@@ -405,13 +405,13 @@ namespace Cake.Codecov.Tests
         public void Should_Set_Url()
         {
             // Given
-            var fixture = new CodecovRunnerFixture { Settings = { Url = @"https://my-hosted-codecov.com" } };
+            var fixture = new CodecovRunnerFixture { Settings = { Url = new Uri("https://my-hosted-codecov.com") } };
 
             // When
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().Be(@"--url ""https://my-hosted-codecov.com""");
+            result.Args.Should().Be(@"--url ""https://my-hosted-codecov.com/""");
         }
 
         [Fact]
