@@ -2,13 +2,14 @@
     <!-- Assembly information -->
     <PropertyGroup>
         <AssemblyTitle>Codecov Cake addin</AssemblyTitle>
-        <CodeAnalysisRuleSet>.\Cake.Codecov.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisRuleSet>Cake.Codecov.ruleset</CodeAnalysisRuleSet>
         <Company>Cake Contributors</Company>
         <Copyright>Copyright © 2017-$([System.DateTime]::Today.Year) - Cake Contributors</Copyright>
         <Description>Cake addin that extends Cake with the ability to use Codecov (.NET Edition).</Description>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Codecov.xml</DocumentationFile>
         <NeutralLanguage>en-GB</NeutralLanguage>
         <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+        <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <!-- Package information -->
     <PropertyGroup>

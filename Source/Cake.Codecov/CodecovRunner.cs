@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using Cake.Codecov.Internals;
 using Cake.Core;
 using Cake.Core.IO;
@@ -33,8 +33,6 @@ namespace Cake.Codecov
             Run(settings, GetArguments(settings));
         }
 
-        protected override string GetToolName() => "Codecov";
-
         protected override IEnumerable<string> GetToolExecutableNames()
         {
             if (platformDetector.IsLinuxPlatform())
@@ -47,133 +45,67 @@ namespace Cake.Codecov
                 yield return "osx-x64/codecov";
                 yield return "codecov";
             }
+            else
+            {
+                // Just to make sonarlint happy :)
+            }
 
             yield return "codecov.exe";
+        }
+
+        protected override string GetToolName() => "Codecov";
+
+        private static void AddValue(ProcessArgumentBuilder builder, string key, IEnumerable<string> value)
+        {
+            string joinedValue = string.Join(" ", value);
+            AddValue(builder, key, joinedValue);
+        }
+
+        private static void AddValue(ProcessArgumentBuilder builder, string key, Uri value)
+        {
+            if (value.IsWellFormedOriginalString())
+            {
+                AddValue(builder, key, value.ToString());
+            }
+        }
+
+        private static void AddValue(ProcessArgumentBuilder builder, KeyValuePair<string, object> argument, bool value)
+        {
+            if (value)
+            {
+                builder.Append(argument.Key);
+            }
+        }
+
+        private static void AddValue(ProcessArgumentBuilder builder, string key, string value)
+        {
+            builder.AppendSwitchQuoted(key, " ", value);
         }
 
         private static ProcessArgumentBuilder GetArguments(CodecovSettings settings)
         {
             var builder = new ProcessArgumentBuilder();
 
-            // Branch
-            if (!string.IsNullOrWhiteSpace(settings.Branch))
+            foreach (var argument in settings.GetAllArguments())
             {
-                builder.Append("--branch");
-                builder.AppendQuoted(settings.Branch);
-            }
+                switch (argument.Value)
+                {
+                    case bool value:
+                        AddValue(builder, argument, value);
+                        break;
 
-            // Build
-            if (!string.IsNullOrWhiteSpace(settings.Build))
-            {
-                builder.Append("--build");
-                builder.AppendQuoted(settings.Build);
-            }
+                    case Uri value:
+                        AddValue(builder, argument.Key, value);
+                        break;
 
-            // Commit
-            if (!string.IsNullOrWhiteSpace(settings.Commit))
-            {
-                builder.Append("--sha");
-                builder.AppendQuoted(settings.Commit);
-            }
+                    case IEnumerable<string> value:
+                        AddValue(builder, argument.Key, value);
+                        break;
 
-            // Disable Network
-            if (settings.DisableNetwork)
-            {
-                builder.Append("--disable-network");
-            }
-
-            // Dump
-            if (settings.Dump)
-            {
-                builder.Append("--dump");
-            }
-
-            // Envs
-            if (settings.Envs != null)
-            {
-                builder.Append("--env");
-                builder.AppendQuoted(string.Join(" ", settings.Envs.Where(x => !string.IsNullOrWhiteSpace(x))));
-            }
-
-            // Files
-            if (settings.Files != null)
-            {
-                builder.Append("--file");
-                builder.AppendQuoted(string.Join(" ", settings.Files.Where(x => !string.IsNullOrWhiteSpace(x))));
-            }
-
-            // Flags
-            if (!string.IsNullOrWhiteSpace(settings.Flags))
-            {
-                builder.Append("--flag");
-                builder.AppendQuoted(settings.Flags);
-            }
-
-            // Name
-            if (!string.IsNullOrWhiteSpace(settings.Name))
-            {
-                builder.Append("--name");
-                builder.AppendQuoted(settings.Name);
-            }
-
-            // No Color
-            if (settings.NoColor)
-            {
-                builder.Append("--no-color");
-            }
-
-            // Pr
-            if (!string.IsNullOrWhiteSpace(settings.Pr))
-            {
-                builder.Append("--pr");
-                builder.AppendQuoted(settings.Pr);
-            }
-
-            // Required
-            if (settings.Required)
-            {
-                builder.Append("--required");
-            }
-
-            // Root
-            if (!string.IsNullOrWhiteSpace(settings.Root))
-            {
-                builder.Append("--root");
-                builder.AppendQuoted(settings.Root);
-            }
-
-            // Slug
-            if (!string.IsNullOrWhiteSpace(settings.Slug))
-            {
-                builder.Append("--slug");
-                builder.AppendQuoted(settings.Slug);
-            }
-
-            // Tag
-            if (!string.IsNullOrWhiteSpace(settings.Tag))
-            {
-                builder.Append("--tag");
-                builder.AppendQuoted(settings.Tag);
-            }
-
-            // Token
-            if (!string.IsNullOrWhiteSpace(settings.Token))
-            {
-                builder.Append("--token");
-                builder.AppendQuoted(settings.Token);
-            }
-
-            // Url
-            if (settings.Url?.IsWellFormedOriginalString() == true)
-            {
-                builder.Append("--url");
-                builder.AppendQuoted(settings.Url.ToString());
-            }
-
-            // Verbose
-            if (settings.Verbose)
-            {
-                builder.Append("--verbose");
+                    default:
+                        AddValue(builder, argument.Key, argument.Value.ToString());
+                        break;
+                }
             }
 
             return builder;
