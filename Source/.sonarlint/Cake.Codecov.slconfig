@@ -1,0 +1,15 @@
+{
+  "ServerUri": "https://sonarcloud.io/",
+  "Organization": {
+    "Key": "cake-contrib",
+    "Name": "Cake Contributions"
+  },
+  "ProjectKey": "cake-contrib_Cake.Codecov",
+  "ProjectName": "Cake.Codecov",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AW-AWl5fQ1MkeF54Xi90",
+      "ProfileTimestamp": "2020-01-07T15:13:24+01:00"
+    }
+  }
+}
