@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cake.Core.IO;
 using Cake.Core.Tooling;
 
 namespace Cake.Codecov
@@ -164,10 +165,10 @@ namespace Cake.Codecov
         /// Gets or sets a value used when not in git project to identify project root directory.
         /// </summary>
         /// <value>A value used when not in git project to identify project root directory.</value>
-        public string Root
+        public DirectoryPath Root
         {
             get => GetValue<string>("--root");
-            set => SetValue("--root", value);
+            set => SetValue("--root", value?.ToString());
         }
 
         /// <summary>

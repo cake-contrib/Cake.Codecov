@@ -356,7 +356,7 @@ namespace Cake.Codecov.Tests
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().Be(@"--root "".\working""");
+            result.Args.Should().Be(@"--root ""working""");
         }
 
         [Fact]

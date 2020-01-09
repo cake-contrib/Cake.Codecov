@@ -1,4 +1,5 @@
 using System;
+using Cake.Core.IO;
 using FluentAssertions;
 using Xunit;
 
@@ -217,7 +218,7 @@ namespace Cake.Codecov.Tests
         public void Should_Set_Root_Value()
         {
             // Given
-            var expected = "C:/test/root";
+            var expected = (DirectoryPath)"C:/test/root";
             var settings = new CodecovSettings
             {
 
@@ -226,7 +227,7 @@ namespace Cake.Codecov.Tests
             };
 
             // Then
-            settings.Root.Should().Be(expected);
+            settings.Root.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
