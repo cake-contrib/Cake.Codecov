@@ -8,6 +8,6 @@ issue-labels-exclude:
 - Build
 - Internal Refactor
 issue-labels-alias:
-    - name:   Documentation
-    header: Documentation
-    plural: Documentation
+    -   name:   Documentation
+        header: Documentation
+        plural: Documentation
