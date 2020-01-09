@@ -17,10 +17,5 @@ namespace Cake.Codecov.Internals
         {
             return RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
         }
-
-        public bool IsWindowsPlatform()
-        {
-            return RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-        }
     }
 }

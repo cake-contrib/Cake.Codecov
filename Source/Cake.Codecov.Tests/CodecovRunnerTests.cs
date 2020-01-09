@@ -92,7 +92,6 @@ namespace Cake.Codecov.Tests
             var mock = new Mock<IPlatformDetector>(MockBehavior.Strict);
             mock.Setup(m => m.IsLinuxPlatform()).Returns(false);
             mock.Setup(m => m.IsOsxPlatform()).Returns(false);
-            mock.Setup(m => m.IsWindowsPlatform()).Returns(true);
 
             var fixture = new CodecovRunnerFixture(mock.Object, "codecov.exe");
 
@@ -115,7 +114,6 @@ namespace Cake.Codecov.Tests
             var mock = new Mock<IPlatformDetector>(MockBehavior.Strict);
             mock.Setup(m => m.IsLinuxPlatform()).Returns(true);
             mock.Setup(m => m.IsOsxPlatform()).Returns(false);
-            mock.Setup(m => m.IsWindowsPlatform()).Returns(false);
 
             var fixture = new CodecovRunnerFixture(mock.Object, path);
 
@@ -138,7 +136,6 @@ namespace Cake.Codecov.Tests
             var mock = new Mock<IPlatformDetector>(MockBehavior.Strict);
             mock.Setup(m => m.IsLinuxPlatform()).Returns(false);
             mock.Setup(m => m.IsOsxPlatform()).Returns(true);
-            mock.Setup(m => m.IsWindowsPlatform()).Returns(false);
 
             var fixture = new CodecovRunnerFixture(mock.Object, path);
 
