@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="Rules for StyleCop.Analyzers" Description="Code analysis rules for StyleCop.Analyzers.csproj." ToolsVersion="15.0">
+<RuleSet Name="Rules for StyleCop.Analyzers" Description="Code analysis rules for StyleCop.Analyzers.csproj." ToolsVersion="16.0">
+  <Include Path="..\.sonarlint\cake-contrib_cake.codecovcsharp.ruleset" Action="Default" />
   <Rules AnalyzerId="AsyncUsageAnalyzers" RuleNamespace="AsyncUsageAnalyzers">
     <Rule Id="AvoidAsyncSuffix" Action="Error" />
     <Rule Id="AvoidAsyncVoid" Action="Error" />

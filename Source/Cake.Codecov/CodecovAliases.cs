@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Cake.Core;
 using Cake.Core.Annotations;
 using JetBrains.Annotations;
@@ -34,6 +34,11 @@ namespace Cake.Codecov
         [CakeMethodAlias]
         public static void Codecov(this ICakeContext context, CodecovSettings settings)
         {
+            if (context is null)
+            {
+                throw new System.ArgumentNullException(nameof(context));
+            }
+
             var runner = new CodecovRunner(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools);
             runner.Run(settings);
         }

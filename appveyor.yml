@@ -1,24 +1,46 @@
 image:
-  - Visual Studio 2017
-  - Ubuntu
+    - macos
+    - Ubuntu
+    - Visual Studio 2017
 environment:
-  APPVEYOR_YML_DISABLE_PS_LINUX: true
+    APPVEYOR_YML_DISABLE_PS_LINUX: true
 branches:
-  except:
-    - ci/travis
-    - /dependabot\/.*/
+    except:
+        - ci/travis
+        - /dependabot\/.*/
 skip_commits:
-  files:
-     - '*.md'
-     - 'LICENSE'
-     - '.travis.yml'
+    files:
+        - '*.md'
+        - 'LICENSE'
+        - '.travis.yml'
+
+for:
+-
+    matrix:
+        only:
+            - image: Ubuntu
+    install:
+        - git submodule update --init
+        - sudo apt-get update && sudo apt-get install -y libgit2-dev
+-
+    matrix:
+        only:
+            - image: macos
+    environment:
+        DOTNET_ROOT: "/USERS/appveyor/.dotnet"
+    install:
+        - git submodule update --init
+        - brew update && brew install mono
+
+install:
+    - git submodule update --init
 
 build: off
 test: off
 
 build_script:
-- ps: .\build.ps1 --target=AppVeyor
-- sh: ./build.sh --target=AppVeyor-Linux
+    - ps: .\build.ps1 --target=AppVeyor
+    - sh: ./build.sh --target=AppVeyor-Unix
 
 cache:
-  - 'tools -> build.config,setup.cake'
+    - 'tools -> build.config,setup.cake,.build/sonarcloud.cake'

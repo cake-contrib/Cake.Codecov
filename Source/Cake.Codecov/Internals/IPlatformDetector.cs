@@ -16,11 +16,5 @@ namespace Cake.Codecov.Internals
         /// </summary>
         /// <returns><c>true</c> if we are running on osx; otherwise, <c>false</c>.</returns>
         bool IsOsxPlatform();
-
-        /// <summary>
-        /// Determines whether we are running on the windows platform.
-        /// </summary>
-        /// <returns><c>true</c> if we are running on windows; otherwise, <c>false</c>.</returns>
-        bool IsWindowsPlatform();
     }
 }

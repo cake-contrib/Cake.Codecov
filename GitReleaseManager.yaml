@@ -6,7 +6,8 @@ issue-labels-include:
 - Documentation
 issue-labels-exclude:
 - Build
+- Internal Refactor
 issue-labels-alias:
     - name:   Documentation
-      header: Documentation
-      plural: Documentation
+    header: Documentation
+    plural: Documentation

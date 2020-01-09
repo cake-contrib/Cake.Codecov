@@ -1,0 +1,4 @@
+[submodule "cake-contrib-graphics"]
+    path = graphics/cake-contrib
+    url = https://github.com/cake-contrib/graphics.git
+    branch = master

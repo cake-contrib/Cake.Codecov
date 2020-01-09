@@ -1,23 +1,30 @@
 # Cake.Codecov
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/cakecontrib/cake-codecov/master.svg)](https://ci.appveyor.com/project/cakecontrib/cake-codecov/branch/master)
 [![NuGet](https://img.shields.io/nuget/v/Cake.Codecov.svg)](https://www.nuget.org/packages/Cake.Codecov/)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?maxAge=2592000)](https://gitter.im/cake-contrib/Lobby)
 [![Codecov](https://img.shields.io/codecov/c/github/cake-contrib/Cake.Codecov.svg)](https://codecov.io/gh/cake-contrib/Cake.Codecov)
+[![SonarCloud Quality Gate](https://img.shields.io/sonar/quality_gate/cake-contrib_Cake.Codecov?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=cake-contrib_Cake.Codecov)
 
-A [Cake](http://cakebuild.net/) addin for [Codecov](https://codecov.io/).
+A [Cake](https://cakebuild.net) addin that extends Cake with the ability to use [Codecov](https://codecov.io) ([.NET Edition](https://github.com/codecov/codecov-exe)).
 
 ## Usage
 
- In order to use this addin, add to your Cake script
+In order to use this addin, add to your Cake script
 
 ```csharp
 #tool nuget:?package=Codecov
 #addin nuget:?package=Cake.Codecov
 ```
 
-Then use one of the following snippets to upload your coverage report to Codecov
+Then use one of the following snippets to upload your coverage report to Codecov.
+
+*NOTE: Starting for codecov version [1.6.0](https://github.com/codecov/codecov-exe/releases/tag/1.6.0) globbing
+patterns are also supported for file paths.*
 
 ```csharp
 Task("Upload-Coverage")
@@ -74,8 +81,8 @@ Documentation for the addin can be found on the [Cake Website](http://cakebuild.
 
 ## Codecov Tips
 
-1. The [codecov-exe](https://github.com/codecov/codecov-exe) uploader defined in `#tool nuget:?package=Codecov` currently only supports windows builds. However, OS X and Linux builds should come soon. In the mean time, there is a [bash global uploader](https://github.com/codecov/codecov-bash) that can be used. (*Note: There also the [Codecov.Tool](https://www.nuget.org/packages/Codecov.Tool) utility, however, Linux and OS X is only in partial support. IE, it will run, but no CI will be automatically found*)
-2. Many CI services (like AppVeyor) do not require you to provide a Codecov upload token. However, TeamCity is a rare exception.
+1. The [codecov-exe](https://github.com/codecov/codecov-exe) uploader defined in `#tool nuget:?package=Codecov` currently supports Windows, OSX and Linux builds. (_Note: There also the [Codecov.Tool](https://www.nuget.org/packages/Codecov.Tool) utility)
+2. CI Services like AppVeyor and Travis CI do not require a Codecov upload token. Any other provider would need one to be specified on the command line or through an Environment variable called `CODECOV_TOKEN`. See all supported CI providers in the [codecov-exe documentation](https://github.com/codecov/codecov-exe#ci-providers)
 3. Using Codecov with TeamCity MAY require configuration. Please refer to the [codecov-exe documentation](https://github.com/codecov/codecov-exe#teamcity).
 
 ## Questions
@@ -83,8 +90,10 @@ Documentation for the addin can be found on the [Cake Website](http://cakebuild.
 Feel free to open an [issue](https://github.com/cake-contrib/Cake.Codecov/issues) or ask a question in [Gitter](https://gitter.im/cake-contrib/Lobby) by tagging us: **@larzw** and/or **@AdmiringWorm**.
 
 ## Known Issues
+
 - Coverage report upload fails when using gitversion (or other tools that change the appveyor build version)
-  Workaround: Add the following in your Upload Coverage task
+  Workaround: Add the following in your Upload Coverage task (*only needed if gitversion is run on the same call as the uploading of coverage reports in appveyor.yml*)
+
   ```csharp
   Task("Upload-Coverage")
       .Does(() =>
