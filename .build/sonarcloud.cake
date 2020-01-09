@@ -22,6 +22,7 @@ Task("SonarCloud-Begin")
         OpenCoverReportsPath = EnvironmentVariable(""TEMP_OPENCOVER_FILTER""),
         Login = EnvironmentVariable(""TEMP_TOKEN""),
         Version = EnvironmentVariable(""TEMP_VERSION""),
+        XUnitReportsPath = EnvironmentVariable(""TEMP_TEST_RESULTS""),
     });",
     new Dictionary<string, string> {
         { "TEMP_PROJECT_KEY", EnvironmentVariable("SONARCLOUD_PROJECT_KEY") },
@@ -29,7 +30,8 @@ Task("SonarCloud-Begin")
         { "TEMP_ORGANIZATION", EnvironmentVariable("SONARCLOUD_ORGANIZATION") },
         { "TEMP_OPENCOVER_FILTER", BuildParameters.Paths.Files.TestCoverageOutputFilePath.ToString().Replace(".xml", "*.xml") },
         { "TEMP_TOKEN", EnvironmentVariable("SONARCLOUD_TOKEN") },
-        { "TEMP_VERSION", BuildParameters.Version.SemVersion }
+        { "TEMP_VERSION", BuildParameters.Version.SemVersion },
+        { "TEMP_TEST_RESULTS", BuildParameters.Paths.Directories.TestResults.CombineWithFilePath("TestResults.xml").ToString() },
     });
 }));
 
