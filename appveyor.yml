@@ -1,7 +1,7 @@
 image:
-    - Visual Studio 2017
     - macos
     - Ubuntu
+    - Visual Studio 2017
 environment:
     APPVEYOR_YML_DISABLE_PS_LINUX: true
 branches:
