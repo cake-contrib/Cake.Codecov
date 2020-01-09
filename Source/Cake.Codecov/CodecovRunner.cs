@@ -13,11 +13,11 @@ namespace Cake.Codecov
         private readonly IPlatformDetector platformDetector;
 
         internal CodecovRunner(IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools)
-            : this(new Internals.PlatformDetector(), fileSystem, environment, processRunner, tools)
+            : this(new PlatformDetector(), fileSystem, environment, processRunner, tools)
         {
         }
 
-        internal CodecovRunner(Internals.IPlatformDetector platformDetector, IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools)
+        internal CodecovRunner(IPlatformDetector platformDetector, IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools)
             : base(fileSystem, environment, processRunner, tools)
         {
             this.platformDetector = platformDetector ?? throw new ArgumentNullException(nameof(platformDetector));
@@ -25,7 +25,7 @@ namespace Cake.Codecov
 
         internal void Run(CodecovSettings settings)
         {
-            if (settings == null)
+            if (settings is null)
             {
                 throw new ArgumentNullException(nameof(settings));
             }
@@ -57,7 +57,7 @@ namespace Cake.Codecov
 
         private static void AddValue(ProcessArgumentBuilder builder, string key, IEnumerable<string> value)
         {
-            string joinedValue = string.Join(" ", value);
+            var joinedValue = string.Join(" ", value);
             AddValue(builder, key, joinedValue);
         }
 

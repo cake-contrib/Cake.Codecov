@@ -237,7 +237,7 @@ namespace Cake.Codecov
 
         private TValue GetValue<TValue>(string key, TValue defaultValue = default)
         {
-            if (_arguments.TryGetValue(key, out object objValue) && objValue is TValue value)
+            if (_arguments.TryGetValue(key, out var objValue) && objValue is TValue value)
             {
                 return value;
             }

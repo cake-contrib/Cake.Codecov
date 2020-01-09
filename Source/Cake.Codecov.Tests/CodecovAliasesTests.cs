@@ -1,3 +1,4 @@
+using System;
 using FluentAssertions;
 using Xunit;
 
@@ -5,6 +6,12 @@ namespace Cake.Codecov.Tests
 {
     public sealed class CodecovAliasesTests
     {
+        [Fact]
+        public void Should_Throw_Argument_Null_Exception_If_Context_Is_Nulle()
+        {
+            Assert.Throws<ArgumentNullException>(() => CodecovAliases.Codecov(null, new CodecovSettings()));
+        }
+
         [Fact]
         public void Should_Use_Same_Settings_As_Specified()
         {
