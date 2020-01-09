@@ -79,7 +79,14 @@ namespace Cake.Codecov
 
         private static void AddValue(ProcessArgumentBuilder builder, string key, string value)
         {
-            builder.AppendSwitchQuoted(key, " ", value);
+            if (key.StartsWith("!", StringComparison.OrdinalIgnoreCase))
+            {
+                builder.AppendSwitchQuotedSecret(key.TrimStart('!'), " ", value);
+            }
+            else
+            {
+                builder.AppendSwitchQuoted(key, " ", value);
+            }
         }
 
         private static ProcessArgumentBuilder GetArguments(CodecovSettings settings)

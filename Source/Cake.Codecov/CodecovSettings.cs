@@ -204,8 +204,8 @@ namespace Cake.Codecov
         /// </value>
         public string Token
         {
-            get => GetValue<string>("--token");
-            set => SetValue("--token", value);
+            get => GetValue<string>("!--token");
+            set => SetValue("!--token", value);
         }
 
         /// <summary>
