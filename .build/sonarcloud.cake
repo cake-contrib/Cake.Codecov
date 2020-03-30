@@ -1,12 +1,22 @@
 const string SonarQubeTool = "#tool nuget:?package=MSBuild.SonarQube.Runner.Tool&version=4.6.0";
 const string SonarQubeAddin = "#addin nuget:?package=Cake.Sonar&version=1.1.22";
 
+public bool HasEnvironmentVariables(ICakeContext context, params string[] variableNames)
+{
+    foreach (var variableName in variableNames) {
+        var envVariable = context.EnvironmentVariable(variableName);
+        if (string.IsNullOrWhiteSpace(envVariable)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 Task("SonarCloud-Begin")
     .IsDependentOn("DotNetCore-Restore")
     .IsDependeeOf("DotNetCore-Build")
-    .WithCriteria(() => HasEnvironmentVariable("SONARCLOUD_TOKEN"), "Missing sonar cloud token environment variable")
-    .WithCriteria(() => HasEnvironmentVariable("SONARCLOUD_ORGANIZATION"), "Missing sonar cloud organization environment variable")
-    .WithCriteria(() => HasEnvironmentVariable("SONARCLOUD_PROJECT_KEY"), "Missing sonar cloud project key environment variable")
+    .WithCriteria((context) => HasEnvironmentVariables(context, "SONARCLOUD_TOKEN", "SONARCLOUD_ORGANIZATION", "SONARCLOUD_PROJECT_KEY"), "Missing environment variables for running sonar cloud")
     .Does(() => RequireTool(SonarQubeTool,
     () =>
 {
@@ -38,9 +48,7 @@ Task("SonarCloud-Begin")
 Task("SonarCloud-End")
     .IsDependentOn("Test")
     .IsDependeeOf("Analyze")
-    .WithCriteria(() => HasEnvironmentVariable("SONARCLOUD_TOKEN"), "Missing sonar cloud token environment variable")
-    .WithCriteria(() => HasEnvironmentVariable("SONARCLOUD_ORGANIZATION"), "Missing sonar cloud organization environment variable")
-    .WithCriteria(() => HasEnvironmentVariable("SONARCLOUD_PROJECT_KEY"), "Missing sonar cloud project key environment variable")
+    .WithCriteria((context) => HasEnvironmentVariables(context, "SONARCLOUD_TOKEN", "SONARCLOUD_ORGANIZATION", "SONARCLOUD_PROJECT_KEY"), "Missing environment variables for running sonar cloud")
     .Does(() => RequireTool(SonarQubeTool, () => RequireAddin(SonarQubeAddin + @"
     SonarEnd(new SonarEndSettings {
         Login = EnvironmentVariable(""TEMP_TOKEN""),
