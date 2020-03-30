@@ -28,9 +28,6 @@ for:
             - image: macos
     environment:
         DOTNET_ROOT: "/USERS/appveyor/.dotnet"
-    install:
-        - git submodule update --init
-        - brew update && brew install mono
 
 install:
     - git submodule update --init
