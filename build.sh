@@ -9,18 +9,28 @@ CAKE_PATH=$TOOLS_DIR/.store/cake.tool/$CAKE_VERSION
 DOTNET_EXE=$(which dotnet 2>/dev/null)
 INSTALL_NETCORE=0
 
-if [ "$CAKE_VERSION" = "" ] || [ "$DOTNET_VERSION" = "" ]; then
+if [ "$CAKE_VERSION" = "" ] || [ "$DOTNET_SDKS" = "" ]; then
     echo "An error occured while parsing Cake / .NET Core SDK version."
     exit 1
 fi
 
-if [ "$DOTNET_EXE" = "" ] || [ "$(dotnet --list-sdks)" == "" ]; then
+if [ ! -d "$SCRIPT_DIR/.dotnet" ]; then
+    DOTNET_EXE="$SCRIPT_DIR/.dotnet/dotnet"
+    export PATH="$SCRIPT_DIR/.dotnet:$PATH"
+    export DOTNET_ROOT="$SCRIPT_DIR/.dotnet"
+fi
+
+if [ "$DOTNET_EXE" = "" ]; then
     INSTALL_NETCORE=1
-elif [ "$DOTNET_VERSION" != "ANY" ]; then
-    DOTNET_INSTALLED_VERSION=$($DOTNET_EXE --version 2>&1)
-    if [ "$DOTNET_VERSION" != "$DOTNET_INSTALLED_VERSION" ]; then
-        $INSTALL_NETCORE=1
-    fi
+elif [ "$DOTNET_SDKS" != "" ]; then
+    for sdk in $(echo $DOTNET_SDKS | sed "s/,/ /g")
+    do
+        DOTNET_INSTALLED_VERSION=$($DOTNET_EXE --list-sdks 2>/dev/null | grep "^\s*$sdk\+")
+        if [ "$DOTNET_INSTALLED_VERSION" == "" ]; then
+            INSTALL_NETCORE=1
+            break
+        fi
+    done
 fi
 
 if [ "$INSTALL_NETCORE" = "1" ]; then
@@ -29,12 +39,11 @@ if [ "$INSTALL_NETCORE" = "1" ]; then
     fi
     curl -Lsfo "$SCRIPT_DIR/.dotnet/dotnet-install.sh" https://dot.net/v1/dotnet-install.sh
 
-    if [ "$DOTNET_VERSION" = "ANY" ]; then
-        bash "$SCRIPT_DIR/.dotnet/dotnet-install.sh" --install-dir "$SCRIPT_DIR/.dotnet" --no-path
-    else
-        bash "$SCRIPT_DIR/.dotnet/dotnet-install.sh" --version $DOTNET_VERSION --install-dir "$SCRIPT_DIR/.dotnet" --no-path
-    fi
-    
+    for sdk in $(echo $DOTNET_SDKS | sed "s/,/ /g")
+    do
+        bash "$SCRIPT_DIR/.dotnet/dotnet-install.sh" --version $sdk --install-dir "$SCRIPT_DIR/.dotnet" --no-path
+    done
+
     DOTNET_EXE="$SCRIPT_DIR/.dotnet/dotnet"
     export PATH="$SCRIPT_DIR/.dotnet:$PATH"
     export DOTNET_ROOT="$SCRIPT_DIR/.dotnet"
@@ -50,11 +59,11 @@ CAKE_INSTALLED_VERSION=$(dotnet-cake --version 2>&1)
 if [ "$CAKE_VERSION" != "$CAKE_INSTALLED_VERSION" ]; then
     if [ ! -f "$CAKE_EXE" ] || [ ! -d "$CAKE_PATH" ]; then
         if [ -f "$CAKE_EXE" ]; then
-            dotnet tool uninstall --tool-path $TOOLS_DIR Cake.Tool
+            $DOTNET_EXE tool uninstall --tool-path $TOOLS_DIR Cake.Tool
         fi
 
         echo "Installing Cake $CAKE_VERSION..."
-        dotnet tool install --tool-path $TOOLS_DIR --version $CAKE_VERSION Cake.Tool
+        $DOTNET_EXE tool install --tool-path $TOOLS_DIR --version $CAKE_VERSION Cake.Tool
         if [ $? -ne 0 ]; then
             echo "An error occured while installing Cake."
             exit 1

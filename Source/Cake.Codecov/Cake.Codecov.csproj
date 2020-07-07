@@ -43,7 +43,7 @@
         </PackageReference>
         <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
         <!-- The following reference is only needed to build the library
-        On Windows for the .NET 4.6.1 Framewark -->
-        <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" Condition="'$(TargetFramework)'=='net46' AND '$(OS)'=='Windows_NT'" PrivateAssets="all" />
+        for the .NET 4.6 Framewark -->
+        <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" Condition="'$(TargetFramework)'=='net46'" PrivateAssets="all" />
     </ItemGroup>
 </Project>
