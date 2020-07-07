@@ -269,6 +269,19 @@ namespace Cake.Codecov.Tests
         }
 
         [Fact]
+        public void Should_Set_Features()
+        {
+            // Given
+            var fixture = new CodecovRunnerFixture { Settings = { Features = new[] { "s3" } } };
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().Be("--feature \"s3\"");
+        }
+
+        [Fact]
         public void Should_Set_Files()
         {
             // Given
