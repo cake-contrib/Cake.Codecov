@@ -121,6 +121,21 @@ namespace Cake.Codecov.Tests
         }
 
         [Fact]
+        public void Should_Set_Feature_Value()
+        {
+            // Given
+            var expected = new[] { "s3" };
+            var settings = new CodecovSettings
+            {
+                // When
+                Features = expected
+            };
+
+            // Then
+            settings.Features.Should().HaveCount(expected.Length).And.BeSameAs(expected);
+        }
+
+        [Fact]
         public void Should_Set_Files_Value()
         {
             // Given
