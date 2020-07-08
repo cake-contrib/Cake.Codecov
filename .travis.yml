@@ -21,4 +21,4 @@ branches:
     - /^dependabot\/.*/
 
 script:
-  - ./build.sh --verbosity=Diagnostic
+  - ./build.sh --target=ContinuousIntegration --verbosity=Diagnostic
