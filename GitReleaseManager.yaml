@@ -1,13 +1,27 @@
+create:
+    include-sha-section: true
+close:
+    use-issue-comments: true
+    issue-comment: |-
+        :tada: This issue has been resolved in version {milestone} :tada:
+
+        The release can be downloaded from:
+
+        - [GitHub release](https://github.com/{owner}/{repository}/releases/tag/{milestone})
+        - [NuGet.org](https://nuget.org/packages/{repository}/{milestone})
+        - Within Cake: `#addin "nuget:?package={repository}&version={milestone}"
+
+        Your friendly **[GitReleaseManager](https://github.com/GitTools/GitReleaseManager)** bot :package::rocket:
 issue-labels-include:
-- Breaking change
-- Feature
-- Bug
-- Improvement
-- Documentation
+    - Breaking change
+    - Feature
+    - Bug
+    - Improvement
+    - Documentation
 issue-labels-exclude:
-- Build
-- Internal Refactor
+    - Build
+    - Internal Refactor
 issue-labels-alias:
-    -   name:   Documentation
-        header: Documentation
-        plural: Documentation
+    - name: Documentation
+    header: Documentation
+    plural: Documentation
