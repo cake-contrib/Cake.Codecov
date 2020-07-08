@@ -25,6 +25,13 @@ if ([string]::IsNullOrWhiteSpace($CAKE_VERSION) -or !$DOTNET_SDKS) {
     exit 1
 }
 
+if ($IsMacOS -or $IsLinux) {
+    $PathSep = ":"
+}
+else {
+    $PathSep = ";"
+}
+
 if (Test-Path "$SCRIPT_DIR/.dotnet") {
     $env:PATH = "$SCRIPT_DIR/.dotnet${PathSep}${env:PATH}"
     $env:DOTNET_ROOT = "$SCRIPT_DIR/.dotnet"
@@ -53,13 +60,11 @@ if ($true -eq $INSTALL_NETCORE) {
     $ScriptPath = ""
     $LaunchUrl = ""
     $ScriptUrl = ""
-    $PathSep = ';'
 
     if ($IsMacOS -or $IsLinux) {
         $ScriptPath = "$SCRIPT_DIR/.dotnet/dotnet-install.sh"
         $ScriptUrl = "https://dot.net/v1/dotnet-install.sh"
         $LaunchUrl = "$(Get-Command bash)"
-        $PathSep = ":"
     }
     else {
         $ScriptPath = "$SCRIPT_DIR/.dotnet/dotnet-install.ps1"

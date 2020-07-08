@@ -14,7 +14,7 @@ if [ "$CAKE_VERSION" = "" ] || [ "$DOTNET_SDKS" = "" ]; then
     exit 1
 fi
 
-if [ ! -d "$SCRIPT_DIR/.dotnet" ]; then
+if [ -d "$SCRIPT_DIR/.dotnet" ]; then
     DOTNET_EXE="$SCRIPT_DIR/.dotnet/dotnet"
     export PATH="$SCRIPT_DIR/.dotnet:$PATH"
     export DOTNET_ROOT="$SCRIPT_DIR/.dotnet"
