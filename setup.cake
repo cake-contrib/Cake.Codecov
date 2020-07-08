@@ -1,6 +1,8 @@
 #load "nuget:https://f.feedz.io/wormiecorp/packages/nuget?package=Cake.Recipe&version=2.0.0-unstable0244&prerelease"
 
-Environment.SetVariableNames();
+Environment.SetVariableNames(
+    coverallsRepoTokenVariable: "_WE_DO_NOT_WANT_COVERALLS_TO_RUN"
+);
 
 BuildParameters.SetParameters(
                             context: Context,
