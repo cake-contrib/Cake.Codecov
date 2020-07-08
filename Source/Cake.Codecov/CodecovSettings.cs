@@ -87,6 +87,18 @@ namespace Cake.Codecov
         }
 
         /// <summary>
+        /// Gets or sets a value specifying which flags should be toggled on/off.
+        /// </summary>
+        /// <value>
+        /// A value specifying which features should be toggled on or off.
+        /// </value>
+        public IEnumerable<string> Features
+        {
+            get => GetValue<IEnumerable<string>>("--feature");
+            set => SetValue("--feature", value);
+        }
+
+        /// <summary>
         /// Gets or sets a value specifing the target file(s) to upload. (1) -f 'path/to/file'. Only
         /// upload this file. (2) -f 'path/to/file1 path/to/file2'. Only upload these files.
         /// </summary>
@@ -94,6 +106,9 @@ namespace Cake.Codecov
         /// A value specifing the target file(s) to upload. (1) -f 'path/to/file'. Only upload this
         /// file. (2) -f 'path/to/file1 path/to/file2'. Only upload these files.
         /// </value>
+        /// <remarks>
+        ///   Globbing in file paths are supported, but not when path starts with './'.
+        /// </remarks>
         public IEnumerable<string> Files
         {
             get => GetValue<IEnumerable<string>>("--file");

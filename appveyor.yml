@@ -1,7 +1,9 @@
 image:
-    - macos
+#    - macos
     - Ubuntu
     - Visual Studio 2017
+matrix:
+    fast_finish: true
 environment:
     APPVEYOR_YML_DISABLE_PS_LINUX: true
 branches:
@@ -22,15 +24,6 @@ for:
     install:
         - git submodule update --init
         - sudo apt-get update && sudo apt-get install -y libgit2-dev
--
-    matrix:
-        only:
-            - image: macos
-    environment:
-        DOTNET_ROOT: "/USERS/appveyor/.dotnet"
-    install:
-        - git submodule update --init
-        - brew update && brew install mono
 
 install:
     - git submodule update --init
@@ -39,8 +32,8 @@ build: off
 test: off
 
 build_script:
-    - ps: .\build.ps1 --target=AppVeyor
-    - sh: ./build.sh --target=AppVeyor-Unix
+    - pwsh: .\build.ps1 --target=ContinuousIntegration --verbosity=Diagnostic
 
 cache:
     - 'tools -> build.config,setup.cake,.build/sonarcloud.cake'
+    - '.dotnet -> build.config'
