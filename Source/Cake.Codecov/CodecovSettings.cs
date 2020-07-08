@@ -89,6 +89,9 @@ namespace Cake.Codecov
         /// <summary>
         /// Gets or sets a value specifying which flags should be toggled on/off.
         /// </summary>
+        /// <value>
+        /// A value specifying which features should be toggled on or off.
+        /// </value>
         public IEnumerable<string> Features
         {
             get => GetValue<IEnumerable<string>>("--feature");
