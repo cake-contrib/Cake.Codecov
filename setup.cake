@@ -63,7 +63,7 @@ Codecov(new CodecovSettings {{
 );
 
 // Enable drafting a release when running on the master branch
-if (BuildParameters.IsRunningOnAppVeyor &&
+if (BuildParameters.IsRunningOnAppVeyor && EnvironmentVariable("APPVEYOR_BUILD_WORKER_IMAGE") == "Visual Studio 2017" &&
     BuildParameters.IsMainRepository && BuildParameters.BranchType == BranchType.Master && !BuildParameters.IsTagged)
 {
     BuildParameters.Tasks.ContinuousIntegrationTask.IsDependentOn("Create-Release-Notes");
