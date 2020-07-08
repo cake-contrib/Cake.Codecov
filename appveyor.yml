@@ -21,14 +21,10 @@ for:
     matrix:
         only:
             - image: Ubuntu
+    skip_tags: true
     install:
         - git submodule update --init
         - sudo apt-get update && sudo apt-get install -y libgit2-dev
--
-    matrix:
-        except:
-            - image: Visual Studio 2017
-    skip_tags: true
 
 install:
     - git submodule update --init
