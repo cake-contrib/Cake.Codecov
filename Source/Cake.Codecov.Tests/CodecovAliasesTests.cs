@@ -52,7 +52,7 @@ namespace Cake.Codecov.Tests
 
             var result = fixture.Run();
 
-            result.Args.Should().Contain($"--file \"{string.Join(" ", files)}\"");
+            result.Args.Should().Contain($"--file \"{string.Join("\" \"", files)}\"");
         }
 
         [Fact]
@@ -78,7 +78,7 @@ namespace Cake.Codecov.Tests
             result.Args.Should()
                 .ContainAll(new[]
                 {
-                    $"--file \"{string.Join(" ", files)}\"",
+                    $"--file \"{string.Join("\" \"", files)}\"",
                     $"--token \"{token}\""
                 });
         }
