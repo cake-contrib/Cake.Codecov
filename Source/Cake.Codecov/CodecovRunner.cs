@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Cake.Codecov.Internals;
 using Cake.Core;
@@ -57,8 +58,11 @@ namespace Cake.Codecov
 
         private static void AddValue(ProcessArgumentBuilder builder, string key, IEnumerable<string> value)
         {
-            var joinedValue = string.Join(" ", value);
-            AddValue(builder, key, joinedValue);
+            AddValue(builder, key, value.FirstOrDefault());
+            foreach (var subValue in value.Skip(1))
+            {
+                AddValue(builder, key, subValue, true);
+            }
         }
 
         private static void AddValue(ProcessArgumentBuilder builder, string key, Uri value)
@@ -77,15 +81,29 @@ namespace Cake.Codecov
             }
         }
 
-        private static void AddValue(ProcessArgumentBuilder builder, string key, string value)
+        private static void AddValue(ProcessArgumentBuilder builder, string key, string value, bool onlyAppendValue = false)
         {
             if (key.StartsWith("!", StringComparison.OrdinalIgnoreCase))
             {
-                builder.AppendSwitchQuotedSecret(key.TrimStart('!'), " ", value);
+                if (onlyAppendValue)
+                {
+                    builder.AppendQuoted(value);
+                }
+                else
+                {
+                    builder.AppendSwitchQuotedSecret(key.TrimStart('!'), " ", value);
+                }
             }
             else
             {
-                builder.AppendSwitchQuoted(key, " ", value);
+                if (onlyAppendValue)
+                {
+                    builder.AppendQuoted(value);
+                }
+                else
+                {
+                    builder.AppendSwitchQuoted(key, " ", value);
+                }
             }
         }
 
