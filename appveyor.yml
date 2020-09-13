@@ -30,7 +30,7 @@ build: off
 test: off
 
 build_script:
-    - pwsh: .\build.ps1 --target=ContinuousIntegration --verbosity=Diagnostic
+    - pwsh: .\build.ps1 --target=CI --verbosity=Diagnostic
 
 cache:
     - 'tools -> build.config,setup.cake,.build/sonarcloud.cake'
