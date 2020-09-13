@@ -1,0 +1,43 @@
+name: Draft Pre Release Notes
+
+on:
+  workflow_dispatch:
+
+jobs:
+  draft-pre-release:
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the requested branch
+        uses: actions/checkout@v2.3.1
+        with:
+          fetch-depth: 0
+      - name: Fetch all tags and branches
+        run: git fetch --prune --unshallow
+      - name: Cache Tools
+        uses: actions/cache@v2
+        with:
+          path: tools
+          key: ${{ runner.os }}-tools-${{ hashFiles('build.cake') }}
+      - name: Set up git version
+        if: ${{ !contains(github.ref, '/hotfix/') && !contains(github.ref, '/release/') }}
+        uses: gittools/actions/gitversion/setup@v0.9.4
+        with:
+          versionSpec: "5.x"
+      - name: Run git version
+        if: ${{ !contains(github.ref, '/hotfix/') && !contains(github.ref, '/release/') }}
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.9.4
+      - name: Create release branch ${{ github.event.inputs.version }}
+        if: ${{ steps.gitversion.outputs.majorMinorPatch }}
+        run: git switch -c release/${{ steps.gitversion.outputs.majorMinorPatch }}
+      - name: Push new branch
+        if: ${{ steps.gitversion.outputs.majorMinorPatch }}
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          branch: "release/${{ steps.gitversion.outputs.majorMinorPatch }}"
+          github_token: ${{ secrets.GH_TOKEN }}
+      - name: Create release notes # Cake action do not support passing additional arguments
+        run: ./build.sh --target=releasenotes --create-pre-release

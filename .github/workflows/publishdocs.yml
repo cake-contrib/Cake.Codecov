@@ -1,0 +1,33 @@
+name: Publish Documentation
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish-docs:
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      WYAM_ACCESS_TOKEN: ${{ secrets.WYAM_ACCESS_TOKEN }}
+      WYAM_DEPLOY_REMOTE: "${{ github.event.repository.html_url }}"
+      WYAM_DEPLOY_BRANCH: "gh-pages"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the requested branch
+        uses: actions/checkout@v2.3.1
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.ref }}
+      - name: Cache Tools
+        uses: actions/cache@v2
+        with:
+          path: tools
+          key: ${{ runner.os }}-doc-tools-${{ hashFiles('build.cake') }}
+      - name: Publishing documentaiton
+        uses: cake-build/cake-action@v1
+        with:
+          script-path: setup.cake
+          target: Force-Publish-Documentation
+          verbosity: Diagnostic
+          cake-version: 0.38.4
+          cake-bootstrap: true
