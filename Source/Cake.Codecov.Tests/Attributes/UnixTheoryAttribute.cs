@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Cake.Codecov.Tests.Attributes
 {
-    public class UnixTheoryAttribute : TheoryAttribute
+    public sealed class UnixTheoryAttribute : TheoryAttribute
     {
         public UnixTheoryAttribute(string reason = null)
         {

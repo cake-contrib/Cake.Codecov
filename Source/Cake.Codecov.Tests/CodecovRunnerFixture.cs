@@ -5,7 +5,7 @@ namespace Cake.Codecov.Tests
 {
     internal class CodecovRunnerFixture : ToolFixture<CodecovSettings>
     {
-        private readonly IPlatformDetector platformDetector;
+        private readonly IPlatformDetector _platformDetector;
 
         public CodecovRunnerFixture()
             : base("codecov.exe")
@@ -15,13 +15,13 @@ namespace Cake.Codecov.Tests
         public CodecovRunnerFixture(IPlatformDetector platformDetector, string expectedExecutable)
             : base(expectedExecutable)
         {
-            this.platformDetector = platformDetector;
+            _platformDetector = platformDetector;
         }
 
         protected override void RunTool()
         {
-            var tool = platformDetector != null ?
-                new CodecovRunner(platformDetector, FileSystem, Environment, ProcessRunner, Tools) :
+            var tool = _platformDetector != null ?
+                new CodecovRunner(_platformDetector, FileSystem, Environment, ProcessRunner, Tools) :
                 new CodecovRunner(FileSystem, Environment, ProcessRunner, Tools);
             tool.Run(Settings);
         }

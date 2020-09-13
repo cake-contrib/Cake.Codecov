@@ -3,14 +3,13 @@ using System.Linq;
 using Cake.Core;
 using Cake.Core.IO;
 using Cake.Testing;
-using Cake.Testing.Fixtures;
 using Moq;
 
 namespace Cake.Codecov.Tests
 {
     internal class CodecovAliasesFixture : CodecovRunnerFixture
     {
-        internal ICakeContext _context;
+        private readonly ICakeContext _context;
         public IEnumerable<string> Files { get; set; }
         public string File { get; set; }
         public string Token { get; set; }
@@ -28,7 +27,7 @@ namespace Cake.Codecov.Tests
                 argumentsMoq.Object,
                 ProcessRunner,
                 registryMoq.Object,
-                Tools,dataService.Object,
+                Tools, dataService.Object,
                 Configuration);
         }
 
@@ -36,28 +35,28 @@ namespace Cake.Codecov.Tests
         {
             if (Settings != null)
             {
-                CodecovAliases.Codecov(_context, Settings);
+                _context.Codecov(Settings);
             }
             else if (!string.IsNullOrEmpty(File))
             {
                 if (!string.IsNullOrEmpty(Token))
                 {
-                    CodecovAliases.Codecov(_context, File, Token);
+                    _context.Codecov(File, Token);
                 }
                 else
                 {
-                    CodecovAliases.Codecov(_context, File);
+                    _context.Codecov(File);
                 }
             }
             else if (Files != null && Files.Any())
             {
                 if (!string.IsNullOrEmpty(Token))
                 {
-                    CodecovAliases.Codecov(_context, Files, Token);
+                    _context.Codecov(Files, Token);
                 }
                 else
                 {
-                    CodecovAliases.Codecov(_context, Files);
+                    _context.Codecov(Files);
                 }
             }
         }
