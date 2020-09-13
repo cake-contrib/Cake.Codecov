@@ -22,7 +22,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: tools
-          key: ${{ runner.os }}-doc-tools-${{ hashFiles('build.cake') }}
+          key: ${{ runner.os }}-doc-tools-${{ hashFiles('setup.cake') }}
       - name: Publishing documentaiton
         uses: cake-build/cake-action@v1
         with:

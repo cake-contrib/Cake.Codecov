@@ -24,7 +24,7 @@ jobs:
         GITTER_ROOM_ID: ${{ secrets.GITTER_ROOM_ID }}
         GITTER_TOKEN: ${{ secrets.GITTER_TOKEN }}
         GPR_PASSWORD: ${{ secrets.GPR_PASSWORD }}
-        GPR_SOURCE: "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+        GPR_SOURCE: ${{ secrets.GPR_SOURCE }}
         GPR_USER: ${{ secrets.GPR_USER }}
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
         NUGET_SOURCE: "https://api.nuget.org/v3/index.json"
@@ -44,7 +44,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: tools
-          key: ${{ runner.os }}-tools-${{ hashFiles('build.cake') }}
+          key: ${{ runner.os }}-tools-${{ hashFiles('setup.cake') }}
       - name: Build Addin
         uses: cake-build/cake-action@v1
         with:
