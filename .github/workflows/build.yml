@@ -56,7 +56,7 @@ jobs:
           cake-version: 0.38.4
           cake-bootstrap: true
       - name: Upload artifacts
-        uses: actions/upload-artifacts@v2
+        uses: actions/upload-artifact@v2
         with:
             name: ${{ matrix.os }}-artifacts
             path: |
