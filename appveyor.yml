@@ -23,12 +23,8 @@ for:
             - image: Ubuntu
     skip_tags: true
     install:
-        - git submodule update --init
         - sudo apt-get update || echo "Update failed, ignoring..."
         - sudo apt-get install -y libgit2-dev
-
-install:
-    - git submodule update --init
 
 build: off
 test: off

@@ -14,5 +14,7 @@
         "statusBarItem.hoverBackground": "#cc7400",
         "statusBar.foreground": "#e7e7e7"
     },
-    "peacock.color": "#995700"
+    "peacock.color": "#995700",
+    "omnisharp.enableRoslynAnalyzers": true,
+    "omnisharp.enableEditorConfigSupport": true
 }
