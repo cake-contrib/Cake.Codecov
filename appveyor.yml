@@ -1,7 +1,4 @@
-image:
-#    - macos
-    - Ubuntu
-    - Visual Studio 2017
+image: Visual Studio 2019
 matrix:
     fast_finish: true
 environment:
@@ -15,6 +12,7 @@ skip_commits:
         - '*.md'
         - 'LICENSE'
         - '.travis.yml'
+skip_branch_with_pr: true
 
 for:
 -
@@ -33,5 +31,4 @@ build_script:
     - pwsh: .\build.ps1 --target=CI --verbosity=Diagnostic
 
 cache:
-    - 'tools -> build.config,setup.cake,.build/sonarcloud.cake'
-    - '.dotnet -> build.config'
+    - 'tools -> .config/dotnet-tools.json,setup.cake,.build/sonarcloud.cake'
