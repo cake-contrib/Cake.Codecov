@@ -57,7 +57,9 @@ jobs:
           cake-bootstrap: true
       - name: Upload artifacts
         uses: actions/upload-artifacts@v2
-        path: |
-            BuildArtifacts/report.html
-            BuildArtifacts/packages/**/*.nupkg
-            BuildArtifacts/**/coverlet/*.xml
+        with:
+            name: ${{ matrix-os }}-artifacts
+            path: |
+                BuildArtifacts/report.html
+                BuildArtifacts/packages/**/*.nupkg
+                BuildArtifacts/**/coverlet/*.xml

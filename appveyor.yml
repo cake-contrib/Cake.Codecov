@@ -1,8 +1,5 @@
 image: Visual Studio 2019
-matrix:
-    fast_finish: true
-environment:
-    APPVEYOR_YML_DISABLE_PS_LINUX: true
+
 branches:
     except:
         - ci/travis
@@ -12,17 +9,6 @@ skip_commits:
         - '*.md'
         - 'LICENSE'
         - '.travis.yml'
-skip_branch_with_pr: true
-
-for:
--
-    matrix:
-        only:
-            - image: Ubuntu
-    skip_tags: true
-    install:
-        - sudo apt-get update || echo "Update failed, ignoring..."
-        - sudo apt-get install -y libgit2-dev
 
 build: off
 test: off
