@@ -9,6 +9,9 @@
 
 A [Cake](https://cakebuild.net) addin that extends Cake with the ability to use [Codecov](https://codecov.io) ([.NET Edition](https://github.com/codecov/codecov-exe)).
 
+<!-- START doctoc -->
+<!-- END doctoc -->
+
 ## Usage
 
 In order to use this addin, add to your Cake script
