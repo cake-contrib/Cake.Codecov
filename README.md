@@ -97,7 +97,7 @@ Documentation for the addin can be found on the [Cake Website](http://cakebuild.
 
 ## Questions
 
-Feel free to open an [issue](https://github.com/cake-contrib/Cake.Codecov/issues) or ask a question in [Gitter](https://gitter.im/cake-contrib/Lobby) by tagging us: **@larzw** and/or **@AdmiringWorm**.
+Feel free to open an [issue](https://github.com/cake-contrib/Cake.Codecov/issues) or ask a question in [GitHub Discussions](https://github.com/cake-build/cake/discussions) under the [Extension Q&A](https://github.com/cake-build/cake/discussions/categories/extension-q-a) category, and by tagging us: **@larzw** and/or **@AdmiringWorm**.
 
 ## Known Issues
 
