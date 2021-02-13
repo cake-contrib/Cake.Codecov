@@ -143,7 +143,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/gitfool"><img src="https://avatars2.githubusercontent.com/u/750121?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sean Fausett</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/commits?author=gitfool" title="Code">💻</a></td>
-    <td align="center"><a href="https://augustoproiete.net"><img src="https://avatars.githubusercontent.com/u/177608?v=4?s=100" width="100px;" alt=""/><br /><sub><b>C. Augusto Proiete</b></sub></a><br /><a href="#maintenance-augustoproiete" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://augustoproiete.net"><img src="https://avatars.githubusercontent.com/u/177608?v=4?s=100" width="100px;" alt=""/><br /><sub><b>C. Augusto Proiete</b></sub></a><br /><a href="#maintenance-augustoproiete" title="Maintenance">🚧</a> <a href="https://github.com/cake-contrib/Cake.Codecov/commits?author=augustoproiete" title="Documentation">📖</a></td>
   </tr>
 </table>
 
