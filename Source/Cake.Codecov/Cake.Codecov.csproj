@@ -8,7 +8,7 @@
         <Description>Cake addin that extends Cake with the ability to use Codecov (.NET Edition).</Description>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Codecov.xml</DocumentationFile>
         <NeutralLanguage>en-GB</NeutralLanguage>
-        <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <!-- Package information -->
@@ -49,6 +49,6 @@
         <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
         <!-- The following reference is only needed to build the library
         for the .NET 4.6 Framewark -->
-        <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" Condition="'$(TargetFramework)'=='net46'" PrivateAssets="all" />
+        <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" Condition="'$(TargetFramework)'=='net461'" PrivateAssets="all" />
     </ItemGroup>
 </Project>
