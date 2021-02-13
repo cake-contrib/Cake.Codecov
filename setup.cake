@@ -33,7 +33,7 @@ ToolSettings.SetToolSettings(
                             testCoverageFilter: "+[Cake.Codecov]*");
 
 // Tasks we want to override
-((CakeTask)BuildParameters.Tasks.UploadCodecovReportTask.Task).Actions.Clear();
+/*((CakeTask)BuildParameters.Tasks.UploadCodecovReportTask.Task).Actions.Clear();
 BuildParameters.Tasks.UploadCodecovReportTask
     .IsDependentOn("DotNetCore-Pack")
     .Does<BuildVersion>((version) => RequireTool(BuildParameters.IsDotNetCoreBuild ? ToolSettings.CodecovGlobalTool : ToolSettings.CodecovTool, () => {
@@ -63,6 +63,6 @@ Codecov(new CodecovSettings {{
 
         RequireAddin(script, environmentVariables);
     })
-);
+);*/
 
 Build.RunDotNetCore();
