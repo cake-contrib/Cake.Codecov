@@ -35,7 +35,7 @@
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
           <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Cake.Core" Version="0.33.0" PrivateAssets="All" />
+        <PackageReference Include="Cake.Core" Version="1.0.0" PrivateAssets="All" />
         <PackageReference Include="CakeContrib.Guidelines" Version="0.2.0" PrivateAssets="All" />
         <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" PrivateAssets="All" />
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0">
