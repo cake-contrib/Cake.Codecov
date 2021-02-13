@@ -11,7 +11,7 @@ namespace Cake.Codecov
 {
     internal sealed class CodecovRunner : Tool<CodecovSettings>
     {
-        private readonly IPlatformDetector platformDetector;
+        private readonly IPlatformDetector _platformDetector;
 
         internal CodecovRunner(IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools)
             : this(new PlatformDetector(), fileSystem, environment, processRunner, tools)
@@ -21,7 +21,7 @@ namespace Cake.Codecov
         internal CodecovRunner(IPlatformDetector platformDetector, IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools)
             : base(fileSystem, environment, processRunner, tools)
         {
-            this.platformDetector = platformDetector ?? throw new ArgumentNullException(nameof(platformDetector));
+            _platformDetector = platformDetector ?? throw new ArgumentNullException(nameof(platformDetector));
         }
 
         internal void Run(CodecovSettings settings)
@@ -36,12 +36,12 @@ namespace Cake.Codecov
 
         protected override IEnumerable<string> GetToolExecutableNames()
         {
-            if (platformDetector.IsLinuxPlatform())
+            if (_platformDetector.IsLinuxPlatform())
             {
                 yield return "linux-x64/codecov";
                 yield return "codecov";
             }
-            else if (platformDetector.IsOsxPlatform())
+            else if (_platformDetector.IsOsxPlatform())
             {
                 yield return "osx-x64/codecov";
                 yield return "codecov";
@@ -58,8 +58,9 @@ namespace Cake.Codecov
 
         private static void AddValue(ProcessArgumentBuilder builder, string key, IEnumerable<string> value)
         {
-            AddValue(builder, key, value.FirstOrDefault());
-            foreach (var subValue in value.Skip(1))
+            var allValues = value.ToList();
+            AddValue(builder, key, allValues.FirstOrDefault());
+            foreach (var subValue in allValues.Skip(1))
             {
                 AddValue(builder, key, subValue, true);
             }

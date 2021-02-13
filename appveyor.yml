@@ -1,11 +1,5 @@
-image:
-#    - macos
-    - Ubuntu
-    - Visual Studio 2017
-matrix:
-    fast_finish: true
-environment:
-    APPVEYOR_YML_DISABLE_PS_LINUX: true
+image: Visual Studio 2019
+
 branches:
     except:
         - ci/travis
@@ -16,25 +10,11 @@ skip_commits:
         - 'LICENSE'
         - '.travis.yml'
 
-for:
--
-    matrix:
-        only:
-            - image: Ubuntu
-    skip_tags: true
-    install:
-        - git submodule update --init
-        - sudo apt-get update && sudo apt-get install -y libgit2-dev
-
-install:
-    - git submodule update --init
-
 build: off
 test: off
 
 build_script:
-    - pwsh: .\build.ps1 --target=ContinuousIntegration --verbosity=Diagnostic
+    - pwsh: .\build.ps1 --target=CI --verbosity=Diagnostic
 
 cache:
-    - 'tools -> build.config,setup.cake,.build/sonarcloud.cake'
-    - '.dotnet -> build.config'
+    - 'tools -> .config/dotnet-tools.json,setup.cake,.build/sonarcloud.cake'

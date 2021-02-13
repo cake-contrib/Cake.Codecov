@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks Condition="'$(OS)' != 'Unix'">netcoreapp2.1;net461</TargetFrameworks>
-    <TargetFrameworks Condition="'$(OS)' == 'Unix'">netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks Condition="'$(OS)' != 'Unix'">net50;netcoreapp2.1;net461</TargetFrameworks>
+    <TargetFrameworks Condition="'$(OS)' == 'Unix'">net50;netcoreapp2.1</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AppVeyor.TestLogger" Version="2.0.0" />
-    <PackageReference Include="Cake.Testing" Version="0.38.4" />
+    <PackageReference Include="Cake.Testing" Version="1.0.0" />
     <PackageReference Include="coverlet.msbuild" Version="2.9.0">
     <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     <PrivateAssets>all</PrivateAssets>

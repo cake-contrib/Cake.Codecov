@@ -1,0 +1,21 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#ffe05c",
+        "activityBar.activeBorder": "#5a1700",
+        "activityBar.foreground": "#5a1700",
+        "activityBar.inactiveForeground": "#995700",
+        "activityBarBadge.background": "#534741",
+        "activityBarBadge.foreground": "#ffffff",
+        "titleBar.activeBackground": "#995700",
+        "titleBar.inactiveBackground": "#99570099",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveForeground": "#e7e7e799",
+        "statusBar.background": "#995700",
+        "statusBarItem.hoverBackground": "#cc7400",
+        "statusBar.foreground": "#e7e7e7"
+    },
+    "peacock.color": "#995700",
+    "omnisharp.enableRoslynAnalyzers": true,
+    "omnisharp.enableEditorConfigSupport": true,
+    "powershell.codeFormatting.addWhitespaceAroundPipe": true
+}

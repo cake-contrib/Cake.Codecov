@@ -8,14 +8,14 @@
         <Description>Cake addin that extends Cake with the ability to use Codecov (.NET Edition).</Description>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Codecov.xml</DocumentationFile>
         <NeutralLanguage>en-GB</NeutralLanguage>
-        <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+        <TargetFrameworks>net50;netstandard2.0;net461</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <!-- Package information -->
     <PropertyGroup>
         <Authors>Larz White;Kim Nordmo;Cake Contributors</Authors>
         <IncludeSymbols>true</IncludeSymbols>
-        <PackageIcon>cake-contrib-small.png</PackageIcon>
+        <PackageIcon>icon.png</PackageIcon>
         <PackageIconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics@49c3b71def749b86416d773f1ead0c0da2d590ea/png/cake-contrib-medium.png</PackageIconUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/cake-contrib/Cake.Codecov</PackageProjectUrl>
@@ -28,22 +28,27 @@
     </PropertyGroup>
     <ItemGroup>
         <AdditionalFiles Include="stylecop.json" />
-        <None Include="..\..\graphics\cake-contrib\png\cake-contrib-small.png">
-            <Pack>True</Pack>
-            <PackagePath></PackagePath>
-        </None>
     </ItemGroup>
     <!-- Package References -->
     <ItemGroup>
-        <PackageReference Include="Cake.Core" Version="0.33.0" PrivateAssets="All" />
+        <PackageReference Include="Cake.Addin.Analyzer" Version="0.1.1">
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Cake.Core" Version="1.0.0" PrivateAssets="All" />
+        <PackageReference Include="CakeContrib.Guidelines" Version="0.2.0" PrivateAssets="All" />
         <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" PrivateAssets="All" />
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
+        <PackageReference Include="Roslynator.Analyzers" Version="3.0.0">
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
         <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
         <!-- The following reference is only needed to build the library
         for the .NET 4.6 Framewark -->
-        <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" Condition="'$(TargetFramework)'=='net46'" PrivateAssets="all" />
+        <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" Condition="'$(TargetFramework)'=='net461'" PrivateAssets="all" />
     </ItemGroup>
 </Project>

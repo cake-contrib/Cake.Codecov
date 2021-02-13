@@ -1,21 +1,24 @@
-#load "nuget:https://f.feedz.io/wormiecorp/packages/nuget?package=Cake.Recipe&version=2.0.0-unstable0244&prerelease"
+#load nuget:?package=Cake.Recipe&version=2.1.0
+#tool nuget:?package=NuGet.CommandLine&version=5.7.0 // Workaround necessary due to incompatibility with GHA nuget
 
-Environment.SetVariableNames(
-    coverallsRepoTokenVariable: "_WE_DO_NOT_WANT_COVERALLS_TO_RUN"
-);
+Environment.SetVariableNames();
 
 BuildParameters.SetParameters(
-                            context: Context,
-                            buildSystem: BuildSystem,
-                            sourceDirectoryPath: "./Source",
-                            title: "Cake.Codecov",
-                            repositoryOwner: "cake-contrib",
-                            repositoryName: "Cake.Codecov",
-                            appVeyorAccountName: "cakecontrib",
+	                        context: Context,
+	                        buildSystem: BuildSystem,
+	                        sourceDirectoryPath: "./Source",
+	                        title: "Cake.Codecov",
+	                        repositoryOwner: "cake-contrib",
+	                        repositoryName: "Cake.Codecov",
+	                        appVeyorAccountName: "cakecontrib",
                             shouldRunDotNetCorePack: true,
                             shouldGenerateDocumentation: false,
                             shouldRunCodecov: true,
-                            shouldRunGitVersion: true);
+                            shouldRunCoveralls: false,
+                            shouldUseDeterministicBuilds: true,
+                            shouldUseTargetFrameworkPath: false,
+                            preferredBuildAgentOperatingSystem: PlatformFamily.Linux,
+                            preferredBuildProviderType: BuildProviderType.GitHubActions);
 
 BuildParameters.PrintParameters(Context);
 
@@ -30,11 +33,11 @@ ToolSettings.SetToolSettings(
                             testCoverageFilter: "+[Cake.Codecov]*");
 
 // Tasks we want to override
-((CakeTask)BuildParameters.Tasks.UploadCodecovReportTask.Task).Actions.Clear();
+/*((CakeTask)BuildParameters.Tasks.UploadCodecovReportTask.Task).Actions.Clear();
 BuildParameters.Tasks.UploadCodecovReportTask
     .IsDependentOn("DotNetCore-Pack")
-    .Does(() => RequireTool(BuildParameters.IsDotNetCoreBuild ? ToolSettings.CodecovGlobalTool : ToolSettings.CodecovTool, () => {
-        var nugetPkg = $"nuget:file://{MakeAbsolute(BuildParameters.Paths.Directories.NuGetPackages)}?package=Cake.Codecov&version={BuildParameters.Version.SemVersion}&prerelease";
+    .Does<BuildVersion>((version) => RequireTool(BuildParameters.IsDotNetCoreBuild ? ToolSettings.CodecovGlobalTool : ToolSettings.CodecovTool, () => {
+        var nugetPkg = $"nuget:file://{MakeAbsolute(BuildParameters.Paths.Directories.NuGetPackages)}?package=Cake.Codecov&version={version.SemVersion}&prerelease";
         Information("PATH: " + nugetPkg);
 
         var coverageFilter = BuildParameters.Paths.Directories.TestCoverage + "/coverlet/*.xml";
@@ -42,10 +45,10 @@ BuildParameters.Tasks.UploadCodecovReportTask
 
         var environmentVariables = new Dictionary<string, string>();
 
-        if (BuildParameters.Version != null && !string.IsNullOrEmpty(BuildParameters.Version.FullSemVersion) && BuildParameters.IsRunningOnAppVeyor)
+        if (version != null && !string.IsNullOrEmpty(version.FullSemVersion) && BuildParameters.BuildProvider.SupportsTokenlessCodecov)
         {
             var buildVersion = string.Format("{0}.build.{1}",
-                BuildParameters.Version.FullSemVersion,
+                version.FullSemVersion,
                 BuildSystem.AppVeyor.Environment.Build.Number);
             environmentVariables.Add("APPVEYOR_BUILD_VERSION", buildVersion);
         }
@@ -60,14 +63,6 @@ Codecov(new CodecovSettings {{
 
         RequireAddin(script, environmentVariables);
     })
-);
-
-// Enable drafting a release when running on the master branch
-if (BuildParameters.IsRunningOnAppVeyor &&
-    BuildParameters.IsMainRepository && BuildParameters.BranchType == BranchType.Master && !BuildParameters.IsTagged)
-{
-    BuildParameters.Tasks.ContinuousIntegrationTask.IsDependentOn("Create-Release-Notes");
-}
-
+);*/
 
 Build.RunDotNetCore();

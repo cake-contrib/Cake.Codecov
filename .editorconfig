@@ -17,6 +17,9 @@ end_of_line = CRLF
 [*.{sh,DotSettings}]
 end_of_line = LF
 
+[*.{yml,yaml}]
+indent_size = 2
+
 [*.md]
 indent_size = 2
 trim_trailing_whitespace = false
