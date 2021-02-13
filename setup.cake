@@ -16,9 +16,7 @@ BuildParameters.SetParameters(
                             shouldRunCodecov: true,
                             shouldRunCoveralls: false,
                             shouldUseDeterministicBuilds: true,
-                            shouldUseTargetFrameworkPath: false,
-                            preferredBuildAgentOperatingSystem: PlatformFamily.Linux,
-                            preferredBuildProviderType: BuildProviderType.GitHubActions);
+                            shouldUseTargetFrameworkPath: false);
 
 BuildParameters.PrintParameters(Context);
 
@@ -33,7 +31,7 @@ ToolSettings.SetToolSettings(
                             testCoverageFilter: "+[Cake.Codecov]*");
 
 // Tasks we want to override
-/*((CakeTask)BuildParameters.Tasks.UploadCodecovReportTask.Task).Actions.Clear();
+((CakeTask)BuildParameters.Tasks.UploadCodecovReportTask.Task).Actions.Clear();
 BuildParameters.Tasks.UploadCodecovReportTask
     .IsDependentOn("DotNetCore-Pack")
     .Does<BuildVersion>((version) => RequireTool(BuildParameters.IsDotNetCoreBuild ? ToolSettings.CodecovGlobalTool : ToolSettings.CodecovTool, () => {
@@ -63,6 +61,6 @@ Codecov(new CodecovSettings {{
 
         RequireAddin(script, environmentVariables);
     })
-);*/
+);
 
 Build.RunDotNetCore();
