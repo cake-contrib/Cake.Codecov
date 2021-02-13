@@ -1,4 +1,4 @@
-#load nuget:https://ci.appveyor.com/nuget/cake-recipe?package=Cake.Recipe&version=2.0.0-alpha0456&prerelease
+#load nuget:?package=Cake.Recipe&version=2.1.0
 
 Environment.SetVariableNames();
 
