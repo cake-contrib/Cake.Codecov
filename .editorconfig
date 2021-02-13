@@ -17,7 +17,7 @@ end_of_line = CRLF
 [*.{sh,DotSettings}]
 end_of_line = LF
 
-[*.yml]
+[*.{yml,yaml}]
 indent_size = 2
 
 [*.md]
