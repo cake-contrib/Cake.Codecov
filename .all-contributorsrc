@@ -81,6 +81,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "augustoproiete",
+      "name": "C. Augusto Proiete",
+      "avatar_url": "https://avatars.githubusercontent.com/u/177608?v=4",
+      "profile": "https://augustoproiete.net",
+      "contributions": [
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -95,5 +104,6 @@
       "description": "Ideas, Planning, & Feedback",
       "link": "<%= options.repoHost %>/<%= options.projectOwner %>/<%= options.projectName %>/issues?q=author%3A<%= contributor.login %>"
     }
-  }
+  },
+  "skipCi": true
 }
