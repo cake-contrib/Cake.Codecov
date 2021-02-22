@@ -32,8 +32,8 @@
     <!-- Package References -->
     <ItemGroup>
         <PackageReference Include="Cake.Addin.Analyzer" Version="0.1.1">
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-          <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="Cake.Core" Version="1.0.0" PrivateAssets="All" />
         <PackageReference Include="CakeContrib.Guidelines" Version="0.2.0" PrivateAssets="All" />
@@ -43,8 +43,8 @@
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="Roslynator.Analyzers" Version="3.0.0">
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-          <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
         <!-- The following reference is only needed to build the library
