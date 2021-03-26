@@ -239,7 +239,7 @@ namespace Cake.Codecov.Tests
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().Be(@"--disable-network");
+            result.Args.Should().Be("--disable-network");
         }
 
         [Fact]
@@ -252,7 +252,7 @@ namespace Cake.Codecov.Tests
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().Be(@"--dump");
+            result.Args.Should().Be("--dump");
         }
 
         [Fact]
@@ -330,7 +330,7 @@ namespace Cake.Codecov.Tests
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().Be(@"--no-color");
+            result.Args.Should().Be("--no-color");
         }
 
         [Fact]
@@ -356,7 +356,7 @@ namespace Cake.Codecov.Tests
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().Be(@"--required");
+            result.Args.Should().Be("--required");
         }
 
         [Fact]
@@ -376,7 +376,7 @@ namespace Cake.Codecov.Tests
         public void Should_Set_Slug()
         {
             // Given
-            var fixture = new CodecovRunnerFixture { Settings = { Slug = @"owner/repo" } };
+            var fixture = new CodecovRunnerFixture { Settings = { Slug = "owner/repo" } };
 
             // When
             var result = fixture.Run();
@@ -389,7 +389,7 @@ namespace Cake.Codecov.Tests
         public void Should_Set_Tag()
         {
             // Given
-            var fixture = new CodecovRunnerFixture { Settings = { Tag = @"v1.0.0" } };
+            var fixture = new CodecovRunnerFixture { Settings = { Tag = "v1.0.0" } };
 
             // When
             var result = fixture.Run();
@@ -402,7 +402,7 @@ namespace Cake.Codecov.Tests
         public void Should_Set_Token()
         {
             // Given
-            var fixture = new CodecovRunnerFixture { Settings = { Token = @"00000000-0000-0000-0000-000000000000" } };
+            var fixture = new CodecovRunnerFixture { Settings = { Token = "00000000-0000-0000-0000-000000000000" } };
 
             // When
             var result = fixture.Run();
@@ -434,7 +434,7 @@ namespace Cake.Codecov.Tests
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().Be(@"--verbose");
+            result.Args.Should().Be("--verbose");
         }
     }
 }

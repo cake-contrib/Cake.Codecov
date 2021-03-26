@@ -48,7 +48,7 @@ namespace Cake.Codecov.Tests
                     _context.Codecov(File);
                 }
             }
-            else if (Files != null && Files.Any())
+            else if (Files?.Any() == true)
             {
                 if (!string.IsNullOrEmpty(Token))
                 {
