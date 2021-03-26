@@ -1,20 +1,16 @@
-﻿$ErrorActionPreference = 'Stop'
+$ErrorActionPreference = 'Stop'
 
-function Run([string[]]$arguments) {
-	$proc = Start-Process "dotnet" $arguments -PassThru -NoNewWindow
-	Wait-Process -InputObject $proc
+Set-Location -LiteralPath $PSScriptRoot
 
-	if ($proc.ExitCode -ne 0) {
-		"Non-Zero exit code ($($proc.ExitCode)), exiting..."
-        exit $proc.ExitCode
-	}
-}
+$env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE = '1'
+$env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
+$env:DOTNET_NOLOGO = '1'
 
-Run tool, restore
+dotnet tool restore
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-Run cake, setup.cake, --bootstrap
+dotnet cake setup.cake --bootstrap
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-$arguments = @("cake"; "setup.cake")
-$arguments += @($args)
-
-Run $arguments
+dotnet cake setup.cake @args
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
