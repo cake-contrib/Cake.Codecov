@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 namespace Cake.Codecov.Internals
 {
     /// <summary>
-    /// Responsible for detecting the current platfrom we are running on. Also used for unit test.
+    /// Responsible for detecting the current platform we are running on. Also used for unit test.
     /// </summary>
     /// <remarks>This class is not to be consumed publically.</remarks>
     internal class PlatformDetector : IPlatformDetector

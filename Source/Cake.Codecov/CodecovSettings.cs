@@ -22,7 +22,7 @@ namespace Cake.Codecov
     /// </summary>
     public sealed class CodecovSettings : ToolSettings
     {
-        private readonly IDictionary<string, object> arguments = new Dictionary<string, object>();
+        private readonly IDictionary<string, object> _arguments = new Dictionary<string, object>();
 
         /// <summary>
         /// Gets or sets a property specifing the branch name.
@@ -255,11 +255,11 @@ namespace Cake.Codecov
         }
 
         internal IDictionary<string, object> GetAllArguments()
-            => arguments;
+            => _arguments;
 
         private TValue GetValue<TValue>(string key, TValue defaultValue = default)
         {
-            if (arguments.TryGetValue(key, out var objValue) && objValue is TValue value)
+            if (_arguments.TryGetValue(key, out var objValue) && objValue is TValue value)
             {
                 return value;
             }
@@ -271,15 +271,15 @@ namespace Cake.Codecov
         {
             if (value is string stringValue && string.IsNullOrWhiteSpace(stringValue))
             {
-                if (arguments.ContainsKey(key))
+                if (_arguments.ContainsKey(key))
                 {
-                    arguments.Remove(key);
+                    _arguments.Remove(key);
                 }
 
                 return;
             }
 
-            arguments[key] = value;
+            _arguments[key] = value;
         }
     }
 }
