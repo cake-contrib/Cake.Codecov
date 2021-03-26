@@ -8,7 +8,7 @@
         <Description>Cake addin that extends Cake with the ability to use Codecov (.NET Edition).</Description>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Codecov.xml</DocumentationFile>
         <NeutralLanguage>en-GB</NeutralLanguage>
-        <TargetFrameworks>net50;netstandard2.0;net461</TargetFrameworks>
+        <TargetFrameworks>net5.0;netstandard2.0;net461</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <!-- Package information -->
@@ -20,7 +20,7 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/cake-contrib/Cake.Codecov</PackageProjectUrl>
         <PackageReleaseNotes>All release notes for Cake.Codecov can be found on the GitHub site - $(PackageProjectUrl)/releases/tag/$(Version).</PackageReleaseNotes>
-        <PackageTags>Cake Script;Build;Codecov;coverage;report</PackageTags>
+        <PackageTags>cake;cake-addin;addin;cake-script;script;cake-build;build;codecov;coverage;report</PackageTags>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>$(PackageProjectUrl).git</RepositoryUrl>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
