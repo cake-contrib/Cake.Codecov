@@ -1,5 +1,11 @@
+// <copyright file="CodecovSettings.cs" company="Cake Contrib">
+// Copyright (c) 2017-2021 Larz White, Kim J. Nordmo and Cake Contrib.
+// Licensed under the MIT license. See LICENSE in the project.
+// </copyright>
+
 using System;
 using System.Collections.Generic;
+
 using Cake.Core.IO;
 using Cake.Core.Tooling;
 

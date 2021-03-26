@@ -2,7 +2,23 @@
     "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
     "settings": {
         "orderingRules": {
-            "usingDirectivesPlacement": "outsideNamespace"
+            "usingDirectivesPlacement": "outsideNamespace",
+            "blankLinesBetweenUsingGroups": "require"
+        },
+        "layoutRules": {
+            "newlineAtEndOfFile": "require"
+        },
+        "documentationRules": {
+            "companyName": "Cake Contrib",
+            "copyrightText": "Copyright (c) {year} {users} and {companyName}.\nLicensed under the {licenseName} license. See {licenseFile} in the project.",
+            "xmlHeader": true,
+            "variables": {
+                "year": "2017-2021",
+                "users": "Larz White, Kim J. Nordmo",
+                "licenseName": "MIT",
+                "licenseFile": "LICENSE"
+            },
+            "documentInternalElements": false
         }
     }
 }

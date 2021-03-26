@@ -70,7 +70,7 @@ namespace Cake.Codecov.Tests
                 "somethingelse.dsa"
             };
 
-            var token = "My-Really-Awesome-Token";
+            const string token = "My-Really-Awesome-Token";
             fixture.Files = files;
             fixture.Token = token;
 
@@ -91,7 +91,7 @@ namespace Cake.Codecov.Tests
                 Settings = null
             };
 
-            var file = "./BUildArtifacts/TestResults/OpenCover.xml";
+            const string file = "./BUildArtifacts/TestResults/OpenCover.xml";
             fixture.File = file;
 
             var result = fixture.Run();
@@ -108,8 +108,8 @@ namespace Cake.Codecov.Tests
                 Settings = null
             };
 
-            var file = "./BUildArtifacts/TestResults/OpenCover.xml";
-            var token = "My-Still-Awesome-Token";
+            const string file = "./BUildArtifacts/TestResults/OpenCover.xml";
+            const string token = "My-Still-Awesome-Token";
             fixture.File = file;
             fixture.Token = token;
 

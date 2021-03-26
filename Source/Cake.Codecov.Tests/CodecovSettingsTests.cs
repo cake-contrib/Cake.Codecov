@@ -30,10 +30,9 @@ namespace Cake.Codecov.Tests
         public void Should_Set_Branch_Value()
         {
             // Given
-            var expected = "next";
+            const string expected = "next";
             var settings = new CodecovSettings
             {
-
                 // When
                 Branch = expected
             };
@@ -46,10 +45,9 @@ namespace Cake.Codecov.Tests
         public void Should_Set_Build_Value()
         {
             // Given
-            var expected = "543";
+            const string expected = "543";
             var settings = new CodecovSettings
             {
-
                 // When
                 Build = expected
             };
@@ -62,10 +60,9 @@ namespace Cake.Codecov.Tests
         public void Should_Set_Commit_Value()
         {
             // Given
-            var expected = "02eecc9564a8f89ddf13cf63b615cf08adee23cc";
+            const string expected = "02eecc9564a8f89ddf13cf63b615cf08adee23cc";
             var settings = new CodecovSettings
             {
-
                 // When
                 Commit = expected
             };
@@ -80,7 +77,6 @@ namespace Cake.Codecov.Tests
             // Given
             var settings = new CodecovSettings
             {
-
                 // When
                 DisableNetwork = true
             };
@@ -95,7 +91,6 @@ namespace Cake.Codecov.Tests
             // Given
             var settings = new CodecovSettings
             {
-
                 // When
                 Dump = true
             };
@@ -111,7 +106,6 @@ namespace Cake.Codecov.Tests
             var expected = new[] { "APPVEYOR_IMAGE", "TESTING" };
             var settings = new CodecovSettings
             {
-
                 // When
                 Envs = expected
             };
@@ -142,7 +136,6 @@ namespace Cake.Codecov.Tests
             var expected = new[] { "file1.txt", "file2.xml" };
             var settings = new CodecovSettings
             {
-
                 // When
                 Files = expected
             };
@@ -155,10 +148,9 @@ namespace Cake.Codecov.Tests
         public void Should_Set_Flags_Value()
         {
             // Given
-            var expected = "Integration";
+            const string expected = "Integration";
             var settings = new CodecovSettings
             {
-
                 // When
                 Flags = expected
             };
@@ -171,10 +163,9 @@ namespace Cake.Codecov.Tests
         public void Should_Set_Name_Value()
         {
             // Given
-            var expected = "Some Name";
+            const string expected = "Some Name";
             var settings = new CodecovSettings
             {
-
                 // When
                 Name = expected
             };
@@ -189,7 +180,6 @@ namespace Cake.Codecov.Tests
             // Given
             var settings = new CodecovSettings
             {
-
                 // When
                 NoColor = true
             };
@@ -202,10 +192,9 @@ namespace Cake.Codecov.Tests
         public void Should_Set_Pr_Value()
         {
             // Given
-            var expected = "512";
+            const string expected = "512";
             var settings = new CodecovSettings
             {
-
                 // When
                 Pr = expected
             };
@@ -220,7 +209,6 @@ namespace Cake.Codecov.Tests
             // Given
             var settings = new CodecovSettings
             {
-
                 // When
                 Required = true
             };
@@ -236,7 +224,6 @@ namespace Cake.Codecov.Tests
             var expected = (DirectoryPath)"C:/test/root";
             var settings = new CodecovSettings
             {
-
                 // When
                 Root = expected
             };
@@ -249,10 +236,9 @@ namespace Cake.Codecov.Tests
         public void Should_Set_Slug_Value()
         {
             // Given
-            var expected = "my-test-slug";
+            const string expected = "my-test-slug";
             var settings = new CodecovSettings
             {
-
                 // When
                 Slug = expected
             };
@@ -265,10 +251,9 @@ namespace Cake.Codecov.Tests
         public void Should_Set_Tag_Value()
         {
             // Given
-            var expected = "v1.0.0";
+            const string expected = "v1.0.0";
             var settings = new CodecovSettings
             {
-
                 // When
                 Tag = expected
             };
@@ -284,7 +269,6 @@ namespace Cake.Codecov.Tests
             var expected = Guid.NewGuid().ToString();
             var settings = new CodecovSettings
             {
-
                 // When
                 Token = expected
             };
@@ -300,7 +284,6 @@ namespace Cake.Codecov.Tests
             var expected = new Uri("https://localhost.com/test/server");
             var settings = new CodecovSettings
             {
-
                 // When
                 Url = expected
             };
@@ -315,7 +298,6 @@ namespace Cake.Codecov.Tests
             // Given
             var settings = new CodecovSettings
             {
-
                 // When
                 Verbose = true,
             };
