@@ -15,23 +15,23 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
+        os: [windows-2019, ubuntu-18.04, macos-10.15]
     env:
-        AZURE_PASSWORD: ${{ secrets.AZURE_PASSWORD }}
-        AZURE_SOURCE: ${{ secrets.AZURE_SOURCE }}
-        AZURE_USER: ${{ secrets.AZURE_USER }}
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        GITTER_ROOM_ID: ${{ secrets.GITTER_ROOM_ID }}
-        GITTER_TOKEN: ${{ secrets.GITTER_TOKEN }}
-        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-        NUGET_SOURCE: "https://api.nuget.org/v3/index.json"
-        TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-        TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-        TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
-        TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
-        WYAM_ACCESS_TOKEN: ${{ secrets.WYAM_ACCESS_TOKEN }}
-        WYAM_DEPLOY_BRANCH: "gh-pages"
-        WYAM_DEPLOY_REMOTE: ${{ github.event.repository.html_url }}
+      AZURE_PASSWORD: ${{ secrets.AZURE_PASSWORD }}
+      AZURE_SOURCE: ${{ secrets.AZURE_SOURCE }}
+      AZURE_USER: ${{ secrets.AZURE_USER }}
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      GITTER_ROOM_ID: ${{ secrets.GITTER_ROOM_ID }}
+      GITTER_TOKEN: ${{ secrets.GITTER_TOKEN }}
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      NUGET_SOURCE: "https://api.nuget.org/v3/index.json"
+      TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+      TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+      TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
+      TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
+      WYAM_ACCESS_TOKEN: ${{ secrets.WYAM_ACCESS_TOKEN }}
+      WYAM_DEPLOY_BRANCH: "gh-pages"
+      WYAM_DEPLOY_REMOTE: ${{ github.event.repository.html_url }}
 
     steps:
       - uses: actions/checkout@v2.3.4
@@ -53,8 +53,8 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-            name: ${{ matrix.os }}-artifacts
-            path: |
-                BuildArtifacts/report.html
-                BuildArtifacts/packages/**/*.nupkg
-                BuildArtifacts/**/coverlet/*.xml
+          name: ${{ matrix.os }}-artifacts
+          path: |
+            BuildArtifacts/report.html
+            BuildArtifacts/packages/**/*.nupkg
+            BuildArtifacts/**/coverlet/*.xml
