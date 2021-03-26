@@ -8,5 +8,5 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DOTNET_NOLOGO=1
 
 dotnet tool restore
-datnet cake setup.cake --bootstrap
+dotnet cake setup.cake --bootstrap
 dotnet cake setup.cake "$@"
