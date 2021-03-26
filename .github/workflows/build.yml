@@ -8,6 +8,8 @@ on:
       - "release/**"
       - "hotfix/**"
       - "feature/**"
+    tags:
+      - "*"
   pull_request:
 
 jobs:

@@ -16,7 +16,9 @@ BuildParameters.SetParameters(
                             shouldRunCodecov: true,
                             shouldRunCoveralls: false,
                             shouldUseDeterministicBuilds: true,
-                            shouldUseTargetFrameworkPath: false);
+                            shouldUseTargetFrameworkPath: false,
+                            preferredBuildAgentOperatingSystem: PlatformFamily.Linux,
+                            preferredBuildProviderType: BuildProviderType.GitHubActions);
 
 BuildParameters.PrintParameters(Context);
 
