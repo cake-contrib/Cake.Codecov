@@ -1,5 +1,11 @@
+// <copyright file="CodecovSettings.cs" company="Cake Contrib">
+// Copyright (c) 2017-2021 Larz White, Kim J. Nordmo and Cake Contrib.
+// Licensed under the MIT license. See LICENSE in the project.
+// </copyright>
+
 using System;
 using System.Collections.Generic;
+
 using Cake.Core.IO;
 using Cake.Core.Tooling;
 
@@ -16,7 +22,7 @@ namespace Cake.Codecov
     /// </summary>
     public sealed class CodecovSettings : ToolSettings
     {
-        private readonly IDictionary<string, object> _arguments = new Dictionary<string, object>();
+        private readonly IDictionary<string, object> arguments = new Dictionary<string, object>();
 
         /// <summary>
         /// Gets or sets a property specifing the branch name.
@@ -249,11 +255,11 @@ namespace Cake.Codecov
         }
 
         internal IDictionary<string, object> GetAllArguments()
-            => _arguments;
+            => arguments;
 
         private TValue GetValue<TValue>(string key, TValue defaultValue = default)
         {
-            if (_arguments.TryGetValue(key, out var objValue) && objValue is TValue value)
+            if (arguments.TryGetValue(key, out var objValue) && objValue is TValue value)
             {
                 return value;
             }
@@ -265,15 +271,15 @@ namespace Cake.Codecov
         {
             if (value is string stringValue && string.IsNullOrWhiteSpace(stringValue))
             {
-                if (_arguments.ContainsKey(key))
+                if (arguments.ContainsKey(key))
                 {
-                    _arguments.Remove(key);
+                    arguments.Remove(key);
                 }
 
                 return;
             }
 
-            _arguments[key] = value;
+            arguments[key] = value;
         }
     }
 }

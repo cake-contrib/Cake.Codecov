@@ -1,3 +1,8 @@
+// <copyright file="CodecovRunner.cs" company="Cake Contrib">
+// Copyright (c) 2017-2021 Larz White, Kim J. Nordmo and Cake Contrib.
+// Licensed under the MIT license. See LICENSE in the project.
+// </copyright>
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +16,7 @@ namespace Cake.Codecov
 {
     internal sealed class CodecovRunner : Tool<CodecovSettings>
     {
-        private readonly IPlatformDetector _platformDetector;
+        private readonly IPlatformDetector platformDetector;
 
         internal CodecovRunner(IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools)
             : this(new PlatformDetector(), fileSystem, environment, processRunner, tools)
@@ -21,7 +26,7 @@ namespace Cake.Codecov
         internal CodecovRunner(IPlatformDetector platformDetector, IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools)
             : base(fileSystem, environment, processRunner, tools)
         {
-            _platformDetector = platformDetector ?? throw new ArgumentNullException(nameof(platformDetector));
+            this.platformDetector = platformDetector ?? throw new ArgumentNullException(nameof(platformDetector));
         }
 
         internal void Run(CodecovSettings settings)
@@ -36,12 +41,12 @@ namespace Cake.Codecov
 
         protected override IEnumerable<string> GetToolExecutableNames()
         {
-            if (_platformDetector.IsLinuxPlatform())
+            if (platformDetector.IsLinuxPlatform())
             {
                 yield return "linux-x64/codecov";
                 yield return "codecov";
             }
-            else if (_platformDetector.IsOsxPlatform())
+            else if (platformDetector.IsOsxPlatform())
             {
                 yield return "osx-x64/codecov";
                 yield return "codecov";

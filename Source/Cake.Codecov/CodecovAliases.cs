@@ -1,4 +1,10 @@
+// <copyright file="CodecovAliases.cs" company="Cake Contrib">
+// Copyright (c) 2017-2021 Larz White, Kim J. Nordmo and Cake Contrib.
+// Licensed under the MIT license. See LICENSE in the project.
+// </copyright>
+
 using System.Collections.Generic;
+
 using Cake.Core;
 using Cake.Core.Annotations;
 using JetBrains.Annotations;
