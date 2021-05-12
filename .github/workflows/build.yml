@@ -45,7 +45,7 @@ jobs:
           path: tools
           key: ${{ runner.os }}-tools-${{ hashFiles('setup.cake') }}
       - name: Build Addin
-        uses: cake-build/cake-action@v1
+        uses: cake-build/cake-action@v1.3.0
         with:
           script-path: setup.cake
           target: CI
