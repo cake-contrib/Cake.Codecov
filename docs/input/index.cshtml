@@ -1,5 +1,5 @@
 ---
-Title: Cake.Recipe
+Title: Cake.CodeCov
 NoSidebar: true
 NoContainer: true
 NoGutter: true
@@ -7,10 +7,124 @@ NoGutter: true
 
 <div class="jumbotron">
     <div class="container">
-        <h1 class="display-4">Cake.CodeCov</h1>
-        <p>
-            A <a href="https://cakebuild.net">Cake</a> addin that extends Cake with the ability to use <a href="https://codecov.io">Codecov</a> (<a href="https://github.com/codecov/codecov-exe">.NET Edition</a>).
-        </p>
-        <a class="btn btn-primary btn-lg" href="@Context.GetLink("api")" role="button">Learn more</a>
+        <div class="row">
+            <div class="col-xs-10 col-xs-push-1">
+                <h1>Cake.CodeCov</h1>
+                <p>
+                    A <a href="https://cakebuild.net">Cake</a> addin that extends Cake with the ability to use <a
+                        href="https://codecov.io">Codecov</a> (<a href="https://github.com/codecov/codecov-exe">.NET
+                        Edition</a>).
+                </p>
+                <a class="btn btn-primary btn-lg" href="@Context.GetLink("api")" role="button">Learn more</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-10 col-xs-push-1">
+            <h2 class="no-anchor"><span class="glyphicon glyphicon-wrench logo-small"></span> Usage</h2>
+            <p>
+                In order to use this addin, add to your Cake script
+            </p>
+            <pre><code>#tool nuget:?package=Codecov
+#addin nuget:?package=Cake.Codecov</code></pre>
+            <p>
+                Then use one of the following snippets to upload your coverage report to Codecov.
+            </p>
+            <p>
+                NOTE: Starting for codecov version <a href="https://github.com/codecov/codecov-exe/releases/tag/1.6.0">1.6.0</a> globbing patterns are also supported for file paths.
+            </p>
+            <pre><code>Task("Upload-Coverage")
+    .Does(() =>
+{
+    // Upload a coverage report.
+    Codecov("coverage.xml");
+});</code></pre>
+            <pre><code>Task("Upload-Coverage")
+    .Does(() =>
+{
+    // Upload coverage reports.
+    Codecov(new[] { "coverage1.xml", "coverage2.xml" });
+});</code></pre>
+            <pre><code>Task("Upload-Coverage")
+    .Does(() =>
+{
+    // Upload a coverage report by providing the Codecov upload token.
+    Codecov("coverage.xml", "00000000-0000-0000-0000-000000000000");
+});</code></pre>
+            <pre><code>Task("Upload-Coverage")
+    .Does(() =>
+{
+    // Upload coverage reports by providing the Codecov upload token.
+    Codecov(new[] { "coverage1.xml", "coverage2.xml" }, "00000000-0000-0000-0000-000000000000");
+});</code></pre>
+            <pre><code>Task("Upload-Coverage")
+    .Does(() =>
+{
+    // Upload a coverage report using the CodecovSettings.
+    Codecov(new CodecovSettings {
+        Files = new[] { "coverage.xml" },
+        Token = "00000000-0000-0000-0000-000000000000",
+        Flags = "ut"
+    });
+});</code></pre>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-10 col-xs-push-1">
+            <h2 class="no-anchor">
+                <span class="glyphicon glyphicon-star logo-small"></span> Codecov Tips
+            </h2>
+            <ol>
+                <li>
+                    The <a href="https://github.com/codecov/codecov-exe">codecov-exe</a> uploader defined in <code>#tool nuget:?package=Codecov</code> currently supports Windows, OSX and
+                    Linux builds. (Note: There also the <a href="https://www.nuget.org/packages/Codecov.Tool">Codecov.Tool</a> utility)
+                </li>
+                <li>
+                    CI Services like AppVeyor and Travis CI do not require a Codecov upload token. Any other provider would
+                    need one to be specified on the command line or through an Environment variable called <code>CODECOV_TOKEN</code>.
+                    See all supported CI providers in the <a href="https://github.com/codecov/codecov-exe#ci-providers">codecov-exe documentation</a>.
+                </li>
+                <li>
+                    Using Codecov with TeamCity MAY require configuration. Please refer to the <a href="https://github.com/codecov/codecov-exe#ci-providers">codecov-exe documentation</a>.
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-10 col-xs-push-1">
+            <h2 class="no-anchor">
+                <span class="glyphicon glyphicon-alert logo-small"></span> Known Issues
+            </h2>
+            <p>
+                Coverage report upload fails when using gitversion (or other tools that change the appveyor build
+                version) 
+            </p>
+            <p>
+              <span class="glyphicon glyphicon-thumbs-up"></span> Workaround: Add the following in your Upload Coverage task (only needed if gitversion is run on
+                the same call as the uploading of coverage reports in appveyor.yml)
+            </p>
+            <pre><code>Task("Upload-Coverage")
+    .Does(() =>
+{
+    // The logic may differ from what you actually need.
+    // This way is for the use with GitVersion.
+    // Basically, the buildVersion format needs to be exactly the
+    // same as the build version shown on appveyor when the build is done.
+    var buildVersion = string.Format("{0}.build.{1}",
+        variableThatStores_GitVersion_FullSemVer,
+        BuildSystem.AppVeyor.Environment.Build.Number
+    );
+    var settings = new CodecovSettings {
+        Files = new[] { "coverage.xml" },
+        EnvironmentVariables = new Dictionary<string,string> { { "APPVEYOR_BUILD_VERSION", buildVersion } }
+    };
+    Codecov(settings);
+});</code></pre>
+
+        </div>
     </div>
 </div>
