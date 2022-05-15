@@ -1,10 +1,11 @@
+using System;
+using System.Runtime.InteropServices;
 using Cake.Codecov.Internals;
 using Cake.Codecov.Tests.Attributes;
 using Cake.Core;
 using Cake.Testing;
 using FluentAssertions;
 using Moq;
-using System;
 using Xunit;
 
 namespace Cake.Codecov.Tests
@@ -107,6 +108,7 @@ namespace Cake.Codecov.Tests
 
         [Theory]
         [InlineData("linux-x64/codecov")]
+        [InlineData("codecov-linux")]
         [InlineData("codecov")]
         public void Should_Find_Codecov_Runner_If_Tool_Path_Not_Provided_On_Linux(string path)
         {
@@ -129,6 +131,7 @@ namespace Cake.Codecov.Tests
 
         [Theory]
         [InlineData("linux-x64/codecov")]
+        [InlineData("codecov-macos")]
         [InlineData("codecov")]
         public void Should_Find_Codecov_Runner_If_Tool_Path_Not_Provided_On_osx(string path)
         {
@@ -217,6 +220,32 @@ namespace Cake.Codecov.Tests
         }
 
         [Fact]
+        public void Should_EnableClean()
+        {
+            // Given
+            var fixture = new CodecovRunnerFixture { Settings = { CleanReports = true } };
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().Be(@"--clean");
+        }
+
+        [Fact]
+        public void Should_Not_Enable_Clean()
+        {
+            // Given
+            var fixture = new CodecovRunnerFixture { Settings = { CleanReports = false } };
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().BeNullOrEmpty();
+        }
+
+        [Fact]
         public void Should_Set_Commit()
         {
             // Given
@@ -229,8 +258,8 @@ namespace Cake.Codecov.Tests
             result.Args.Should().Be(@"--sha ""603e02d40093d0649cfa787d846ae4ccc038085c""");
         }
 
-        [Fact]
-        public void Should_Enable_DisableNetwork()
+        [Fact, Obsolete("Remove test in v2.0.0")]
+        public void Should_Enable_DryRun_When_DisableNetwork_Is_Set()
         {
             // Given
             var fixture = new CodecovRunnerFixture { Settings = { DisableNetwork = true } };
@@ -239,11 +268,11 @@ namespace Cake.Codecov.Tests
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().Be("--disable-network");
+            result.Args.Should().Be("--dryRun");
         }
 
-        [Fact]
-        public void Should_Enable_Dump()
+        [Fact, Obsolete("Remove test in v2.0.0")]
+        public void Should_Enable_DryRun_When_Dump_Is_Set()
         {
             // Given
             var fixture = new CodecovRunnerFixture { Settings = { Dump = true } };
@@ -252,7 +281,20 @@ namespace Cake.Codecov.Tests
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().Be("--dump");
+            result.Args.Should().Be("--dryRun");
+        }
+
+        [Fact]
+        public void Should_Enable_DryRun()
+        {
+            // Given
+            var fixture = new CodecovRunnerFixture { Settings = { DryRun = true } };
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().Be("--dryRun");
         }
 
         [Fact]
@@ -308,6 +350,32 @@ namespace Cake.Codecov.Tests
         }
 
         [Fact]
+        public void Should_Enable_GCov()
+        {
+            // Given
+            var fixture = new CodecovRunnerFixture { Settings = { EnableGcovSupport = true } };
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().Be(@"--gcov");
+        }
+
+        [Fact]
+        public void Should_Not_Enable_GCov()
+        {
+            // Given
+            var fixture = new CodecovRunnerFixture { Settings = { EnableGcovSupport = false } };
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().BeNullOrEmpty();
+        }
+
+        [Fact]
         public void Should_Set_Name()
         {
             // Given
@@ -316,12 +384,12 @@ namespace Cake.Codecov.Tests
             // When
             var result = fixture.Run();
 
-            // Then
+            // ThenRæ
             result.Args.Should().Be(@"--name ""custom name""");
         }
 
-        [Fact]
-        public void Should_Enable_NoColor()
+        [Fact, Obsolete("Remove test in v2.0.0")]
+        public void Should_Ignore_NoColor()
         {
             // Given
             var fixture = new CodecovRunnerFixture { Settings = { NoColor = true } };
@@ -330,7 +398,7 @@ namespace Cake.Codecov.Tests
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().Be("--no-color");
+            result.Args.Should().BeNullOrEmpty();
         }
 
         [Fact]
@@ -346,8 +414,8 @@ namespace Cake.Codecov.Tests
             result.Args.Should().Be(@"--pr ""1""");
         }
 
-        [Fact]
-        public void Should_Enable_Required()
+        [Fact, Obsolete("Remove in v2.0.0")]
+        public void Should_Enable_NonZero_When_Required_Is_Set()
         {
             // Given
             var fixture = new CodecovRunnerFixture { Settings = { Required = true } };
@@ -356,11 +424,37 @@ namespace Cake.Codecov.Tests
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().Be("--required");
+            result.Args.Should().Be("--nonZero");
         }
 
         [Fact]
-        public void Should_Set_Root()
+        public void Should_Enable_NonZero()
+        {
+            // Given
+            var fixture = new CodecovRunnerFixture { Settings = { NonZero = true } };
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().Be("--nonZero");
+        }
+
+        [Fact]
+        public void Should_Sete_ParentSha()
+        {
+            // Given
+            var fixture = new CodecovRunnerFixture { Settings = { ParentSha = "some-kind-of-sha" } };
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().Be(@"--parent ""some-kind-of-sha""");
+        }
+
+        [Fact, Obsolete("Remove test in v2.0.0")]
+        public void Should_Set_RootDirectory_When_Root_Is_Set()
         {
             // Given
             var fixture = new CodecovRunnerFixture { Settings = { Root = @".\working" } };
@@ -369,7 +463,35 @@ namespace Cake.Codecov.Tests
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().Be(@"--root ""working""");
+            result.Args.Should().Be(@"--rootDir ""working""");
+        }
+
+        [Fact]
+        public void Should_Set_RootDirectory()
+        {
+            // Given
+            var fixture = new CodecovRunnerFixture { Settings = { RootDirectory = @".\working" } };
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().Be(@"--rootDir ""working""");
+        }
+
+        [Fact]
+        public void Should_Set_SearchDirectory()
+        {
+            var directory = Environment.CurrentDirectory.Replace("\\", "/");
+
+            // Given
+            var fixture = new CodecovRunnerFixture { Settings = { SearchDirectory = Environment.CurrentDirectory } };
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().Be(@$"--dir ""{directory}""");
         }
 
         [Fact]
@@ -383,6 +505,32 @@ namespace Cake.Codecov.Tests
 
             // Then
             result.Args.Should().Be(@"--slug ""owner/repo""");
+        }
+
+        [Fact]
+        public void Should_Enable_Changelog()
+        {
+            // Given
+            var fixture = new CodecovRunnerFixture { Settings = { ShowChangelog = true } };
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().Be("--changelog");
+        }
+
+        [Fact]
+        public void Should_Not_Enable_Changelog()
+        {
+            // Given
+            var fixture = new CodecovRunnerFixture { Settings = { ShowChangelog = false } };
+
+            // When
+            var result = fixture.Run();
+
+            // Then
+            result.Args.Should().BeNullOrEmpty();
         }
 
         [Fact]

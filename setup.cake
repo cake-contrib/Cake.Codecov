@@ -1,5 +1,6 @@
 #load nuget:?package=Cake.Recipe&version=3.1.1
 #tool nuget:?package=NuGet.CommandLine&version=5.7.0 // Workaround necessary due to incompatibility with GHA nuget
+#tool nuget:?package=CodecovUploader&version=0.7.3
 
 Environment.SetVariableNames();
 
@@ -25,6 +26,7 @@ BuildParameters.PrintParameters(Context);
 ToolSettings.SetToolSettings(
                             context: Context,
                             testCoverageFilter: "+[Cake.Codecov]*");
+ToolSettings.SetToolPreprocessorDirectives(codecovTool: "#tool nuget:?package=CodecovUploader&version=0.7.3");
 
 // Tasks we want to override
 // ((CakeTask)BuildParameters.Tasks.UploadCodecovReportTask.Task).Actions.Clear();
