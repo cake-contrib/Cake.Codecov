@@ -1,10 +1,10 @@
+using System;
 using Cake.Codecov.Internals;
 using Cake.Codecov.Tests.Attributes;
 using Cake.Core;
 using Cake.Testing;
 using FluentAssertions;
 using Moq;
-using System;
 using Xunit;
 
 namespace Cake.Codecov.Tests

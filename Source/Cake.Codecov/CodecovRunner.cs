@@ -43,11 +43,13 @@ namespace Cake.Codecov
         {
             if (_platformDetector.IsLinuxPlatform())
             {
+                yield return "codecov-linux";
                 yield return "linux-x64/codecov";
                 yield return "codecov";
             }
             else if (_platformDetector.IsOsxPlatform())
             {
+                yield return "codecov-macos";
                 yield return "osx-x64/codecov";
                 yield return "codecov";
             }
