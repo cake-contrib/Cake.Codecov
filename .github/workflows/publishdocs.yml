@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.ref }}
       - name: Cache Tools
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v3.0.3
         with:
           path: tools
           key: ${{ runner.os }}-doc-tools-${{ hashFiles('setup.cake') }}
