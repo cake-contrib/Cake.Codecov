@@ -15,8 +15,6 @@
     <PropertyGroup>
         <Authors>Larz White;Kim Nordmo;Cake Contributors</Authors>
         <IncludeSymbols>true</IncludeSymbols>
-        <PackageIcon>icon.png</PackageIcon>
-        <PackageIconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics@49c3b71def749b86416d773f1ead0c0da2d590ea/png/cake-contrib-medium.png</PackageIconUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/cake-contrib/Cake.Codecov</PackageProjectUrl>
         <PackageReleaseNotes>All release notes for Cake.Codecov can be found on the GitHub site - $(PackageProjectUrl)/releases/tag/$(Version).</PackageReleaseNotes>
@@ -36,7 +34,7 @@
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="Cake.Core" Version="1.0.0" PrivateAssets="All" />
-        <PackageReference Include="CakeContrib.Guidelines" Version="1.1.1" PrivateAssets="All" />
+        <PackageReference Include="CakeContrib.Guidelines" Version="1.4.0" PrivateAssets="All" />
         <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" PrivateAssets="All" />
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
