@@ -4,13 +4,13 @@
 Environment.SetVariableNames();
 
 BuildParameters.SetParameters(
-	                        context: Context,
-	                        buildSystem: BuildSystem,
-	                        sourceDirectoryPath: "./Source",
-	                        title: "Cake.Codecov",
-	                        repositoryOwner: "cake-contrib",
-	                        repositoryName: "Cake.Codecov",
-	                        appVeyorAccountName: "cakecontrib",
+                            context: Context,
+                            buildSystem: BuildSystem,
+                            sourceDirectoryPath: "./Source",
+                            title: "Cake.Codecov",
+                            repositoryOwner: "cake-contrib",
+                            repositoryName: "Cake.Codecov",
+                            appVeyorAccountName: "cakecontrib",
                             shouldRunDotNetCorePack: true,
                             shouldGenerateDocumentation: false,
                             shouldRunCodecov: true,
