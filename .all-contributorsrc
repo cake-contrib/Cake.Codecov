@@ -91,6 +91,15 @@
         "doc",
         "ideas"
       ]
+    },
+    {
+      "login": "nils-a",
+      "name": "Nils Andresen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/349188?v=4",
+      "profile": "https://blog.nils-andresen.de",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -106,5 +115,7 @@
       "link": "<%= options.repoHost %>/<%= options.projectOwner %>/<%= options.projectName %>/issues?q=author%3A<%= contributor.login %>"
     }
   },
-  "skipCi": true
+  "skipCi": true,
+  "commitType": "docs",
+  "commitConvention": "angular"
 }
