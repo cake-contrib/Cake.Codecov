@@ -7,8 +7,8 @@ on:
 
 jobs:
   super_linter:
-    name: List with Super Linter
-    runs-on: ubuntu-18.04
+    name: Lint with Super Linter
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v2.3.4
