@@ -13,7 +13,7 @@ BuildParameters.SetParameters(
                             appVeyorAccountName: "cakecontrib",
                             shouldRunDotNetCorePack: true,
                             shouldGenerateDocumentation: false,
-                            shouldRunCodecov: true,
+                            shouldRunCodecov: false,
                             shouldRunCoveralls: false,
                             shouldUseDeterministicBuilds: true,
                             shouldUseTargetFrameworkPath: false,
