@@ -41,7 +41,7 @@ jobs:
       - name: Fetch all tags and branches
         run: git fetch --prune --unshallow
       - name: Cache Tools
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v4.0.2
         with:
           path: tools
           key: ${{ runner.os }}-tools-${{ hashFiles('setup.cake') }}
