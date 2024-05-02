@@ -32,7 +32,6 @@ pull_request_rules:
     actions:
       merge:
         method: squash
-        strict: smart
   - name: thank user and refer them to add themself as contributor
     conditions:
       - merged
