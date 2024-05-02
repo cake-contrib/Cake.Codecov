@@ -43,5 +43,5 @@ jobs:
           script-path: setup.cake
           target: releasenotes
           verbosity: Diagnostic
-          cake-version: 1.3.0
+          cake-version: tool-manifest
           cake-bootstrap: true

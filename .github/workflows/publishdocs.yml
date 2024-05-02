@@ -29,5 +29,4 @@ jobs:
           script-path: setup.cake
           target: Force-Publish-Documentation
           verbosity: Diagnostic
-          cake-version: 1.3.0
-          cake-bootstrap: true
+          cake-version: tool-manifest

@@ -59,8 +59,7 @@ jobs:
           script-path: setup.cake
           target: CI
           verbosity: Diagnostic
-          cake-version: 1.3.0
-          cake-bootstrap: true
+          cake-version: tool-manifest
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
