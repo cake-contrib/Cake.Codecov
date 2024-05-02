@@ -5,7 +5,7 @@
         <CodeAnalysisRuleSet>Cake.Codecov.ruleset</CodeAnalysisRuleSet>
         <Company>Cake Contributors</Company>
         <Copyright>Copyright © 2017-$([System.DateTime]::Today.Year) - Cake Contributors</Copyright>
-        <Description>Cake addin that extends Cake with the ability to use Codecov (.NET Edition).</Description>
+        <Description>Cake addin that extends Cake with the ability to use the official Codecov CLI.</Description>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Codecov.xml</DocumentationFile>
         <NeutralLanguage>en-GB</NeutralLanguage>
         <TargetFrameworks>net5.0;netstandard2.0;net461</TargetFrameworks>
@@ -23,9 +23,11 @@
         <RepositoryUrl>$(PackageProjectUrl).git</RepositoryUrl>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <Title>$(AssemblyTitle)</Title>
+        <PackageReadmeFile>docs/README.md</PackageReadmeFile>
     </PropertyGroup>
     <ItemGroup>
         <AdditionalFiles Include="stylecop.json" />
+        <None Include="../../README.md" Pack="true" PackagePath="docs/"/>
     </ItemGroup>
     <!-- Package References -->
     <ItemGroup>
