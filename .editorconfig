@@ -24,6 +24,10 @@ indent_size = 2
 indent_size = 2
 trim_trailing_whitespace = false
 
+[.all-contributorsrc]
+indent_style = unset
+indent_size = unset
+
 # C# files
 [*.cs]
 #### .NET Coding Conventions ####
