@@ -1,0 +1,10 @@
+{
+    "absolute": true,
+    "ignore": [
+        "Source/*.Tests/**"
+    ],
+    "reporters": [
+        "consoleFull"
+    ],
+    "threshold": 0.1
+}
