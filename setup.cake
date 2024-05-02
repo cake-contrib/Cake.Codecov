@@ -43,7 +43,7 @@ BuildParameters.Tasks.UploadCodecovReportTask
 
         var environmentVariables = new Dictionary<string, string>();
 
-        if (version != null && !string.IsNullOrEmpty(version.FullSemVersion) && (BuildParameters.BuildProvider.SupportsTokenlessCodecov || !string.IsNullOrEmpty(BuildParameters.Codecov.RepoToken)))
+        if (version != null && !string.IsNullOrEmpty(version.FullSemVersion))
         {
             var buildVersion = string.Format("{0}.build.{1}",
                 version.FullSemVersion,
@@ -54,18 +54,14 @@ BuildParameters.Tasks.UploadCodecovReportTask
         if (!string.IsNullOrEmpty(BuildParameters.Codecov.RepoToken))
         {
             environmentVariables.Add("CODECOV_TOKEN", BuildParameters.Codecov.RepoToken);
-            environmentVariables.Add("CODECOV_REQUIRED", "true");
-        }
-        else if (BuildParameters.BuildProvider.SupportsTokenlessCodecov)
-        {
-            environmentVariables.Add("CODECOV_REQUIRED", "true");
         }
 
         var script = string.Format(@"#addin ""{0}""
 Codecov(new CodecovSettings {{
     Files = new[] {{ ""{1}"" }},
     RootDirectory = ""{2}"",
-    NonZero = EnvironmentVariable<bool>(""CODECOV_REQUIRED"", false),
+    NonZero = true,
+    DryRun  = !HasEnvironmentVariable(""CODECOV_TOKEN"")
 }});",
             nugetPkg, coverageFilter, BuildParameters.RootDirectoryPath);
 
