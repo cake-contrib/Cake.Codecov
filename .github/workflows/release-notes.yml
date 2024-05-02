@@ -24,6 +24,7 @@ jobs:
         with:
           # codecov in cake.recipe needs 2.1!
           dotnet-version: |
+            2.1.x
             5.0.x
       - name: Set up git version
         if: ${{ !contains(github.ref, '/hotfix/') && !contains(github.ref, '/release/') }}
