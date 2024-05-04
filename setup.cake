@@ -64,8 +64,7 @@ BuildParameters.Tasks.UploadCodecovReportTask
 Codecov(new CodecovSettings {{
     Files = new[] {{ ""{1}"" }},
     RootDirectory = ""{2}"",
-    NonZero = true,
-    DryRun  = string.IsNullOrEmpty(EnvironmentVariable(""CODECOV_TOKEN""))
+    NonZero = !string.IsNullOrEmpty(EnvironmentVariable(""CODECOV_TOKEN""))
 }});",
             nugetPkg, coverageFilter, BuildParameters.RootDirectoryPath);
 
