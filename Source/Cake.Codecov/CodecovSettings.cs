@@ -62,35 +62,6 @@ namespace Cake.Codecov
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to toggle functionalities. (1)
-        /// --disable-network. Disable uploading the file network.
-        /// </summary>
-        /// <value>
-        /// A value indicating whether to toggle functionalities. (1) --disable-network. Disable
-        /// uploading the file network.
-        /// </value>
-        /// <remarks>
-        /// This function has been made a no-op, and do not have any functionality.
-        /// </remarks>
-        [Obsolete("This property have been deprecated, and will be removed in v2.0.0. Use property 'DryRun' instead.")]
-        public bool DisableNetwork
-        {
-            get => DryRun;
-            set => DryRun = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether to don't upload and dump to stdin.
-        /// </summary>
-        /// <value>A value indicating whether to don't upload and dump to stdin.</value>
-        [Obsolete("This property have been deprecated, and will be removed in v2.0.0. Use property 'DryRun' instead.")]
-        public bool Dump
-        {
-            get => DryRun;
-            set => DryRun = value;
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether files should be uploaded to Codecov.
         /// </summary>
         /// <value>A value indicating whether files should be uploaded to Codecov.</value>
@@ -178,17 +149,6 @@ namespace Cake.Codecov
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to remove color from the output.
-        /// </summary>
-        /// <value>A value indicating whether to remove color from the output.</value>
-        [Obsolete("This property have been deprecated, and will be removed in v2.0.0.")]
-        public bool NoColor
-        {
-            get => false;
-            set { }
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether Codecov should exit with a non-zero exit code on errors.
         /// </summary>
         /// <value>Whether Codecov should exit with a non-zero exit code on errors.</value>
@@ -219,31 +179,6 @@ namespace Cake.Codecov
         {
             get => GetValue<string>("--pr");
             set => SetValue("--pr", value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether to exit with 1 if not successful. Default will
-        /// Exit with 0.
-        /// </summary>
-        /// <value>
-        /// A value indicating whether to exit with 1 if not successful. Default will Exit with 0.
-        /// </value>
-        [Obsolete("This property have been deprecated, and will be removed in v2.0.0. Use property 'NonZero' instead.")]
-        public bool Required
-        {
-            get => NonZero;
-            set => NonZero = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value used when not in git project to identify project root directory.
-        /// </summary>
-        /// <value>A value used when not in git project to identify project root directory.</value>
-        [Obsolete("This property have been deprecated, and will be removed in v2.0.0. Use property 'RootDirectory' instead.")]
-        public DirectoryPath Root
-        {
-            get => RootDirectory;
-            set => RootDirectory = value;
         }
 
         /// <summary>
