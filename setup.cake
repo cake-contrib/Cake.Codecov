@@ -38,7 +38,8 @@ ToolSettings.SetToolPreprocessorDirectives(
 BuildParameters.Tasks.UploadCodecovReportTask
     .IsDependentOn("DotNetCore-Pack")
     .Does<BuildVersion>((version) => RequireTool(ToolSettings.CodecovTool, () => {
-        var nugetPkg = $"nuget:file://{MakeAbsolute(BuildParameters.Paths.Directories.NuGetPackages)}?package=Cake.Codecov&version={version.SemVersion}&prerelease";
+        // var nugetPkg =  $"nuget:file://{MakeAbsolute(BuildParameters.Paths.Directories.NuGetPackages)}?package=Cake.Codecov&version={version.SemVersion}&prerelease";
+        var nugetPkg = "nuget:?package=Cake.Codecov&version=1.1.0"; // We are unable to dogfood the library until Cake.Recipe supports Cake 2.0.0
         Information("PATH: " + nugetPkg);
 
         var coverageFilter = BuildParameters.Paths.Directories.TestCoverage + "/coverlet/*.xml";
