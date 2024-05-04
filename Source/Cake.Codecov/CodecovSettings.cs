@@ -5,20 +5,14 @@
 
 using System;
 using System.Collections.Generic;
-
 using Cake.Core.IO;
 using Cake.Core.Tooling;
 
 namespace Cake.Codecov
 {
     /// <summary>
-    /// Contains settings used by <see cref="CodecovRunner"/>. See <see
-    /// href="https://github.com/codecov/codecov-exe/blob/master/Source/Codecov/Program/CommandLineOptions.cs">CommandLineOptions</see>
-    /// or run.
-    /// <code>
-    /// .\codecov.exe --help
-    /// </code>
-    /// for more details.
+    /// Contains settings used by <see cref="CodecovRunner"/> for the new Codecov Uploader provided
+    /// by their team.
     /// </summary>
     public sealed class CodecovSettings : ToolSettings
     {
@@ -45,6 +39,19 @@ namespace Cake.Codecov
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether Discovered coverage reports should be moved to
+        /// the trash.
+        /// </summary>
+        /// <value>
+        /// A value indicating whether Discovered coverage reports should be moved to the trash.
+        /// </value>
+        public bool CleanReports
+        {
+            get => GetValue<bool>("--clean");
+            set => SetValue("--clean", value);
+        }
+
+        /// <summary>
         /// Gets or sets a property specifing the commit sha.
         /// </summary>
         /// <value>A property specifing the commit sha.</value>
@@ -55,27 +62,52 @@ namespace Cake.Codecov
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to toggle functionalities. (1) --disable-network.
-        /// Disable uploading the file network.
+        /// Gets or sets a value indicating whether to toggle functionalities. (1)
+        /// --disable-network. Disable uploading the file network.
         /// </summary>
         /// <value>
         /// A value indicating whether to toggle functionalities. (1) --disable-network. Disable
         /// uploading the file network.
         /// </value>
+        /// <remarks>
+        /// This function has been made a no-op, and do not have any functionality.
+        /// </remarks>
+        [Obsolete("This property have been deprecated, and will be removed in v2.0.0. Use property 'DryRun' instead.")]
         public bool DisableNetwork
         {
-            get => GetValue<bool>("--disable-network");
-            set => SetValue("--disable-network", value);
+            get => DryRun;
+            set => DryRun = value;
         }
 
         /// <summary>
         /// Gets or sets a value indicating whether to don't upload and dump to stdin.
         /// </summary>
         /// <value>A value indicating whether to don't upload and dump to stdin.</value>
+        [Obsolete("This property have been deprecated, and will be removed in v2.0.0. Use property 'DryRun' instead.")]
         public bool Dump
         {
-            get => GetValue<bool>("--dump");
-            set => SetValue("--dump", value);
+            get => DryRun;
+            set => DryRun = value;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether files should be uploaded to Codecov.
+        /// </summary>
+        /// <value>A value indicating whether files should be uploaded to Codecov.</value>
+        public bool DryRun
+        {
+            get => GetValue<bool>("--dryRun");
+            set => SetValue("--dryRun", value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether Codecov should run with gcov support or not.
+        /// </summary>
+        /// <value>A value indicating whether Codecov should run with gcov support or not.</value>
+        public bool EnableGcovSupport
+        {
+            get => GetValue<bool>("--gcov");
+            set => SetValue("--gcov", value);
         }
 
         /// <summary>
@@ -95,9 +127,7 @@ namespace Cake.Codecov
         /// <summary>
         /// Gets or sets a value specifying which flags should be toggled on/off.
         /// </summary>
-        /// <value>
-        /// A value specifying which features should be toggled on or off.
-        /// </value>
+        /// <value>A value specifying which features should be toggled on or off.</value>
         public IEnumerable<string> Features
         {
             get => GetValue<IEnumerable<string>>("--feature");
@@ -112,9 +142,7 @@ namespace Cake.Codecov
         /// A value specifing the target file(s) to upload. (1) -f 'path/to/file'. Only upload this
         /// file. (2) -f 'path/to/file1 path/to/file2'. Only upload these files.
         /// </value>
-        /// <remarks>
-        ///   Globbing in file paths are supported, but not when path starts with './'.
-        /// </remarks>
+        /// <remarks>Globbing in file paths are supported, but not when path starts with './'.</remarks>
         public IEnumerable<string> Files
         {
             get => GetValue<IEnumerable<string>>("--file");
@@ -153,10 +181,34 @@ namespace Cake.Codecov
         /// Gets or sets a value indicating whether to remove color from the output.
         /// </summary>
         /// <value>A value indicating whether to remove color from the output.</value>
+        [Obsolete("This property have been deprecated, and will be removed in v2.0.0.")]
         public bool NoColor
         {
-            get => GetValue<bool>("--no-color");
-            set => SetValue("--no-color", value);
+            get => false;
+            set { }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether Codecov should exit with a non-zero exit code on errors.
+        /// </summary>
+        /// <value>Whether Codecov should exit with a non-zero exit code on errors.</value>
+        public bool NonZero
+        {
+            get => GetValue<bool>("--nonZero");
+            set => SetValue("--nonZero", value);
+        }
+
+        /// <summary>
+        /// Gets or sets the commit SHA of the parent for which you are uploading coverage. If not
+        /// set, the parent will be determined using the API of your repository provider. When using
+        /// the repository provider's API, the parent is determined via finding the closest ancestor
+        /// of the commit.
+        /// </summary>
+        /// <value>The commit SHA of the parent for which you are uploading coverage.</value>
+        public string ParentSha
+        {
+            get => GetValue<string>("--parent");
+            set => SetValue("--parent", value);
         }
 
         /// <summary>
@@ -176,25 +228,57 @@ namespace Cake.Codecov
         /// <value>
         /// A value indicating whether to exit with 1 if not successful. Default will Exit with 0.
         /// </value>
+        [Obsolete("This property have been deprecated, and will be removed in v2.0.0. Use property 'NonZero' instead.")]
         public bool Required
         {
-            get => GetValue<bool>("--required");
-            set => SetValue("--required", value);
+            get => NonZero;
+            set => NonZero = value;
         }
 
         /// <summary>
         /// Gets or sets a value used when not in git project to identify project root directory.
         /// </summary>
         /// <value>A value used when not in git project to identify project root directory.</value>
+        [Obsolete("This property have been deprecated, and will be removed in v2.0.0. Use property 'RootDirectory' instead.")]
         public DirectoryPath Root
         {
-            get => GetValue<string>("--root");
-            set => SetValue("--root", value?.ToString());
+            get => RootDirectory;
+            set => RootDirectory = value;
         }
 
         /// <summary>
-        /// Gets or sets a value specifing the owner/repo slug used instead of the private repo token
-        /// in Enterprise. (option) Set environment variable CODECOV_SLUG=:owner/:repo.
+        /// Gets or sets the root directory when it is not a git repository.
+        /// </summary>
+        /// <value>The root directory when it is not a git repository.</value>
+        public DirectoryPath RootDirectory
+        {
+            get => GetValue<DirectoryPath>("--rootDir");
+            set => SetValue("--rootDir", value);
+        }
+
+        /// <summary>
+        /// Gets or sets the directory to use when searching for coverage reports.
+        /// </summary>
+        /// <value>The directory to use when searching for coverage reports.</value>
+        public DirectoryPath SearchDirectory
+        {
+            get => GetValue<DirectoryPath>("--dir");
+            set => SetValue("--dir", value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the a link should be displayed to the current changelog.
+        /// </summary>
+        /// <value>A value indicating whether a link should be showed to the changelog.</value>
+        public bool ShowChangelog
+        {
+            get => GetValue<bool>("--changelog");
+            set => SetValue("--changelog", value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value specifing the owner/repo slug used instead of the private repo
+        /// token in Enterprise. (option) Set environment variable CODECOV_SLUG=:owner/:repo.
         /// </summary>
         /// <value>
         /// A value specifing the owner/repo slug used instead of the private repo token in
@@ -217,8 +301,8 @@ namespace Cake.Codecov
         }
 
         /// <summary>
-        /// Gets or sets a value specifing the private repository token. (option) set the enviornment
-        /// variable CODECOV_TOKEN-uuid. (1) -t @/path/to/token_file. (2) -t uuid.
+        /// Gets or sets a value specifing the private repository token. (option) set the
+        /// enviornment variable CODECOV_TOKEN-uuid. (1) -t @/path/to/token_file. (2) -t uuid.
         /// </summary>
         /// <value>
         /// A value specifing the private repository token. (option) set the enviornment variable
@@ -257,6 +341,17 @@ namespace Cake.Codecov
         internal IDictionary<string, object> GetAllArguments()
             => _arguments;
 
+        /// <summary>
+        /// Gets a value that is already set in the underlying dictionary. If no value is set, then
+        /// <paramref name="defaultValue"/> is returned instead.
+        /// </summary>
+        /// <typeparam name="TValue">The type of the value expected in the dictionary.</typeparam>
+        /// <param name="key">The key or name of the value.</param>
+        /// <param name="defaultValue">The default value if no value is found.</param>
+        /// <returns>
+        /// The found value with the specified <paramref name="key"/>, or the <paramref
+        /// name="defaultValue"/> i no value is found.
+        /// </returns>
         private TValue GetValue<TValue>(string key, TValue defaultValue = default)
         {
             if (_arguments.TryGetValue(key, out var objValue) && objValue is TValue value)
@@ -267,6 +362,12 @@ namespace Cake.Codecov
             return defaultValue;
         }
 
+        /// <summary>
+        /// Sets the specified <paramref name="value"/> in the underlying dictionary using the
+        /// specified <paramref name="key"/>.
+        /// </summary>
+        /// <param name="key">The key to use when adding/updating the dictionary.</param>
+        /// <param name="value">The value to insert.</param>
         private void SetValue(string key, object value)
         {
             if (value is string stringValue && string.IsNullOrWhiteSpace(stringValue))

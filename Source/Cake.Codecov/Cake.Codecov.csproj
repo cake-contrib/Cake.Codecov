@@ -5,7 +5,7 @@
         <CodeAnalysisRuleSet>Cake.Codecov.ruleset</CodeAnalysisRuleSet>
         <Company>Cake Contributors</Company>
         <Copyright>Copyright © 2017-$([System.DateTime]::Today.Year) - Cake Contributors</Copyright>
-        <Description>Cake addin that extends Cake with the ability to use Codecov (.NET Edition).</Description>
+        <Description>Cake addin that extends Cake with the ability to use the official Codecov CLI.</Description>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Codecov.xml</DocumentationFile>
         <NeutralLanguage>en-GB</NeutralLanguage>
         <TargetFrameworks>net5.0;netstandard2.0;net461</TargetFrameworks>
@@ -15,8 +15,6 @@
     <PropertyGroup>
         <Authors>Larz White;Kim Nordmo;Cake Contributors</Authors>
         <IncludeSymbols>true</IncludeSymbols>
-        <PackageIcon>icon.png</PackageIcon>
-        <PackageIconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics@49c3b71def749b86416d773f1ead0c0da2d590ea/png/cake-contrib-medium.png</PackageIconUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/cake-contrib/Cake.Codecov</PackageProjectUrl>
         <PackageReleaseNotes>All release notes for Cake.Codecov can be found on the GitHub site - $(PackageProjectUrl)/releases/tag/$(Version).</PackageReleaseNotes>
@@ -25,9 +23,11 @@
         <RepositoryUrl>$(PackageProjectUrl).git</RepositoryUrl>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <Title>$(AssemblyTitle)</Title>
+        <PackageReadmeFile>docs/README.md</PackageReadmeFile>
     </PropertyGroup>
     <ItemGroup>
         <AdditionalFiles Include="stylecop.json" />
+        <None Include="../../README.md" Pack="true" PackagePath="docs/"/>
     </ItemGroup>
     <!-- Package References -->
     <ItemGroup>
@@ -36,13 +36,13 @@
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="Cake.Core" Version="1.0.0" PrivateAssets="All" />
-        <PackageReference Include="CakeContrib.Guidelines" Version="1.0.0" PrivateAssets="All" />
-        <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0">
+        <PackageReference Include="CakeContrib.Guidelines" Version="1.4.0" PrivateAssets="All" />
+        <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Roslynator.Analyzers" Version="3.1.0">
+        <PackageReference Include="Roslynator.Analyzers" Version="4.12.2">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>

@@ -8,6 +8,8 @@ on:
       - "release/**"
       - "hotfix/**"
       - "feature/**"
+    tags:
+      - "*"
   pull_request:
 
 jobs:
@@ -15,11 +17,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-2019, ubuntu-18.04, macos-10.15]
+        os: [windows-2022, ubuntu-22.04, macos-13]
     env:
       AZURE_PASSWORD: ${{ secrets.AZURE_PASSWORD }}
       AZURE_SOURCE: ${{ secrets.AZURE_SOURCE }}
       AZURE_USER: ${{ secrets.AZURE_USER }}
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       GITTER_ROOM_ID: ${{ secrets.GITTER_ROOM_ID }}
       GITTER_TOKEN: ${{ secrets.GITTER_TOKEN }}
@@ -38,18 +41,26 @@ jobs:
       - name: Fetch all tags and branches
         run: git fetch --prune --unshallow
       - name: Cache Tools
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v4.0.2
         with:
           path: tools
           key: ${{ runner.os }}-tools-${{ hashFiles('setup.cake') }}
+      - name: install .NET versions
+        uses: actions/setup-dotnet@v3.2.0
+        with:
+          # codecov in cake.recipe needs 2.1!
+          # version used for GitReleaseManager needs .NET Core 3.0
+          dotnet-version: |
+            2.1.x
+            5.0.x
+            6.0.x
       - name: Build Addin
-        uses: cake-build/cake-action@v1
+        uses: cake-build/cake-action@v2
         with:
           script-path: setup.cake
           target: CI
           verbosity: Diagnostic
-          cake-version: 0.38.5
-          cake-bootstrap: true
+          cake-version: tool-manifest
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:

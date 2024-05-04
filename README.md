@@ -3,11 +3,12 @@
 [![All Contributors][all-contributorsimage]](#contributors)
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/cakecontrib/cake-codecov/master.svg)](https://ci.appveyor.com/project/cakecontrib/cake-codecov/branch/master)
 [![NuGet](https://img.shields.io/nuget/v/Cake.Codecov.svg)](https://www.nuget.org/packages/Cake.Codecov/)
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?maxAge=2592000)](https://gitter.im/cake-contrib/Lobby)
 [![Codecov](https://img.shields.io/codecov/c/github/cake-contrib/Cake.Codecov.svg)](https://codecov.io/gh/cake-contrib/Cake.Codecov)
-[![SonarCloud Quality Gate](https://img.shields.io/sonar/quality_gate/cake-contrib_Cake.Codecov?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=cake-contrib_Cake.Codecov)
 
-A [Cake](https://cakebuild.net) addin that extends Cake with the ability to use [Codecov](https://codecov.io) ([.NET Edition](https://github.com/codecov/codecov-exe)).
+A [Cake](https://cakebuild.net) addin that extends Cake with the ability to use
+the official
+[Codecov](https://docs.codecov.com/docs/codecov-uploader#using-the-cli) CLI that
+have been repackaged as a NuGet package named [CodecovUploader](https://www.nuget.org/packages/CodecovUploader).
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -27,14 +28,11 @@ A [Cake](https://cakebuild.net) addin that extends Cake with the ability to use 
 In order to use this addin, add to your Cake script
 
 ```csharp
-#tool nuget:?package=Codecov
-#addin nuget:?package=Cake.Codecov
+#tool nuget:?package=CodecovUploader
+#addin nuget:?package=Cake.Codecov // Any versions before 1.1.0 is not guaranteed to work anymore.
 ```
 
 Then use one of the following snippets to upload your coverage report to Codecov.
-
-*NOTE: Starting for codecov version [1.6.0](https://github.com/codecov/codecov-exe/releases/tag/1.6.0) globbing
-patterns are also supported for file paths.*
 
 ```csharp
 Task("Upload-Coverage")
@@ -87,13 +85,14 @@ Task("Upload-Coverage")
 
 ## Documentation
 
-Documentation for the addin can be found on the [Cake Website](http://cakebuild.net/dsl/codecov/).
+Documentation for the addin can be found on the [Cake Website](https://cakebuild.net/extensions/cake-codecov/).
 
 ## Codecov Tips
 
-1. The [codecov-exe](https://github.com/codecov/codecov-exe) uploader defined in `#tool nuget:?package=Codecov` currently supports Windows, OSX and Linux builds. (_Note: There also the [Codecov.Tool](https://www.nuget.org/packages/Codecov.Tool) utility)
-2. CI Services like AppVeyor and Travis CI do not require a Codecov upload token. Any other provider would need one to be specified on the command line or through an Environment variable called `CODECOV_TOKEN`. See all supported CI providers in the [codecov-exe documentation](https://github.com/codecov/codecov-exe#ci-providers)
-3. Using Codecov with TeamCity MAY require configuration. Please refer to the [codecov-exe documentation](https://github.com/codecov/codecov-exe#teamcity).
+1. While CI Service like GitHub Action, these workflows are likely to hit a rate
+   limit on Codecov. As such it is recommended to always pass in a repository or
+   global token when one is available.
+2. Do not set NonZero to `true` when running without a Codecov token.
 
 ## Questions
 
@@ -132,19 +131,22 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="https://www.linkedin.com/in/larz-white-5a8264108"><img src="https://avatars0.githubusercontent.com/u/6298611?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Larz White</b></sub></a><br /><a href="#maintenance-larzw" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://github.com/AdmiringWorm"><img src="https://avatars3.githubusercontent.com/u/1474648?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kim J. Nordmo</b></sub></a><br /><a href="#maintenance-AdmiringWorm" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="http://www.gep13.co.uk/blog"><img src="https://avatars3.githubusercontent.com/u/1271146?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gary Ewan Park</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/pulls?q=is%3Apr+reviewed-by%3Agep13" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/cake-contrib/Cake.Codecov/issues?q=author%3Agep13" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/vkbishnoi"><img src="https://avatars0.githubusercontent.com/u/8297727?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vishal Bishnoi</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/commits?author=vkbishnoi" title="Code">💻</a></td>
-    <td align="center"><a href="https://twitter.com/hereispascal"><img src="https://avatars1.githubusercontent.com/u/2190718?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pascal Berger</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/issues?q=author%3Apascalberger" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/twenzel"><img src="https://avatars2.githubusercontent.com/u/500376?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Toni Wenzel</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/issues?q=author%3Atwenzel" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="https://github.com/Jericho"><img src="https://avatars0.githubusercontent.com/u/112710?v=4?s=100" width="100px;" alt=""/><br /><sub><b>jericho</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/issues?q=author%3AJericho" title="Ideas, Planning, & Feedback">🤔</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/gitfool"><img src="https://avatars2.githubusercontent.com/u/750121?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sean Fausett</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/commits?author=gitfool" title="Code">💻</a></td>
-    <td align="center"><a href="https://augustoproiete.net"><img src="https://avatars.githubusercontent.com/u/177608?v=4?s=100" width="100px;" alt=""/><br /><sub><b>C. Augusto Proiete</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/commits?author=augustoproiete" title="Documentation">📖</a> <a href="https://github.com/cake-contrib/Cake.Codecov/issues?q=author%3Aaugustoproiete" title="Ideas, Planning, & Feedback">🤔</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/larz-white-5a8264108"><img src="https://avatars0.githubusercontent.com/u/6298611?v=4?s=100" width="100px;" alt="Larz White"/><br /><sub><b>Larz White</b></sub></a><br /><a href="#maintenance-larzw" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/AdmiringWorm"><img src="https://avatars3.githubusercontent.com/u/1474648?v=4?s=100" width="100px;" alt="Kim J. Nordmo"/><br /><sub><b>Kim J. Nordmo</b></sub></a><br /><a href="#maintenance-AdmiringWorm" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://www.gep13.co.uk/blog"><img src="https://avatars3.githubusercontent.com/u/1271146?v=4?s=100" width="100px;" alt="Gary Ewan Park"/><br /><sub><b>Gary Ewan Park</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/pulls?q=is%3Apr+reviewed-by%3Agep13" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/cake-contrib/Cake.Codecov/issues?q=author%3Agep13" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/vkbishnoi"><img src="https://avatars0.githubusercontent.com/u/8297727?v=4?s=100" width="100px;" alt="Vishal Bishnoi"/><br /><sub><b>Vishal Bishnoi</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/commits?author=vkbishnoi" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://twitter.com/hereispascal"><img src="https://avatars1.githubusercontent.com/u/2190718?v=4?s=100" width="100px;" alt="Pascal Berger"/><br /><sub><b>Pascal Berger</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/issues?q=author%3Apascalberger" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/twenzel"><img src="https://avatars2.githubusercontent.com/u/500376?v=4?s=100" width="100px;" alt="Toni Wenzel"/><br /><sub><b>Toni Wenzel</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/issues?q=author%3Atwenzel" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Jericho"><img src="https://avatars0.githubusercontent.com/u/112710?v=4?s=100" width="100px;" alt="jericho"/><br /><sub><b>jericho</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/issues?q=author%3AJericho" title="Ideas, Planning, & Feedback">🤔</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/gitfool"><img src="https://avatars2.githubusercontent.com/u/750121?v=4?s=100" width="100px;" alt="Sean Fausett"/><br /><sub><b>Sean Fausett</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/commits?author=gitfool" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://augustoproiete.net"><img src="https://avatars.githubusercontent.com/u/177608?v=4?s=100" width="100px;" alt="C. Augusto Proiete"/><br /><sub><b>C. Augusto Proiete</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/commits?author=augustoproiete" title="Documentation">📖</a> <a href="https://github.com/cake-contrib/Cake.Codecov/issues?q=author%3Aaugustoproiete" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://blog.nils-andresen.de"><img src="https://avatars.githubusercontent.com/u/349188?v=4?s=100" width="100px;" alt="Nils Andresen"/><br /><sub><b>Nils Andresen</b></sub></a><br /><a href="https://github.com/cake-contrib/Cake.Codecov/commits?author=nils-a" title="Code">💻</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->

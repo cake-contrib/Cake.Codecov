@@ -7,7 +7,7 @@ jobs:
   draft-pre-release:
     env:
       GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout the requested branch
@@ -15,19 +15,28 @@ jobs:
       - name: Fetch all tags and branches
         run: git fetch --prune --unshallow
       - name: Cache Tools
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v4.0.2
         with:
           path: tools
           key: ${{ runner.os }}-tools-${{ hashFiles('setup.cake') }}
+      - name: install .NET versions
+        uses: actions/setup-dotnet@v3.2.0
+        with:
+          # codecov in cake.recipe needs 2.1!
+          # version used for GitReleaseManager needs .NET Core 3.0
+          dotnet-version: |
+            2.1.x
+            5.0.x
+            6.0.x
       - name: Set up git version
         if: ${{ !contains(github.ref, '/hotfix/') && !contains(github.ref, '/release/') }}
-        uses: gittools/actions/gitversion/setup@v0.9.9
+        uses: gittools/actions/gitversion/setup@v1.1.1
         with:
           versionSpec: "5.x"
       - name: Run git version
         if: ${{ !contains(github.ref, '/hotfix/') && !contains(github.ref, '/release/') }}
         id: gitversion
-        uses: gittools/actions/gitversion/execute@v0.9.9
+        uses: gittools/actions/gitversion/execute@v1.1.1
       - name: Create release branch ${{ github.event.inputs.version }}
         if: ${{ steps.gitversion.outputs.majorMinorPatch }}
         run: git switch -c release/${{ steps.gitversion.outputs.majorMinorPatch }}

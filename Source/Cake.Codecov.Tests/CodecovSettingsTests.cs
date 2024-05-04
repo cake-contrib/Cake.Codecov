@@ -72,6 +72,20 @@ namespace Cake.Codecov.Tests
         }
 
         [Fact]
+        public void Should_Set_Clean_Value()
+        {
+            // Given
+            var settings = new CodecovSettings
+            {
+                // When
+                CleanReports = true
+            };
+
+            // Then
+            settings.CleanReports.Should().BeTrue();
+        }
+
+        [Fact, Obsolete("Remove test in v2.0.0")]
         public void Should_Set_DisableNetwork_Value()
         {
             // Given
@@ -85,7 +99,7 @@ namespace Cake.Codecov.Tests
             settings.DisableNetwork.Should().BeTrue();
         }
 
-        [Fact]
+        [Fact, Obsolete("Remove test in v2.0.0")]
         public void Should_Set_Dump_Value()
         {
             // Given
@@ -97,6 +111,20 @@ namespace Cake.Codecov.Tests
 
             // Then
             settings.Dump.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Should_Set_EnableGcovSupport_Value()
+        {
+            // Given
+            var settings = new CodecovSettings
+            {
+                // When
+                EnableGcovSupport = true
+            };
+
+            // Then
+            settings.EnableGcovSupport.Should().BeTrue();
         }
 
         [Fact]
@@ -174,8 +202,8 @@ namespace Cake.Codecov.Tests
             settings.Name.Should().Be(expected);
         }
 
-        [Fact]
-        public void Should_Set_NoColor_Value()
+        [Fact, Obsolete("Remove test in v2.0.0")]
+        public void Should_Not_Set_NoColor_Value()
         {
             // Given
             var settings = new CodecovSettings
@@ -185,7 +213,22 @@ namespace Cake.Codecov.Tests
             };
 
             // Then
-            settings.NoColor.Should().BeTrue();
+            settings.NoColor.Should().BeFalse();
+        }
+
+        [Fact]
+        public void Should_Set_ParentSha_Value()
+        {
+            // Given
+            const string expected = "some-sha";
+            var settings = new CodecovSettings
+            {
+                // When
+                ParentSha = expected
+            };
+
+            // Then
+            settings.ParentSha.Should().Be(expected);
         }
 
         [Fact]
@@ -203,7 +246,7 @@ namespace Cake.Codecov.Tests
             settings.Pr.Should().Be(expected);
         }
 
-        [Fact]
+        [Fact, Obsolete("Remove test in v2.0.0")]
         public void Should_Set_Required_Value()
         {
             // Given
@@ -217,7 +260,7 @@ namespace Cake.Codecov.Tests
             settings.Required.Should().BeTrue();
         }
 
-        [Fact]
+        [Fact, Obsolete("Remove test in v2.0.0")]
         public void Should_Set_Root_Value()
         {
             // Given
@@ -230,6 +273,50 @@ namespace Cake.Codecov.Tests
 
             // Then
             settings.Root.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void Should_Set_RootDirectory_Value()
+        {
+            // Given
+            var expected = (DirectoryPath)"root/other";
+            var settings = new CodecovSettings
+            {
+                // When
+                RootDirectory = expected
+            };
+
+            // Then
+            settings.RootDirectory.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void Should_Set_SearchDirectory_Value()
+        {
+            // Given
+            var expected = (DirectoryPath)"some-search-path";
+            var settings = new CodecovSettings
+            {
+                // When
+                SearchDirectory = expected
+            };
+
+            // Then
+            settings.SearchDirectory.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void Should_Set_ShowChangelog_Value()
+        {
+            // Given
+            var settings = new CodecovSettings
+            {
+                // When
+                ShowChangelog = true
+            };
+
+            // Then
+            settings.ShowChangelog.Should().BeTrue();
         }
 
         [Fact]
