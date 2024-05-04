@@ -8,7 +8,7 @@
         <Description>Cake addin that extends Cake with the ability to use the official Codecov CLI.</Description>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Codecov.xml</DocumentationFile>
         <NeutralLanguage>en-GB</NeutralLanguage>
-        <TargetFrameworks>net5.0;netstandard2.0</TargetFrameworks>
+        <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <!-- Package information -->
@@ -27,7 +27,7 @@
     </PropertyGroup>
     <ItemGroup>
         <AdditionalFiles Include="stylecop.json" />
-        <None Include="../../README.md" Pack="true" PackagePath="docs/"/>
+        <None Include="../../README.md" Pack="true" PackagePath="docs/" />
     </ItemGroup>
     <!-- Package References -->
     <ItemGroup>

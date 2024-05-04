@@ -25,7 +25,7 @@ jobs:
           # codecov in cake.recipe needs 2.1!
           # version used for GitReleaseManager needs .NET Core 3.0
           dotnet-version: |
-            2.1.x
+            3.1.x
             5.0.x
             6.0.x
       - name: Set up git version
