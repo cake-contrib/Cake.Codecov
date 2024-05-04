@@ -26,8 +26,8 @@ jobs:
           # version used for GitReleaseManager needs .NET Core 3.0
           dotnet-version: |
             2.1.x
-            3.0.x
             5.0.x
+            6.0.x
       - name: Set up git version
         if: ${{ !contains(github.ref, '/hotfix/') && !contains(github.ref, '/release/') }}
         uses: gittools/actions/gitversion/setup@v1.1.1

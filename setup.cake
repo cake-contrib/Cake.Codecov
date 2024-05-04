@@ -28,7 +28,10 @@ BuildParameters.PrintParameters(Context);
 ToolSettings.SetToolSettings(
                             context: Context,
                             testCoverageFilter: "+[Cake.Codecov]*");
-ToolSettings.SetToolPreprocessorDirectives(codecovTool: "#tool nuget:?package=CodecovUploader&version=0.7.3");
+ToolSettings.SetToolPreprocessorDirectives(
+    codecovTool: "#tool nuget:?package=CodecovUploader&version=0.7.3",
+    gitVersionGlobalTool: "#tool dotnet:?package=GitVersion.Tool&version=5.12.0",
+    gitReleaseManagerGlobalTool: "#tool dotnet:?package=GitReleaseManager.Tool&version=0.17.0");
 
 // Tasks we want to override
 ((CakeTask)BuildParameters.Tasks.UploadCodecovReportTask.Task).Actions.Clear();
