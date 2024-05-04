@@ -85,34 +85,6 @@ namespace Cake.Codecov.Tests
             settings.CleanReports.Should().BeTrue();
         }
 
-        [Fact, Obsolete("Remove test in v2.0.0")]
-        public void Should_Set_DisableNetwork_Value()
-        {
-            // Given
-            var settings = new CodecovSettings
-            {
-                // When
-                DisableNetwork = true
-            };
-
-            // Then
-            settings.DisableNetwork.Should().BeTrue();
-        }
-
-        [Fact, Obsolete("Remove test in v2.0.0")]
-        public void Should_Set_Dump_Value()
-        {
-            // Given
-            var settings = new CodecovSettings
-            {
-                // When
-                Dump = true
-            };
-
-            // Then
-            settings.Dump.Should().BeTrue();
-        }
-
         [Fact]
         public void Should_Set_EnableGcovSupport_Value()
         {
@@ -202,20 +174,6 @@ namespace Cake.Codecov.Tests
             settings.Name.Should().Be(expected);
         }
 
-        [Fact, Obsolete("Remove test in v2.0.0")]
-        public void Should_Not_Set_NoColor_Value()
-        {
-            // Given
-            var settings = new CodecovSettings
-            {
-                // When
-                NoColor = true
-            };
-
-            // Then
-            settings.NoColor.Should().BeFalse();
-        }
-
         [Fact]
         public void Should_Set_ParentSha_Value()
         {
@@ -244,35 +202,6 @@ namespace Cake.Codecov.Tests
 
             // Then
             settings.Pr.Should().Be(expected);
-        }
-
-        [Fact, Obsolete("Remove test in v2.0.0")]
-        public void Should_Set_Required_Value()
-        {
-            // Given
-            var settings = new CodecovSettings
-            {
-                // When
-                Required = true
-            };
-
-            // Then
-            settings.Required.Should().BeTrue();
-        }
-
-        [Fact, Obsolete("Remove test in v2.0.0")]
-        public void Should_Set_Root_Value()
-        {
-            // Given
-            var expected = (DirectoryPath)"C:/test/root";
-            var settings = new CodecovSettings
-            {
-                // When
-                Root = expected
-            };
-
-            // Then
-            settings.Root.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
