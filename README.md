@@ -1,9 +1,10 @@
 # Cake.Codecov
 
 [![All Contributors][all-contributorsimage]](#contributors)
-[![AppVeyor branch](https://img.shields.io/appveyor/ci/cakecontrib/cake-codecov/master.svg)](https://ci.appveyor.com/project/cakecontrib/cake-codecov/branch/master)
-[![NuGet](https://img.shields.io/nuget/v/Cake.Codecov.svg)](https://www.nuget.org/packages/Cake.Codecov/)
-[![Codecov](https://img.shields.io/codecov/c/github/cake-contrib/Cake.Codecov.svg)](https://codecov.io/gh/cake-contrib/Cake.Codecov)
+[![AppVeyor branch](https://img.shields.io/appveyor/build/cakecontrib/cake-codecov/develop?logo=appveyor)](https://ci.appveyor.com/project/cakecontrib/cake-codecov/branch/develop)
+[![GitHub Build](https://img.shields.io/github/actions/workflow/status/cake-contrib/Cake.Codecov/build.yml?logo=github)](https://github.com/cake-contrib/Cake.Codecov/actions/workflows/build.yml?query=branch%3Adevelop)
+[![NuGet](https://img.shields.io/nuget/v/Cake.Codecov?logo=nuget)](https://www.nuget.org/packages/Cake.Codecov/)
+[![Codecov](https://img.shields.io/codecov/c/github/cake-contrib/Cake.Codecov?logo=codecov)](https://codecov.io/gh/cake-contrib/Cake.Codecov)
 
 A [Cake](https://cakebuild.net) addin that extends Cake with the ability to use
 the official
