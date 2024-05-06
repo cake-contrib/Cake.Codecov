@@ -1,4 +1,4 @@
-image: Visual Studio 2019
+image: Visual Studio 2022
 
 branches:
     except:
@@ -10,11 +10,16 @@ skip_commits:
         - 'LICENSE'
         - '.travis.yml'
 
+install:
+  - choco install dotnetcore-3.1-sdk -y
+  - choco install dotnet-5.0-sdk -y
+  - choco install dotnet-6.0-runtime dotnet-6.0-sdk -y
+
 build: off
 test: off
 
 build_script:
-    - pwsh: .\build.ps1 --target=CI --verbosity=Diagnostic
+    - ps: .\build.ps1 --target=CI --verbosity=Diagnostic
 
 cache:
     - 'tools -> .config/dotnet-tools.json,setup.cake,.build/sonarcloud.cake'
