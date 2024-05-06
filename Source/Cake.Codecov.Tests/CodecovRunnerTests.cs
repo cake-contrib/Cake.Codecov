@@ -258,32 +258,6 @@ namespace Cake.Codecov.Tests
             result.Args.Should().Be(@"--sha ""603e02d40093d0649cfa787d846ae4ccc038085c""");
         }
 
-        [Fact, Obsolete("Remove test in v2.0.0")]
-        public void Should_Enable_DryRun_When_DisableNetwork_Is_Set()
-        {
-            // Given
-            var fixture = new CodecovRunnerFixture { Settings = { DisableNetwork = true } };
-
-            // When
-            var result = fixture.Run();
-
-            // Then
-            result.Args.Should().Be("--dryRun");
-        }
-
-        [Fact, Obsolete("Remove test in v2.0.0")]
-        public void Should_Enable_DryRun_When_Dump_Is_Set()
-        {
-            // Given
-            var fixture = new CodecovRunnerFixture { Settings = { Dump = true } };
-
-            // When
-            var result = fixture.Run();
-
-            // Then
-            result.Args.Should().Be("--dryRun");
-        }
-
         [Fact]
         public void Should_Enable_DryRun()
         {
@@ -388,19 +362,6 @@ namespace Cake.Codecov.Tests
             result.Args.Should().Be(@"--name ""custom name""");
         }
 
-        [Fact, Obsolete("Remove test in v2.0.0")]
-        public void Should_Ignore_NoColor()
-        {
-            // Given
-            var fixture = new CodecovRunnerFixture { Settings = { NoColor = true } };
-
-            // When
-            var result = fixture.Run();
-
-            // Then
-            result.Args.Should().BeNullOrEmpty();
-        }
-
         [Fact]
         public void Should_Set_Pr()
         {
@@ -412,19 +373,6 @@ namespace Cake.Codecov.Tests
 
             // Then
             result.Args.Should().Be(@"--pr ""1""");
-        }
-
-        [Fact, Obsolete("Remove in v2.0.0")]
-        public void Should_Enable_NonZero_When_Required_Is_Set()
-        {
-            // Given
-            var fixture = new CodecovRunnerFixture { Settings = { Required = true } };
-
-            // When
-            var result = fixture.Run();
-
-            // Then
-            result.Args.Should().Be("--nonZero");
         }
 
         [Fact]
@@ -451,19 +399,6 @@ namespace Cake.Codecov.Tests
 
             // Then
             result.Args.Should().Be(@"--parent ""some-kind-of-sha""");
-        }
-
-        [Fact, Obsolete("Remove test in v2.0.0")]
-        public void Should_Set_RootDirectory_When_Root_Is_Set()
-        {
-            // Given
-            var fixture = new CodecovRunnerFixture { Settings = { Root = @".\working" } };
-
-            // When
-            var result = fixture.Run();
-
-            // Then
-            result.Args.Should().Be(@"--rootDir ""working""");
         }
 
         [Fact]

@@ -8,7 +8,7 @@
         <Description>Cake addin that extends Cake with the ability to use the official Codecov CLI.</Description>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Codecov.xml</DocumentationFile>
         <NeutralLanguage>en-GB</NeutralLanguage>
-        <TargetFrameworks>net5.0;netstandard2.0;net461</TargetFrameworks>
+        <TargetFrameworks>net6.0;net5.0;netcoreapp3.1</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <!-- Package information -->
@@ -27,7 +27,7 @@
     </PropertyGroup>
     <ItemGroup>
         <AdditionalFiles Include="stylecop.json" />
-        <None Include="../../README.md" Pack="true" PackagePath="docs/"/>
+        <None Include="../../README.md" Pack="true" PackagePath="docs/" />
     </ItemGroup>
     <!-- Package References -->
     <ItemGroup>
@@ -35,13 +35,9 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Cake.Core" Version="1.0.0" PrivateAssets="All" />
+        <PackageReference Include="Cake.Core" Version="2.0.0" PrivateAssets="All" />
         <PackageReference Include="CakeContrib.Guidelines" Version="1.4.0" PrivateAssets="All" />
         <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
         <PackageReference Include="Roslynator.Analyzers" Version="4.12.2">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>

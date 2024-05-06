@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Cake.Codecov.Internals;
 using Cake.Testing.Fixtures;
 
@@ -8,7 +9,7 @@ namespace Cake.Codecov.Tests
         private readonly IPlatformDetector _platformDetector;
 
         public CodecovRunnerFixture()
-            : base("codecov.exe")
+            : base(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "codecov.exe" : "codecov")
         {
         }
 
@@ -20,9 +21,9 @@ namespace Cake.Codecov.Tests
 
         protected override void RunTool()
         {
-            var tool = _platformDetector != null ?
-                new CodecovRunner(_platformDetector, FileSystem, Environment, ProcessRunner, Tools) :
-                new CodecovRunner(FileSystem, Environment, ProcessRunner, Tools);
+            var tool = _platformDetector != null
+                ? new CodecovRunner(_platformDetector, FileSystem, Environment, ProcessRunner, Tools)
+                : new CodecovRunner(FileSystem, Environment, ProcessRunner, Tools);
             tool.Run(Settings);
         }
     }

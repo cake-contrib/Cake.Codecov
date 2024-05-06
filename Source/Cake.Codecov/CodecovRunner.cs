@@ -55,10 +55,11 @@ namespace Cake.Codecov
             }
             else
             {
-                // Just to make sonarlint happy :)
+                // The official version of Codecov CLI can not run with the exe
+                // on anything other than Windows. As such we only return this
+                // in the else statement.
+                yield return "codecov.exe";
             }
-
-            yield return "codecov.exe";
         }
 
         protected override string GetToolName() => "Codecov";
