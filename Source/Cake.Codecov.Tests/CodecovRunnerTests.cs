@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using Cake.Codecov.Internals;
 using Cake.Codecov.Tests.Attributes;
 using Cake.Core;
