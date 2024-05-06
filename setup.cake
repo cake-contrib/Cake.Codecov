@@ -33,6 +33,78 @@ ToolSettings.SetToolPreprocessorDirectives(
     gitVersionGlobalTool: "#tool dotnet:?package=GitVersion.Tool&version=5.12.0",
     gitReleaseManagerGlobalTool: "#tool dotnet:?package=GitReleaseManager.Tool&version=0.17.0");
 
+// Since Cake.Recipe does not properly detect .NET only test projects, we need
+// to override how the tests are running.
+((CakeTask)BuildParameters.Tasks.DotNetCoreTestTask.Task).Actions.Clear();
+BuildParameters.Tasks.DotNetCoreTestTask.Does<DotNetCoreMSBuildSettings>((context, msBuildSettings) => {
+
+    var projects = GetFiles(BuildParameters.TestDirectoryPath + (BuildParameters.TestFilePattern ?? "/**/*Tests.csproj"));
+    // We create the coverlet settings here so we don't have to create the filters several times
+    var coverletSettings = new CoverletSettings
+    {
+        CollectCoverage         = true,
+        // It is problematic to merge the reports into one, as such we use a custom directory for coverage results
+        CoverletOutputDirectory = BuildParameters.Paths.Directories.TestCoverage.Combine("coverlet"),
+        CoverletOutputFormat    = CoverletOutputFormat.opencover,
+        ExcludeByFile           = ToolSettings.TestCoverageExcludeByFile.Split(new [] {';' }, StringSplitOptions.None).ToList(),
+        ExcludeByAttribute      = ToolSettings.TestCoverageExcludeByAttribute.Split(new [] {';' }, StringSplitOptions.None).ToList()
+    };
+
+    foreach (var filter in ToolSettings.TestCoverageFilter.Split(new [] {' ' }, StringSplitOptions.None))
+    {
+        if (filter[0] == '+')
+        {
+            coverletSettings.WithInclusion(filter.TrimStart('+'));
+        }
+        else if (filter[0] == '-')
+        {
+            coverletSettings.WithFilter(filter.TrimStart('-'));
+        }
+    }
+    var settings = new DotNetCoreTestSettings
+    {
+        Configuration = BuildParameters.Configuration,
+        NoBuild = true
+    };
+
+    foreach (var project in projects)
+    {
+        Action<ICakeContext> testAction = tool =>
+        {
+            tool.DotNetCoreTest(project.FullPath, settings);
+        };
+
+        var parsedProject = ParseProject(project, BuildParameters.Configuration);
+
+        var coverletPackage = parsedProject.GetPackage("coverlet.msbuild");
+        bool shouldAddSourceLinkArgument = false; // Set it to false by default due to OpenCover
+        if (coverletPackage != null)
+        {
+            // If the version is a pre-release, we will assume that it is a later
+            // version than what we need, and thus TryParse will return false.
+            // If TryParse is successful we need to compare the coverlet version
+            // to ensure it is higher or equal to the version that includes the fix
+            // for using the SourceLink argument.
+            // https://github.com/coverlet-coverage/coverlet/issues/882
+            Version coverletVersion;
+            shouldAddSourceLinkArgument = !Version.TryParse(coverletPackage.Version, out coverletVersion)
+                || coverletVersion >= Version.Parse("2.9.1");
+        }
+
+        settings.ArgumentCustomization = args => {
+            args.AppendMSBuildSettings(msBuildSettings, context.Environment);
+            if (shouldAddSourceLinkArgument && parsedProject.HasPackage("Microsoft.SourceLink.GitHub"))
+            {
+                args.Append("/p:UseSourceLink=true");
+            }
+            return args;
+        };
+
+        coverletSettings.CoverletOutputName = parsedProject.RootNameSpace.Replace('.', '-');
+            DotNetCoreTest(project.FullPath, settings, coverletSettings);
+    }
+});
+
 // Tasks we want to override
 ((CakeTask)BuildParameters.Tasks.UploadCodecovReportTask.Task).Actions.Clear();
 BuildParameters.Tasks.UploadCodecovReportTask

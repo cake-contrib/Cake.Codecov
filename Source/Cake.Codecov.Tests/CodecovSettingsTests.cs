@@ -57,6 +57,20 @@ namespace Cake.Codecov.Tests
         }
 
         [Fact]
+        public void Should_Set_Clean_Value()
+        {
+            // Given
+            var settings = new CodecovSettings
+            {
+                // When
+                CleanReports = true
+            };
+
+            // Then
+            settings.CleanReports.Should().BeTrue();
+        }
+
+        [Fact]
         public void Should_Set_Commit_Value()
         {
             // Given
@@ -72,17 +86,17 @@ namespace Cake.Codecov.Tests
         }
 
         [Fact]
-        public void Should_Set_Clean_Value()
+        public void Should_Set_DryRun_Value()
         {
             // Given
             var settings = new CodecovSettings
             {
                 // When
-                CleanReports = true
+                DryRun = true
             };
 
             // Then
-            settings.CleanReports.Should().BeTrue();
+            settings.DryRun.Should().BeTrue();
         }
 
         [Fact]
@@ -172,6 +186,20 @@ namespace Cake.Codecov.Tests
 
             // Then
             settings.Name.Should().Be(expected);
+        }
+
+        [Fact]
+        public void Should_Set_NonZero_Value()
+        {
+            // Given
+            var settings = new CodecovSettings
+            {
+                // When
+                NonZero = true
+            };
+
+            // Then
+            settings.NonZero.Should().BeTrue();
         }
 
         [Fact]
