@@ -52,7 +52,7 @@ namespace Cake.Codecov.Tests
 
             var result = fixture.Run();
 
-            result.Args.Should().Contain($"--file \"{string.Join("\" \"", files)}\"");
+            result.Args.Should().Contain($"--file \"{string.Join("\" \"", files).Replace(System.IO.Path.AltDirectorySeparatorChar, System.IO.Path.DirectorySeparatorChar)}\"");
         }
 
         [Fact]
@@ -97,7 +97,7 @@ namespace Cake.Codecov.Tests
             var result = fixture.Run();
 
             result.Args.Should()
-                .Be($"--file \"{file}\"");
+                .Be($"--file \"{file.Replace(System.IO.Path.AltDirectorySeparatorChar, System.IO.Path.DirectorySeparatorChar)}\"");
         }
 
         [Fact]
@@ -118,7 +118,7 @@ namespace Cake.Codecov.Tests
             result.Args.Should()
                 .ContainAll(new[]
                 {
-                    $"--file \"{file}\"",
+                    $"--file \"{file.Replace(System.IO.Path.AltDirectorySeparatorChar, System.IO.Path.DirectorySeparatorChar)}\"",
                     $"--token \"{token}\""
                 });
         }
