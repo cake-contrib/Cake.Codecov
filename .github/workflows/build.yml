@@ -56,7 +56,7 @@ jobs:
             6.0.x
             7.0.x
       - name: Build Addin
-        uses: cake-build/cake-action@v2
+        uses: cake-build/cake-action@v3
         with:
           script-path: setup.cake
           target: CI

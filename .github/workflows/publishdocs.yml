@@ -32,7 +32,7 @@ jobs:
             3.1.x
             5.0.x
       - name: Publishing documentaiton
-        uses: cake-build/cake-action@v2
+        uses: cake-build/cake-action@v3
         with:
           script-path: setup.cake
           target: Force-Publish-Documentation
