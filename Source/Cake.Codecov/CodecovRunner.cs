@@ -66,6 +66,23 @@ namespace Cake.Codecov
 
         private static void AddValue(ProcessArgumentBuilder builder, string key, IEnumerable<string> value)
         {
+            if (key.Equals("--file", StringComparison.OrdinalIgnoreCase))
+            {
+                value = value.Select(v => NormalizePath(v));
+
+                var combinedValues = '"' + string.Join(
+                    "\",\"",
+                    value) + '"';
+
+                // In this case we know it isn't a secret value,
+                // so no need to do any additional handling.
+                builder.AppendSwitch(
+                    key,
+                    " ",
+                    combinedValues);
+                return;
+            }
+
             var allValues = value.ToList();
             AddValue(builder, key, allValues.FirstOrDefault());
             foreach (var subValue in allValues.Skip(1))

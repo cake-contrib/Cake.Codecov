@@ -306,7 +306,7 @@ namespace Cake.Codecov.Tests
             var result = fixture.Run();
 
             // Then
-            result.Args.Should().Be(@"--file ""file1.xml"" ""file2.xml""");
+            result.Args.Should().Be(@"--file ""file1.xml"",""file2.xml""");
         }
 
         [Fact]
