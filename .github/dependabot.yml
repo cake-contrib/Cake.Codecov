@@ -1,12 +1,23 @@
 version: 2
 updates:
-    - package-ecosystem: "nuget"
-      directory: "/Source"
-      schedule:
-        interval: "daily"
-      ignore:
-        - dependency-name: "Cake.Core"
-    - package-ecosystem: "github-actions"
-      directory: "/"
-      schedule:
-        interval: "daily"
+  - package-ecosystem: "nuget"
+    directory: "/Source"
+    schedule:
+      interval: "daily"
+    groups:
+      cake-dependencies:
+        patterns:
+          - "Cake.Core"
+          - "Cake.Testing"
+        update-types:
+          - "major"
+    ignore:
+      - dependency-name: "Cake.Core"
+        update-types:
+          - "patch"
+          - "minor"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
