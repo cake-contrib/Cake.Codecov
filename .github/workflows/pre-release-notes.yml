@@ -22,12 +22,9 @@ jobs:
       - name: install .NET versions
         uses: actions/setup-dotnet@v4.0.0
         with:
-          # codecov in cake.recipe needs 2.1!
-          # version used for GitReleaseManager needs .NET Core 3.0
           dotnet-version: |
-            3.1.x
-            5.0.x
             6.0.x
+            7.0.x
       - name: Set up git version
         if: ${{ !contains(github.ref, '/hotfix/') && !contains(github.ref, '/release/') }}
         uses: gittools/actions/gitversion/setup@v4.0.0
