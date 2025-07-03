@@ -14,8 +14,8 @@ updates:
     ignore:
       - dependency-name: "Cake.Core"
         update-types:
-          - "patch"
-          - "minor"
+          - "version-update:semver-patch"
+          - "version-update:semver-minor"
 
   - package-ecosystem: "github-actions"
     directory: "/"
