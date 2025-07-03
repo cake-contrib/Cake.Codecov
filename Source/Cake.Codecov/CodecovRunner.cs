@@ -92,6 +92,11 @@ namespace Cake.Codecov
 
         private static void AddValue(ProcessArgumentBuilder builder, string key, string value, bool onlyAppendValue = false)
         {
+            if (key.Equals("--file", StringComparison.OrdinalIgnoreCase))
+            {
+                value = NormalizePath(value);
+            }
+
             if (key.StartsWith("!", StringComparison.OrdinalIgnoreCase))
             {
                 if (onlyAppendValue)
@@ -114,6 +119,25 @@ namespace Cake.Codecov
                     builder.AppendSwitchQuoted(key, " ", value);
                 }
             }
+        }
+
+        private static string NormalizePath(ReadOnlySpan<char> value)
+        {
+            Span<char> normalizedPath = stackalloc char[value.Length];
+
+            for (var i = 0; i < value.Length; i++)
+            {
+                if (value[i] == System.IO.Path.AltDirectorySeparatorChar)
+                {
+                    normalizedPath[i] = System.IO.Path.DirectorySeparatorChar;
+                }
+                else
+                {
+                    normalizedPath[i] = value[i];
+                }
+            }
+
+            return normalizedPath.ToString();
         }
 
         private static ProcessArgumentBuilder GetArguments(CodecovSettings settings)
