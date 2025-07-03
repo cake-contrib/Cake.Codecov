@@ -46,7 +46,7 @@ jobs:
           path: tools
           key: ${{ runner.os }}-tools-${{ hashFiles('setup.cake') }}
       - name: install .NET versions
-        uses: actions/setup-dotnet@v4.0.0
+        uses: actions/setup-dotnet@v4.3.0
         with:
           # codecov in cake.recipe needs 2.1!
           # version used for GitReleaseManager needs .NET Core 3.0
