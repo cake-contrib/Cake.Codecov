@@ -311,6 +311,31 @@ namespace Cake.Codecov.Tests
         }
 
         [Fact]
+        public void Should_Normalize_File_Paths()
+        {
+            var fixture = new CodecovRunnerFixture
+            {
+                Settings =
+                {
+                    Files = new[]
+                    {
+                        string.Format(".{0}path{0}to{0}file.txt", System.IO.Path.AltDirectorySeparatorChar)
+                    }
+                }
+            };
+
+            var expectedPaths = System.IO.Path.Combine(
+                ".",
+                "path",
+                "to",
+                "file.txt");
+
+            var result = fixture.Run();
+
+            result.Args.Should().Be($"--file \"{expectedPaths}\"");
+        }
+
+        [Fact]
         public void Should_Set_Flags()
         {
             // Given
