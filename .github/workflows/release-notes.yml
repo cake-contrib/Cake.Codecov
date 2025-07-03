@@ -11,11 +11,11 @@ jobs:
 
     steps:
       - name: Checkout the requested branch
-        uses: actions/checkout@v4.1.4
+        uses: actions/checkout@v4.2.2
       - name: Fetch all tags and branches
         run: git fetch --prune --unshallow
       - name: Cache Tools
-        uses: actions/cache@v4.0.2
+        uses: actions/cache@v4.2.3
         with:
           path: tools
           key: ${{ runner.os }}-tools-${{ hashFiles('setup.cake') }}
@@ -30,13 +30,13 @@ jobs:
             6.0.x
       - name: Set up git version
         if: ${{ !contains(github.ref, '/hotfix/') && !contains(github.ref, '/release/') }}
-        uses: gittools/actions/gitversion/setup@v1.1.1
+        uses: gittools/actions/gitversion/setup@v4.0.0
         with:
           versionSpec: "5.x"
       - name: Run git version
         if: ${{ !contains(github.ref, '/hotfix/') && !contains(github.ref, '/release/') }}
         id: gitversion
-        uses: gittools/actions/gitversion/execute@v1.1.1
+        uses: gittools/actions/gitversion/execute@v4.0.0
       - name: Create release branch ${{ github.event.inputs.version }}
         if: ${{ steps.gitversion.outputs.majorMinorPatch }}
         run: git switch -c release/${{ steps.gitversion.outputs.majorMinorPatch }}
