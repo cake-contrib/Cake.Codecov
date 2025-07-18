@@ -6,18 +6,15 @@ https://github.com/dotnet/sourcelink/issues/572 -->
     <TargetFrameworkMonikerAssemblyAttributesPath>$([System.IO.Path]::Combine('$(IntermediateOutputPath)','$(TargetFrameworkMoniker).AssemblyAttributes$(DefaultLanguageSourceExtension)'))</TargetFrameworkMonikerAssemblyAttributesPath>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedFiles Include="$(GeneratedAssemblyInfoFile)"/>
+    <EmbeddedFiles Include="$(GeneratedAssemblyInfoFile)" />
   </ItemGroup>
   <ItemGroup>
     <SourceRoot Include="$(NuGetPackageRoot)" />
   </ItemGroup>
 
-  <Target Name="CoverletGetPathMap"
-        DependsOnTargets="InitializeSourceRootMappedPaths"
-        Returns="@(_LocalTopLevelSourceRoot)"
-        Condition="'$(DeterministicSourcePaths)' == 'true'">
+  <Target Name="CoverletGetPathMap" DependsOnTargets="InitializeSourceRootMappedPaths" Returns="@(_LocalTopLevelSourceRoot)" Condition="'$(DeterministicSourcePaths)' == 'true'">
     <ItemGroup>
-    <_LocalTopLevelSourceRoot Include="@(SourceRoot)" Condition="'%(SourceRoot.NestedRoot)' == ''"/>
+    <_LocalTopLevelSourceRoot Include="@(SourceRoot)" Condition="'%(SourceRoot.NestedRoot)' == ''" />
     </ItemGroup>
   </Target>
 </Project>
