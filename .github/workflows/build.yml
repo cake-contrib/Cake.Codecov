@@ -54,6 +54,7 @@ jobs:
             6.0.x
             7.0.x
             8.0.x
+            9.0.x
       - name: Build Addin
         uses: cake-build/cake-action@v3
         with:
@@ -62,7 +63,7 @@ jobs:
           verbosity: Diagnostic
           cake-version: tool-manifest
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ${{ matrix.os }}-artifacts
           path: |
