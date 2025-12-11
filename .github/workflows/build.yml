@@ -48,11 +48,9 @@ jobs:
       - name: install .NET versions
         uses: actions/setup-dotnet@v4.0.0
         with:
-          # codecov in cake.recipe needs 2.1!
-          # version used for GitReleaseManager needs .NET Core 3.0
+          # GitVersion needs 6.x
+          # GitReleaseManager needs 7.x
           dotnet-version: |
-            3.1.x
-            5.0.x
             6.0.x
             7.0.x
       - name: Build Addin
