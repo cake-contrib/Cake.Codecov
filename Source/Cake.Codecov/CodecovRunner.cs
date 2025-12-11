@@ -66,6 +66,23 @@ namespace Cake.Codecov
 
         private static void AddValue(ProcessArgumentBuilder builder, string key, IEnumerable<string> value)
         {
+            if (key.Equals("--file", StringComparison.OrdinalIgnoreCase))
+            {
+                value = value.Select(v => NormalizePath(v));
+
+                var combinedValues = '"' + string.Join(
+                    "\",\"",
+                    value) + '"';
+
+                // In this case we know it isn't a secret value,
+                // so no need to do any additional handling.
+                builder.AppendSwitch(
+                    key,
+                    " ",
+                    combinedValues);
+                return;
+            }
+
             var allValues = value.ToList();
             AddValue(builder, key, allValues.FirstOrDefault());
             foreach (var subValue in allValues.Skip(1))
@@ -92,6 +109,11 @@ namespace Cake.Codecov
 
         private static void AddValue(ProcessArgumentBuilder builder, string key, string value, bool onlyAppendValue = false)
         {
+            if (key.Equals("--file", StringComparison.OrdinalIgnoreCase))
+            {
+                value = NormalizePath(value);
+            }
+
             if (key.StartsWith("!", StringComparison.OrdinalIgnoreCase))
             {
                 if (onlyAppendValue)
@@ -114,6 +136,25 @@ namespace Cake.Codecov
                     builder.AppendSwitchQuoted(key, " ", value);
                 }
             }
+        }
+
+        private static string NormalizePath(ReadOnlySpan<char> value)
+        {
+            Span<char> normalizedPath = stackalloc char[value.Length];
+
+            for (var i = 0; i < value.Length; i++)
+            {
+                if (value[i] == System.IO.Path.AltDirectorySeparatorChar)
+                {
+                    normalizedPath[i] = System.IO.Path.DirectorySeparatorChar;
+                }
+                else
+                {
+                    normalizedPath[i] = value[i];
+                }
+            }
+
+            return normalizedPath.ToString();
         }
 
         private static ProcessArgumentBuilder GetArguments(CodecovSettings settings)
