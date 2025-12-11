@@ -8,7 +8,7 @@
         <Description>Cake addin that extends Cake with the ability to use the official Codecov CLI.</Description>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Codecov.xml</DocumentationFile>
         <NeutralLanguage>en-GB</NeutralLanguage>
-        <TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+        <TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <!-- Package information -->
