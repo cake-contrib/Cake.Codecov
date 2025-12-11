@@ -1,4 +1,4 @@
-#load nuget:?package=Cake.Recipe&version=3.1.1
+#load nuget:?package=Cake.Recipe&version=4.0.0
 #tool nuget:?package=NuGet.CommandLine&version=5.7.0 // Workaround necessary due to incompatibility with GHA nuget
 #tool nuget:?package=CodecovUploader&version=0.7.3
 
