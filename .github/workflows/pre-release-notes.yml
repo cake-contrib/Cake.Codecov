@@ -25,6 +25,7 @@ jobs:
           dotnet-version: |
             6.0.x
             7.0.x
+            8.0.x
       - name: Set up git version
         if: ${{ !contains(github.ref, '/hotfix/') && !contains(github.ref, '/release/') }}
         uses: gittools/actions/gitversion/setup@v4.2.0
