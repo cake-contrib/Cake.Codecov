@@ -35,16 +35,13 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Cake.Core" Version="3.0.0" PrivateAssets="All" />
-        <PackageReference Include="CakeContrib.Guidelines" Version="1.4.0" PrivateAssets="All" />
+        <PackageReference Include="Cake.Core" Version="4.0.0" PrivateAssets="All" />
+        <PackageReference Include="CakeContrib.Guidelines" Version="1.5.1" PrivateAssets="All" />
         <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" PrivateAssets="All" />
         <PackageReference Include="Roslynator.Analyzers" Version="4.12.2">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
-        <!-- The following reference is only needed to build the library
-        for the .NET 4.6 Framewark -->
-        <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" Condition="'$(TargetFramework)'=='net461'" PrivateAssets="all" />
     </ItemGroup>
 </Project>
