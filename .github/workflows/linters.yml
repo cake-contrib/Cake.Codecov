@@ -8,10 +8,10 @@ on:
 jobs:
   super_linter:
     name: Lint with Super Linter
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v6.0.1
         with:
           fetch-depth: 0
 

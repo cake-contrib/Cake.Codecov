@@ -10,21 +10,21 @@ jobs:
       WYAM_ACCESS_TOKEN: ${{ secrets.WYAM_ACCESS_TOKEN }}
       WYAM_DEPLOY_REMOTE: "${{ github.event.repository.html_url }}"
       WYAM_DEPLOY_BRANCH: "gh-pages"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout the requested branch
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v6.0.1
         with:
           fetch-depth: 0
           ref: ${{ github.event.ref }}
       - name: Cache Tools
-        uses: actions/cache@v4.2.3
+        uses: actions/cache@v4.3.0
         with:
           path: tools
           key: ${{ runner.os }}-doc-tools-${{ hashFiles('setup.cake') }}
       - name: install .NET versions
-        uses: actions/setup-dotnet@v4.0.0
+        uses: actions/setup-dotnet@v5.0.1
         with:
           # codecov in cake.recipe needs 2.1!
           dotnet-version: |

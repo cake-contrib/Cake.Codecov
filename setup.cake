@@ -1,6 +1,4 @@
-#load nuget:?package=Cake.Recipe&version=3.1.1
-#tool nuget:?package=NuGet.CommandLine&version=5.7.0 // Workaround necessary due to incompatibility with GHA nuget
-#tool nuget:?package=CodecovUploader&version=0.7.3
+#load nuget:?package=Cake.Recipe&version=4.0.0
 
 Environment.SetVariableNames(
     codecovRepoTokenVariable: "CODECOV_TOKEN" // This is the name that codecov themself expect
@@ -28,10 +26,7 @@ BuildParameters.PrintParameters(Context);
 ToolSettings.SetToolSettings(
                             context: Context,
                             testCoverageFilter: "+[Cake.Codecov]*");
-ToolSettings.SetToolPreprocessorDirectives(
-    codecovTool: "#tool nuget:?package=CodecovUploader&version=0.7.3",
-    gitVersionGlobalTool: "#tool dotnet:?package=GitVersion.Tool&version=5.12.0",
-    gitReleaseManagerGlobalTool: "#tool dotnet:?package=GitReleaseManager.Tool&version=0.20.0");
+ToolSettings.SetToolPreprocessorDirectives();
 
 // Since Cake.Recipe does not properly detect .NET only test projects, we need
 // to override how the tests are running.
@@ -111,7 +106,7 @@ BuildParameters.Tasks.UploadCodecovReportTask
     .IsDependentOn("DotNetCore-Pack")
     .Does<BuildVersion>((version) => RequireTool(ToolSettings.CodecovTool, () => {
         // var nugetPkg =  $"nuget:file://{MakeAbsolute(BuildParameters.Paths.Directories.NuGetPackages)}?package=Cake.Codecov&version={version.SemVersion}&prerelease";
-        var nugetPkg = "nuget:?package=Cake.Codecov&version=1.1.0"; // We are unable to dogfood the library until Cake.Recipe supports Cake 2.0.0
+        var nugetPkg = "nuget:?package=Cake.Codecov&version=2.0.1";
         Information("PATH: " + nugetPkg);
 
         var coverageFilter = BuildParameters.Paths.Directories.TestCoverage + "/coverlet/*.xml";
@@ -119,7 +114,7 @@ BuildParameters.Tasks.UploadCodecovReportTask
 
         var environmentVariables = new Dictionary<string, string>();
 
-        if (version != null && !string.IsNullOrEmpty(version.FullSemVersion))
+        if (version != null && !string.IsNullOrEmpty(version.FullSemVersion) && BuildParameters.IsRunningOnAppVeyor)
         {
             var buildVersion = string.Format("{0}.build.{1}",
                 version.FullSemVersion,
@@ -133,10 +128,13 @@ BuildParameters.Tasks.UploadCodecovReportTask
         }
 
         var script = string.Format(@"#addin ""{0}""
+var coverageFiles = GetFiles(""{1}"");
+
 Codecov(new CodecovSettings {{
-    Files = new[] {{ ""{1}"" }},
+    Files = coverageFiles.Select(f => f.FullPath),
     RootDirectory = ""{2}"",
-    NonZero = !string.IsNullOrEmpty(EnvironmentVariable(""CODECOV_TOKEN""))
+    NonZero = !string.IsNullOrEmpty(EnvironmentVariable(""CODECOV_TOKEN"")),
+    Token = EnvironmentVariable(""CODECOV_TOKEN"")
 }});",
             nugetPkg, coverageFilter, BuildParameters.RootDirectoryPath);
 

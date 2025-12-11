@@ -17,7 +17,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-2022, ubuntu-22.04, macos-13]
+        os: [windows-latest, ubuntu-latest]
     env:
       AZURE_PASSWORD: ${{ secrets.AZURE_PASSWORD }}
       AZURE_SOURCE: ${{ secrets.AZURE_SOURCE }}
@@ -37,22 +37,23 @@ jobs:
       WYAM_DEPLOY_REMOTE: ${{ github.event.repository.html_url }}
 
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v6.0.1
       - name: Fetch all tags and branches
         run: git fetch --prune --unshallow
       - name: Cache Tools
-        uses: actions/cache@v4.2.3
+        uses: actions/cache@v4.3.0
         with:
           path: tools
           key: ${{ runner.os }}-tools-${{ hashFiles('setup.cake') }}
       - name: install .NET versions
-        uses: actions/setup-dotnet@v4.0.0
+        uses: actions/setup-dotnet@v5.0.1
         with:
           # GitVersion needs 6.x
           # GitReleaseManager needs 7.x
           dotnet-version: |
             6.0.x
             7.0.x
+            8.0.x
       - name: Build Addin
         uses: cake-build/cake-action@v3
         with:
