@@ -37,7 +37,7 @@ jobs:
       WYAM_DEPLOY_REMOTE: ${{ github.event.repository.html_url }}
 
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v6.0.1
       - name: Fetch all tags and branches
         run: git fetch --prune --unshallow
       - name: Cache Tools
