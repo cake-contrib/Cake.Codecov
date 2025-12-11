@@ -18,6 +18,9 @@ BuildParameters.SetParameters(
                             shouldRunCoveralls: false,
                             shouldUseDeterministicBuilds: true,
                             shouldUseTargetFrameworkPath: false,
+                            // InspectCode is causing issues since we started referencing .NET 10 in the projects.
+                            // As such, we need to disable it until Cake.Recipe has been updated to support it.
+                            shouldRunInspectCode: false,
                             preferredBuildAgentOperatingSystem: PlatformFamily.Windows,
                             preferredBuildProviderType: BuildProviderType.GitHubActions);
 

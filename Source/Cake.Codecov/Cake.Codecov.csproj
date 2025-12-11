@@ -8,7 +8,7 @@
         <Description>Cake addin that extends Cake with the ability to use the official Codecov CLI.</Description>
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cake.Codecov.xml</DocumentationFile>
         <NeutralLanguage>en-GB</NeutralLanguage>
-        <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
+        <TargetFrameworks>net10.0;net9.0;net8.0</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <!-- Package information -->
@@ -35,9 +35,10 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Cake.Core" Version="5.0.0" PrivateAssets="All" />
-        <PackageReference Include="CakeContrib.Guidelines" Version="1.6.1" PrivateAssets="All" />
+        <PackageReference Include="Cake.Core" Version="6.0.0" PrivateAssets="All" />
+        <PackageReference Include="CakeContrib.Guidelines" Version="1.7.0" PrivateAssets="All" />
         <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
         <PackageReference Include="Roslynator.Analyzers" Version="4.12.2">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
