@@ -24,7 +24,7 @@ jobs:
           path: tools
           key: ${{ runner.os }}-doc-tools-${{ hashFiles('setup.cake') }}
       - name: install .NET versions
-        uses: actions/setup-dotnet@v4.0.0
+        uses: actions/setup-dotnet@v5.0.1
         with:
           # codecov in cake.recipe needs 2.1!
           dotnet-version: |
