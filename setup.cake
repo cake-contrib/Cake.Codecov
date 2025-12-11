@@ -1,6 +1,4 @@
 #load nuget:?package=Cake.Recipe&version=4.0.0
-#tool nuget:?package=NuGet.CommandLine&version=5.7.0 // Workaround necessary due to incompatibility with GHA nuget
-#tool nuget:?package=CodecovUploader&version=0.7.3
 
 Environment.SetVariableNames(
     codecovRepoTokenVariable: "CODECOV_TOKEN" // This is the name that codecov themself expect
@@ -28,10 +26,7 @@ BuildParameters.PrintParameters(Context);
 ToolSettings.SetToolSettings(
                             context: Context,
                             testCoverageFilter: "+[Cake.Codecov]*");
-ToolSettings.SetToolPreprocessorDirectives(
-    codecovTool: "#tool nuget:?package=CodecovUploader&version=0.7.3",
-    gitVersionGlobalTool: "#tool dotnet:?package=GitVersion.Tool&version=5.12.0",
-    gitReleaseManagerGlobalTool: "#tool dotnet:?package=GitReleaseManager.Tool&version=0.20.0");
+ToolSettings.SetToolPreprocessorDirectives();
 
 // Since Cake.Recipe does not properly detect .NET only test projects, we need
 // to override how the tests are running.
