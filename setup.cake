@@ -106,7 +106,7 @@ BuildParameters.Tasks.UploadCodecovReportTask
     .IsDependentOn("DotNetCore-Pack")
     .Does<BuildVersion>((version) => RequireTool(ToolSettings.CodecovTool, () => {
         // var nugetPkg =  $"nuget:file://{MakeAbsolute(BuildParameters.Paths.Directories.NuGetPackages)}?package=Cake.Codecov&version={version.SemVersion}&prerelease";
-        var nugetPkg = "nuget:?package=Cake.Codecov&version=1.1.0"; // We are unable to dogfood the library until Cake.Recipe supports Cake 2.0.0
+        var nugetPkg = "nuget:?package=Cake.Codecov&version=2.0.1";
         Information("PATH: " + nugetPkg);
 
         var coverageFilter = BuildParameters.Paths.Directories.TestCoverage + "/coverlet/*.xml";
@@ -114,7 +114,7 @@ BuildParameters.Tasks.UploadCodecovReportTask
 
         var environmentVariables = new Dictionary<string, string>();
 
-        if (version != null && !string.IsNullOrEmpty(version.FullSemVersion))
+        if (version != null && !string.IsNullOrEmpty(version.FullSemVersion) && BuildParameters.IsRunningOnAppVeyor)
         {
             var buildVersion = string.Format("{0}.build.{1}",
                 version.FullSemVersion,
@@ -128,10 +128,13 @@ BuildParameters.Tasks.UploadCodecovReportTask
         }
 
         var script = string.Format(@"#addin ""{0}""
+var coverageFiles = GetFiles(""{1}"");
+
 Codecov(new CodecovSettings {{
-    Files = new[] {{ ""{1}"" }},
+    Files = coverageFiles.Select(f => f.FullPath),
     RootDirectory = ""{2}"",
-    NonZero = !string.IsNullOrEmpty(EnvironmentVariable(""CODECOV_TOKEN""))
+    NonZero = !string.IsNullOrEmpty(EnvironmentVariable(""CODECOV_TOKEN"")),
+    Token = EnvironmentVariable(""CODECOV_TOKEN"")
 }});",
             nugetPkg, coverageFilter, BuildParameters.RootDirectoryPath);
 
