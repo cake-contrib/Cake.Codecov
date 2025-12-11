@@ -11,8 +11,8 @@ skip_commits:
         - '.travis.yml'
 
 install:
-  - choco install dotnetcore-3.1-sdk dotnet-5.0-sdk dotnet-6.0-sdk dotnet-7.0-sdk -y
-  - choco install dotnet-7.0-runtime -y
+  - choco install dotnetcore-3.1-sdk dotnet-5.0-sdk dotnet-6.0-sdk dotnet-7.0-sdk dotnet-8.0-sdk -y
+  - choco install dotnet-8.0-runtime -y
 
 build: off
 test: off

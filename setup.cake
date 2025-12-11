@@ -18,7 +18,7 @@ BuildParameters.SetParameters(
                             shouldRunCoveralls: false,
                             shouldUseDeterministicBuilds: true,
                             shouldUseTargetFrameworkPath: false,
-                            preferredBuildAgentOperatingSystem: PlatformFamily.Linux,
+                            preferredBuildAgentOperatingSystem: PlatformFamily.Windows,
                             preferredBuildProviderType: BuildProviderType.GitHubActions);
 
 BuildParameters.PrintParameters(Context);
