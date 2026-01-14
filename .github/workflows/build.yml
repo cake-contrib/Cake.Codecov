@@ -46,7 +46,7 @@ jobs:
           path: tools
           key: ${{ runner.os }}-tools-${{ hashFiles('setup.cake') }}
       - name: install .NET versions
-        uses: actions/setup-dotnet@v5.0.1
+        uses: actions/setup-dotnet@v5.1.0
         with:
           # GitVersion needs 6.x
           # GitReleaseManager needs 7.x
